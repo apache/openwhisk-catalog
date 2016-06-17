@@ -57,6 +57,34 @@ install "$CATALOG_HOME/utils/date.js" \
      -a description 'Current date and time' \
      -a sampleOutput '{ "date": "2016-03-22T00:59:55.961Z" }'
 
+install "$CATALOG_HOME/samples/hello/javascript/hello.js" \
+     samples/helloWorld \
+     -a description 'Demonstrates logging facilities' -a parameters '[{"name": "payload", "required":false, "description":"The string to be included in the log record"}]' \
+     -a sampleInput '{ "payload": "Cat" }' \
+     -a sampleOutput '{ }' \
+     -a sampleLogOutput '2016-03-22T01:02:26.387624916Z stdout: hello Cat!'
+
+install "$CATALOG_HOME/samples/greeting/javascript/greeting.js" \
+     samples/greeting \
+     -a description 'Returns a friendly greeting' \
+     -a parameters '[{"name": "name", "required":false}, {"name": "place", "required":false, "description":"The string to be included in the return value"}]' \
+     -a sampleInput '{ "payload": "Cat", "place": "Narrowsburg" }' \
+     -a sampleOutput '{ "payload": "Hello, Cat from Narrowsburg!" }' \
+     -a sampleLogOutput "2016-03-22T01:07:08.384982272Z stdout: params: { place: 'Narrowsburg', payload: 'Cat' }"
+
+install "$CATALOG_HOME/samples/wordcount/javascript/wordcount.js" \
+     samples/wordCount \
+     -a description 'Count words in a string' -a parameters '[{"name": "payload", "required":true, "description":"A string"}, {"name": "binary", "required":false, "description":"true or false"}]' \
+     -a sampleInput '{ "payload": "Five fuzzy felines"}' \
+     -a sampleOutput '{ "count": 3 }' \
+     -a sampleLogOutput "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
+
+install "$CATALOG_HOME/samples/echo.js" \
+    samples/echo \
+    -a description 'Returns the input' -a parameters '[{"name": "payload", "required":false, "description": "Any JSON entity"}]' \
+    -a sampleInput '{ "payload": "Five fuzzy felines"}' \
+    -a sampleOutput '{ "payload": "Five fuzzy felines"}'
+
 waitForAll
 
 echo whisk.system entities ERRORS = $ERRORS
