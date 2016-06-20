@@ -79,12 +79,6 @@ install "$CATALOG_HOME/samples/wordcount/javascript/wordcount.js" \
      -a sampleOutput '{ "count": 3 }' \
      -a sampleLogOutput "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
 
-install "$CATALOG_HOME/samples/echo.js" \
-    samples/echo \
-    -a description 'Returns the input' -a parameters '[{"name": "payload", "required":false, "description": "Any JSON entity"}]' \
-    -a sampleInput '{ "payload": "Five fuzzy felines"}' \
-    -a sampleOutput '{ "payload": "Five fuzzy felines"}'
-
 waitForAll
 
 echo whisk.system entities ERRORS = $ERRORS
