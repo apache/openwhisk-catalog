@@ -6,8 +6,8 @@
 AUTH_KEY=$WHISK_SYSTEM_AUTH
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-CATALOG_HOME=$SCRIPTDIR
-source "$CATALOG_HOME/util.sh"
+PACKAGE_HOME=$SCRIPTDIR
+source "$PACKAGE_HOME/util.sh"
 
 echo Installing Watson package.
 
@@ -17,7 +17,7 @@ createPackage watson \
 
 waitForAll
 
-install "$CATALOG_HOME/watson/speechToText.js" \
+install "$PACKAGE_HOME/watson/speechToText.js" \
     watson/speechToText \
     -a description 'Convert speech to text' \
     -a parameters '[
@@ -113,21 +113,21 @@ install "$CATALOG_HOME/watson/speechToText.js" \
     -a sampleInput '{"payload":"<base64 encoding of a wav file>", "encoding":"base64", "content_type":"audio/wav", "username":"XXX", "password":"XXX"}' \
     -a sampleOutput '{"data":"Hello."}'
 
-install "$CATALOG_HOME/watson/translate.js" \
+install "$PACKAGE_HOME/watson/translate.js" \
     watson/translate \
     -a description 'Translate text' \
     -a parameters '[ {"name":"translateFrom", "required":false}, {"name":"translateTo", "required":false}, {"name":"translateParam", "required":false}, {"name":"username", "required":true, "bindTime":true}, {"name":"password", "required":true, "type":"password", "bindTime":true} ]' \
     -a sampleInput '{"translateFrom":"en", "translateTo":"fr", "payload":"Hello", "username":"XXX", "password":"XXX"}' \
     -a sampleOutput '{"payload":"Bonjour"}'
 
-install "$CATALOG_HOME/watson/languageId.js" \
+install "$PACKAGE_HOME/watson/languageId.js" \
     watson/languageId \
     -a description 'Identify language' \
     -a parameters '[ {"name":"username", "required":true, "bindTime":true}, {"name":"password", "required":true, "type":"password", "bindTime":true}, {"name":"payload", "required":true} ]' \
     -a sampleInput '{"payload": "Bonjour", "username":"XXX", "password":"XXX"}' \
     -a sampleOutput '{"language": "French", "confidence": 1}'
 
-install "$CATALOG_HOME/watson/textToSpeech.js" \
+install "$PACKAGE_HOME/watson/textToSpeech.js" \
     watson/textToSpeech \
     -a description 'Synthesize text to spoken audio' \
     -a parameters '[

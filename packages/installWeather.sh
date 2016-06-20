@@ -6,8 +6,8 @@
 AUTH_KEY=$WHISK_SYSTEM_AUTH
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-CATALOG_HOME=$SCRIPTDIR
-source "$CATALOG_HOME/util.sh"
+PACKAGE_HOME=$SCRIPTDIR
+source "$PACKAGE_HOME/util.sh"
 
 echo Installing Weather package.
 
@@ -17,7 +17,7 @@ createPackage weather \
 
 waitForAll
 
-install "$CATALOG_HOME/weather/forecast.js" \
+install "$PACKAGE_HOME/weather/forecast.js" \
     weather/forecast \
     -a description 'IBM Weather Insights 10-day forecast' \
     -a parameters '[ {"name":"latitude", "required":true}, {"name":"longitude", "required":true},{"name":"language", "required":false},{"name":"units", "required":false}, {"name":"timePeriod", "required":false}, {"name":"apiKey", "required":true, "type":"password", "bindTime":true} ]' \

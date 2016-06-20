@@ -6,8 +6,8 @@
 AUTH_KEY=$WHISK_SYSTEM_AUTH
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-CATALOG_HOME=$SCRIPTDIR
-source "$CATALOG_HOME/util.sh"
+PACKAGE_HOME=$SCRIPTDIR
+source "$PACKAGE_HOME/util.sh"
 
 echo Installing Git package.
 
@@ -16,7 +16,7 @@ createPackage github \
 
 waitForAll
 
-install "$CATALOG_HOME/github/webhook.js" \
+install "$PACKAGE_HOME/github/webhook.js" \
     github/webhook \
     -a feed true \
     -a description 'Creates a webhook on github to be notified on selected changes' \

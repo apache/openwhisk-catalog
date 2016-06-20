@@ -7,8 +7,8 @@
 AUTH_KEY=$WHISK_SYSTEM_AUTH
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-CATALOG_HOME=$SCRIPTDIR
-source "$CATALOG_HOME/util.sh"
+PACKAGE_HOME=$SCRIPTDIR
+source "$PACKAGE_HOME/util.sh"
 
 echo Installing whisk.system entities.
 
@@ -18,53 +18,53 @@ createPackage samples -a description "A suite of simple actions to help you get 
 
 waitForAll
 
-install "$CATALOG_HOME/utils/echo.js" \
+install "$PACKAGE_HOME/utils/echo.js" \
     utils/echo \
     -a description 'Returns the input' -a parameters '[{"name": "payload", "required":false, "description": "Any JSON entity"}]' \
     -a sampleInput '{ "payload": "Five fuzzy felines"}' \
     -a sampleOutput '{ "payload": "Five fuzzy felines"}'
 
-install "$CATALOG_HOME/utils/cat.js" \
+install "$PACKAGE_HOME/utils/cat.js" \
      utils/cat \
      -a description 'Concatenates input into a string' \
      -a parameters '[ { "name": "lines", "required": true, "type": "array", "description": "An array of strings or numbers" } ]' \
      -a sampleInput '{ "lines": [4, 2, 3] }' \
      -a sampleOutput '{ "lines": [4, 2, 3] }'
 
-install "$CATALOG_HOME/utils/split.js" \
+install "$PACKAGE_HOME/utils/split.js" \
      utils/split \
      -a description 'Split a string into an array' \
      -a parameters '[{"name": "payload", "required":true, "description":"A string"}], { "name": "separator", "required": false, "description": "The character, or the regular expression, to use for splitting the string }]' \
      -a sampleInput '{ "payload": "one,two,three" "separator": "," }' \
      -a sampleOutput '{ "lines": [one, two, three], "payload": "one,two,three"}'
 
-install "$CATALOG_HOME/utils/sort.js" \
+install "$PACKAGE_HOME/utils/sort.js" \
      utils/sort \
      -a description 'Sorts an array' \
      -a parameters '[ { "name": "lines", "required": true, "type": "array", "description": "An array of strings" } ]' \
      -a sampleInput '{ "lines": [4, 2, 3] }' \
      -a sampleOutput '{ "lines": [2, 3, 4], "length": 3 }'
 
-install "$CATALOG_HOME/utils/head.js" \
+install "$PACKAGE_HOME/utils/head.js" \
      utils/head \
      -a description 'Extract prefix of an array' \
      -a parameters '[ { "name": "lines", "required": true, "type": "array", "description": "An array of strings" }, { "name": "num", "required": false, "type": "integer", "description": "The length of the prefix" }]' \
      -a sampleInput '{ "lines": [4, 2, 3], "num": 2 }' \
      -a sampleOutput '{ "lines": [4, 2], "num": 2 }'
 
-install "$CATALOG_HOME/utils/date.js" \
+install "$PACKAGE_HOME/utils/date.js" \
      utils/date \
      -a description 'Current date and time' \
      -a sampleOutput '{ "date": "2016-03-22T00:59:55.961Z" }'
 
-install "$CATALOG_HOME/samples/hello/javascript/hello.js" \
+install "$PACKAGE_HOME/samples/hello/javascript/hello.js" \
      samples/helloWorld \
      -a description 'Demonstrates logging facilities' -a parameters '[{"name": "payload", "required":false, "description":"The string to be included in the log record"}]' \
      -a sampleInput '{ "payload": "Cat" }' \
      -a sampleOutput '{ }' \
      -a sampleLogOutput '2016-03-22T01:02:26.387624916Z stdout: hello Cat!'
 
-install "$CATALOG_HOME/samples/greeting/javascript/greeting.js" \
+install "$PACKAGE_HOME/samples/greeting/javascript/greeting.js" \
      samples/greeting \
      -a description 'Returns a friendly greeting' \
      -a parameters '[{"name": "name", "required":false}, {"name": "place", "required":false, "description":"The string to be included in the return value"}]' \
@@ -72,7 +72,7 @@ install "$CATALOG_HOME/samples/greeting/javascript/greeting.js" \
      -a sampleOutput '{ "payload": "Hello, Cat from Narrowsburg!" }' \
      -a sampleLogOutput "2016-03-22T01:07:08.384982272Z stdout: params: { place: 'Narrowsburg', payload: 'Cat' }"
 
-install "$CATALOG_HOME/samples/wordcount/javascript/wordcount.js" \
+install "$PACKAGE_HOME/samples/wordcount/javascript/wordcount.js" \
      samples/wordCount \
      -a description 'Count words in a string' -a parameters '[{"name": "payload", "required":true, "description":"A string"}, {"name": "binary", "required":false, "description":"true or false"}]' \
      -a sampleInput '{ "payload": "Five fuzzy felines"}' \
