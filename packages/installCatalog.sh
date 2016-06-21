@@ -9,6 +9,10 @@ WHISK_SYSTEM_AUTH_FILE=$1
 export WHISK_SYSTEM_AUTH=`cat $WHISK_SYSTEM_AUTH_FILE`
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
+OPENWHISK_HOME=${2:-$OPENWHISK_HOME}
+: ${OPENWHISK_HOME:="$SCRIPTDIR/../.."}
+export "OPENWHISK_HOME"
+
 source "$SCRIPTDIR/util.sh"
 
 echo Installing open catalog
