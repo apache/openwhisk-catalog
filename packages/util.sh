@@ -6,7 +6,7 @@
 # updated yet and there may be a breaking change in the API. All tests should go through edge.
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../..}
+OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
 
 WHISKPROPS_FILE="$OPENWHISK_HOME/whisk.properties"
 if [ ! -f "$WHISKPROPS_FILE" ]; then
