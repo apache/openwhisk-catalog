@@ -16,3 +16,5 @@ The first parameter <PATH OF "auth.whisk.system"> is mandatory and the second pa
 If openwhisk-catalog directory is put in the openwhisk home directory, we are able to omit the
 second parameter. Otherwise, we need to specify the correct OPENWHISK_HOME either as the second
 parameter or the environment variable to make it run.
+
+Check if the travis ci works fine.
