@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# utility functions used when installing standard whisk assets during deployment
+# utility functions used when installing or uninstalling standard whisk assets during deployment
 #
 # Note use of --apihost, this is needed in case of a b/g swap since the router may not be
 # updated yet and there may be a breaking change in the API. All tests should go through edge.
@@ -32,6 +32,20 @@ function createPackage() {
     echo "Creating package $PACKAGE_NAME with pid $PID"
 }
 
+function deletePackage() {
+    PACKAGE_NAME=$1
+    if [ "$USE_PYTHON_CLI" = true ]; then
+        CMD_ARRAY=($PYTHON "$OPENWHISK_HOME/bin/wsk" -i --apihost "$EDGE_HOST" package delete --auth "$AUTH_KEY" "$PACKAGE_NAME")
+    else
+        CMD_ARRAY=("$OPENWHISK_HOME/bin/go-cli/wsk" -i --apihost "$EDGE_HOST" package delete --auth "$AUTH_KEY" "$PACKAGE_NAME")
+    fi
+    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
+    "${CMD_ARRAY[@]}" &
+    PID=$!
+    PIDS+=($PID)
+    echo "Deleting package $PACKAGE_NAME with pid $PID"
+}
+
 function install() {
     RELATIVE_PATH=$1
     ACTION_NAME=$2
@@ -48,11 +62,32 @@ function install() {
     echo "Installing $ACTION_NAME with pid $PID"
 }
 
+function uninstall() {
+    ACTION_NAME=$1
+    if [ "$USE_PYTHON_CLI" = true ]; then
+        CMD_ARRAY=($PYTHON "$OPENWHISK_HOME/bin/wsk" -i --apihost "$EDGE_HOST" action delete --auth "$AUTH_KEY" "$ACTION_NAME")
+    else
+        CMD_ARRAY=("$OPENWHISK_HOME/bin/go-cli/wsk" -i --apihost "$EDGE_HOST" action delete --auth "$AUTH_KEY" "$ACTION_NAME")
+    fi
+    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
+    "${CMD_ARRAY[@]}" &
+    PID=$!
+    PIDS+=($PID)
+    echo "Uninstalling $ACTION_NAME with pid $PID"
+}
+
 function runPackageInstallScript() {
     "$1/$2" &
     PID=$!
     PIDS+=($PID)
     echo "Installing package $2 with pid $PID"
+}
+
+function runPackageUninstallScript() {
+    "$1/$2" &
+    PID=$!
+    PIDS+=($PID)
+    echo "Uninstalling package $2 with pid $PID"
 }
 
 # PIDS is the list of ongoing processes and ERRORS the total number of processes that failed
