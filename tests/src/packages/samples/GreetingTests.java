@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package packages;
+package packages.samples;
 
 import static common.Pair.make;
 import static org.junit.Assert.assertTrue;
