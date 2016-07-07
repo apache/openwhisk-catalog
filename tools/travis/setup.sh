@@ -16,7 +16,7 @@ sudo service docker restart
 # Python stuff
 sudo apt-get -y install python-pip
 pip install --user jsonschema
-pip install --user ansible
+pip install --user ansible==2.0.2.0
 
 # OpenWhisk stuff
 
