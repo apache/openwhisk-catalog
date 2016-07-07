@@ -3,15 +3,12 @@
 # use the command line interface to install standard actions deployed
 # automatically
 #
-WHISK_SYSTEM_AUTH_FILE=$1
-: ${WHISK_SYSTEM_AUTH_FILE:?"WHISK_SYSTEM_AUTH_FILE must be set and non-empty"}
+: ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
+WHISK_SYSTEM_AUTH_FILE=${1:-"$OPENWHISK_HOME/config/keys/auth.whisk.system"}
 
 export WHISK_SYSTEM_AUTH=`cat $WHISK_SYSTEM_AUTH_FILE`
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-OPENWHISK_HOME=${2:-$OPENWHISK_HOME}
-: ${OPENWHISK_HOME:="$SCRIPTDIR/../../openwhisk"}
-export "OPENWHISK_HOME"
 
 source "$SCRIPTDIR/util.sh"
 
