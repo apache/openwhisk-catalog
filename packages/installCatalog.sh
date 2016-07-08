@@ -22,6 +22,7 @@ runPackageInstallScript "$SCRIPTDIR" installGit.sh
 runPackageInstallScript "$SCRIPTDIR" installSlack.sh
 runPackageInstallScript "$SCRIPTDIR" installWatson.sh
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
+runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
 
 waitForAll
 
