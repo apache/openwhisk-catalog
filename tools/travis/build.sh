@@ -36,6 +36,7 @@ export OPENWHISK_HOME=$WHISKDIR
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
+./uninstallCatalog.sh $WHISKDIR/config/keys/auth.whisk.system
 ./installCatalog.sh $WHISKDIR/config/keys/auth.whisk.system
 
 # Test
