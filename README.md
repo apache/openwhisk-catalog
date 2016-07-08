@@ -11,6 +11,7 @@ the catalog like:
 ./installCatalog.sh <PATH OF "auth.whisk.system"> <OPENWHISK_HOME>
 ```
 
+
 The first parameter <PATH OF "auth.whisk.system"> is mandatory and the second parameter
 <OPENWHISK_HOME> will be set to the parent directory of the openwhisk-catalog if it is not provided.
 If openwhisk-catalog directory is put in the openwhisk home directory, we are able to omit the
