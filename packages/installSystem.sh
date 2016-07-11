@@ -79,6 +79,12 @@ install "$PACKAGE_HOME/samples/wordcount/javascript/wordcount.js" \
      -a sampleOutput '{ "count": 3 }' \
      -a sampleLogOutput "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
 
+install "$PACKAGE_HOME/samples/curl/javascript/curl.js" \
+     samples/curl \
+     -a description 'Curl a host url' -a parameters '[{"name": "payload", "required":true, "description":"A host url"}]' \
+	 -a sampleInput '{ "payload": "google.com"}' \
+     -a sampleOutput '{ "msg": "content returned from google.com" }'
+
 waitForAll
 
 echo whisk.system entities ERRORS = $ERRORS
