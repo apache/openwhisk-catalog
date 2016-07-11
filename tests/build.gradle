@@ -1,4 +1,4 @@
-def whiskhome = "$System.env.OPENWHISK_HOME"
+def whiskhome = System.getenv("OPENWHISK_HOME")
 def test_common = whiskhome + '/tests/build/classes/test'
 
 apply plugin: 'scala'
