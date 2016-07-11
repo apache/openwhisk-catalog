@@ -39,6 +39,11 @@ cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 ./installCatalog.sh $WHISKDIR/config/keys/auth.whisk.system
 
+# Set credentials
+VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"
+WHISKPROPS_FILE="$WHISKDIR/whisk.properties"
+sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCAP_SERVICES_FILE':'  $WHISKPROPS_FILE
+
 # Test
 
 # Compile whisk test codes to resolve dependencies.
