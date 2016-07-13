@@ -13,6 +13,7 @@ install: true
 
 before_install:
   - ./tools/travis/setup.sh
+  - openssl aes-256-cbc -K $encrypted_deb39749efc5_key -iv $encrypted_deb39749efc5_iv -in credentials.json.enc -out tests/credentials.json -d
 
 script:
   - ./tools/travis/build.sh
