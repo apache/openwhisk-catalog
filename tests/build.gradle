@@ -1,5 +1,4 @@
 def whiskhome = "$System.env.OPENWHISK_HOME"
-def test_common = whiskhome + '/tests/build/classes/test'
 
 apply plugin: 'scala'
 apply plugin: 'eclipse'
@@ -49,11 +48,7 @@ dependencies {
     testCompile 'io.spray:spray-json_2.11:1.3.2'
     testCompile 'com.google.code.tempus-fugit:tempus-fugit:1.2-SNAPSHOT'
     testCompile 'com.google.code.gson:gson:2.3.1'
-
-    testCompile files('$whiskhome/common/scala/build/libs/scala.jar',
-                      '$whiskhome/core/controller/build/libs/controller.jar', 
-                      '$whiskhome/core/dispatcher/build/libs/dispatcher.jar')
-    testCompile files(test_common)
+    testCompile project(':WhiskTest').sourceSets.test.output
 }
 
 def keystorePath = new File(buildDir, 'classes/test/keystore')

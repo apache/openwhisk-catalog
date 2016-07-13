@@ -46,9 +46,5 @@ sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCA
 
 # Test
 
-# Compile whisk test codes to resolve dependencies.
-cd $WHISKDIR
-./gradlew :tests:compileTestScala
-
 cd $ROOTDIR
 ./gradlew :tests:test

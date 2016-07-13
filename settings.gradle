@@ -1,3 +1,9 @@
-include 'tests'
+include 'tests', ':WhiskTest', ':common:scala', ':core:dispatcher', ':core:controller'
 
 rootProject.name = 'openwhisk-catalog'
+def whiskhome = "$System.env.OPENWHISK_HOME"
+
+project(':WhiskTest').projectDir = new File(whiskhome, 'tests')
+project(':common:scala').projectDir = new File(whiskhome + '/common', 'scala')
+project(':core:dispatcher').projectDir = new File(whiskhome + '/core', 'dispatcher')
+project(':core:controller').projectDir = new File(whiskhome + '/core', 'controller')
