@@ -20,7 +20,6 @@ $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
 $ANSIBLE_CMD couchdb.yml
 $ANSIBLE_CMD initdb.yml
-$ANSIBLE_CMD wipe.yml
 
 cd $WHISKDIR
 
@@ -28,6 +27,7 @@ cd $WHISKDIR
 
 cd $WHISKDIR/ansible
 
+$ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
 
 # Set Environment
@@ -37,7 +37,7 @@ export OPENWHISK_HOME=$WHISKDIR
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
-./installCatalog.sh $WHISKDIR/config/keys/auth.whisk.system
+./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
 VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"
