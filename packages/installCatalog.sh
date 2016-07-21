@@ -5,18 +5,19 @@
 #
 : ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
 
-# The first argument is the authentication key, which can be passed in teams of either
+# The first argument is the catalog authentication key, which can be passed via either
 # a file or the key itself. 
-AUTH_KEY=${1:-"$OPENWHISK_HOME/ansible/files/auth.whisk.system"}
+CATALOG_AUTH_KEY=${1:-"$OPENWHISK_HOME/ansible/files/auth.whisk.system"}
 
-# If the auth key file exists, read the key from the file. Otherwise, take the
+# If the auth key file exists, read the key in the file. Otherwise, take the
 # first argument as the key itself.
-if [ -f "$AUTH_KEY" ]; then
-    AUTH_KEY=`cat $AUTH_KEY`
+if [ -f "$CATALOG_AUTH_KEY" ]; then
+    CATALOG_AUTH_KEY=`cat $CATALOG_AUTH_KEY`
 fi
 
-: ${AUTH_KEY:?"AUTH_KEY must be set and non-empty"}
-export WHISK_SYSTEM_AUTH=$AUTH_KEY
+# Make sure that the catalog_auth_key is not empty.
+: ${CATALOG_AUTH_KEY:?"CATALOG_AUTH_KEY must be set and non-empty"}
+export WHISK_SYSTEM_AUTH=$CATALOG_AUTH_KEY
 
 # The api host is passed as the second argument. If it is not provided, take the edge
 # host from the whisk properties file.
@@ -29,17 +30,20 @@ if [ -z "$API_HOST" ]; then
     fi
     API_HOST=`fgrep edge.host= "$WHISKPROPS_FILE" | cut -d'=' -f2`
 fi
+
+# Make sure that the api_host is not empty.
 : ${API_HOST:?"API_HOST must be set and non-empty"}
 export WHISK_API_HOST=$API_HOST
 
-# The api host is passed as the third argument. If it is not provided, take "/whisk.system".
-namespace=${3:-"/whisk.system"}
+# The api host is passed as the third argument. If it is not provided, take "/whisk.system"
+# as the defualt value.
+catalog_namespace=${3:-"/whisk.system"}
 
-# If the namespace does not start with a forward slash, add it.
-if [[ $namespace != "/*" ]]; then
-    namespace = "/$namespace"
+# If the catalog_namespace does not start with a forward slash, add it.
+if [[ $catalog_namespace != "/*" ]]; then
+    catalog_namespace = "/$catalog_namespace"
 fi
-export WHISK_NAMESPACE=$namespace
+export WHISK_NAMESPACE=$catalog_namespace
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 
