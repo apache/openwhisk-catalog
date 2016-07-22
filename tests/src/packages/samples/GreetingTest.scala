@@ -60,42 +60,4 @@ class GreetingTest extends TestHelpers
                     activation.getFieldPath("response", "result", "payload") should be(Some(helloMessage))
             }
     }
-
-    it should "Create an action, then return a greeting message with the name provided on Nodejs" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val name = "greetingNodejs"
-            val file = new File(catalogDir, sample_file).toString()
-     
-            assetHelper.withCleaner(wsk.action, name) {
-                (action, _) => action.create(name, Some(file), kind = Some("nodejs"))
-            }
-            wsk.action.get(name).stdout should include regex (""""kind": "nodejs"""")
- 
-            val run = wsk.action.invoke(name, Map("name" -> "Mork".toJson, "place" -> "Ork".toJson))
-            val helloMessage = "Hello, Mork from Ork!".toJson
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.getFieldPath("response", "success") should be (Some(true.toJson))
-                    activation.getFieldPath("response", "result", "payload") should be (Some(helloMessage))
-            }
-    }
-
-    it should "Create an action, then return a greeting message with the name provided on Nodejs 6" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val name = "greetingNodejs"
-            val file = new File(catalogDir, sample_file).toString()
-     
-            assetHelper.withCleaner(wsk.action, name) {
-                (action, _) => action.create(name, Some(file), kind = Some("nodejs:6"))
-            }
-            wsk.action.get(name).stdout should include regex (""""kind": "nodejs:6"""")
- 
-            val run = wsk.action.invoke(name, Map("name" -> "Mork".toJson, "place" -> "Ork".toJson))
-            val helloMessage = "Hello, Mork from Ork!".toJson
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.getFieldPath("response", "success") should be (Some(true.toJson))
-                    activation.getFieldPath("response", "result", "payload") should be (Some(helloMessage))
-            }
-    }
 }
