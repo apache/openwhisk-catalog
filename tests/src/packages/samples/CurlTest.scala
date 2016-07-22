@@ -42,34 +42,4 @@ class CurlTest extends TestHelpers with WskTestHelpers with JsHelpers {
             _.fields("response").toString should include (expectedBody)
         }
     }
-
-    it should "Return the web content when sending the public google as the payload on nodejs" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val expectedBody = "<HTML>"
-            val file = Some(new File(catalogDir, path).toString())
-            val actionName = "curlNodejs"
-
-            assetHelper.withCleaner(wsk.action, actionName) { (action, _) =>
-                action.create(name = actionName, artifact = file, kind = Some("nodejs"))
-            }
-
-            withActivation(wsk.activation, wsk.action.invoke(actionName, Map("payload" -> "google.com".toJson))) {
-                _.fields("response").toString should include(expectedBody)
-            }
-    }
-
-    it should "Return the web content when sending the public google as the payload on nodejs 6" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val expectedBody = "<HTML>"
-            val file = Some(new File(catalogDir, path).toString())
-            val actionName = "curlNodejs6"
-
-            assetHelper.withCleaner(wsk.action, actionName) { (action, _) =>
-                action.create(name = actionName, artifact = file, kind = Some("nodejs:6"))
-            }
-
-            withActivation(wsk.activation, wsk.action.invoke(actionName, Map("payload" -> "google.com".toJson))) {
-                _.fields("response").toString should include(expectedBody)
-            }
-    }
 }
