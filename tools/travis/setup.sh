@@ -21,4 +21,4 @@ pip install --user ansible
 # OpenWhisk stuff
 
 cd $HOMEDIR
-git clone https://github.com/openwhisk/openwhisk.git
+git clone https://github.com/openwhisk/openwhisk.git openwhisk
