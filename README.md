@@ -25,9 +25,9 @@ We should be able to run the script installCatalog.sh to install the catalog lik
 ./installCatalog.sh <catalog_auth_key> <api_host> <catalog_namespace> 
 ```
 
-The first argument <catalog_auth_key>, defines the secret key used to authenticate the openwhisk
-service. The second argument <api_host>, determines the location, where the openwhisk edge host is running,
-in the format of IP or hostname. The third argument <catalog_namespace>, specifies the namespace used for all the
+The first argument \<catalog_auth_key\>, defines the secret key used to authenticate the openwhisk
+service. The second argument \<api_host\>, determines the location, where the openwhisk edge host is running,
+in the format of IP or hostname. The third argument \<catalog_namespace\>, specifies the namespace used for all the
 actions and packages.
 
 ## Existing packages in catalog
