@@ -18,6 +18,10 @@ createPackage samples -a description "A suite of simple actions to help you get 
 
 waitForAll
 
+install "$PACKAGE_HOME/system/pipe.js" \
+     system/pipe \
+     -a system true
+
 install "$PACKAGE_HOME/utils/echo.js" \
     utils/echo \
     -a description 'Returns the input' -a parameters '[{"name": "payload", "required":false, "description": "Any JSON entity"}]' \
