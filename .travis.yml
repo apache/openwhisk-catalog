@@ -13,6 +13,8 @@ install: true
 
 before_install:
   - ./tools/travis/setup.sh
+  - openssl aes-256-cbc -K $encrypted_9796d12147af_key -iv $encrypted_9796d12147af_iv
+    -in test.txt.enc -out test.txt -d
 
 script:
   - ./tools/travis/build.sh
