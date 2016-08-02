@@ -1,18 +1,15 @@
-# A Travis CI configuration file.
-
 sudo: required
-
 language: scala
 scala:
-   - 2.11.6
-
+- 2.11.6
 services:
-  - docker
-
+- docker
 install: true
-
 before_install:
-  - ./tools/travis/setup.sh
-
+- "./tools/travis/setup.sh"
+- echo $super_secret_password | gpg --passphrase-fd 0 super_secret.txt.gpg
 script:
-  - ./tools/travis/build.sh
+- "./tools/travis/build.sh"
+env:
+  global:
+    secure: ApNoZiBp3R7DvgJ0W+rZj+Q+4rVaOCBLwUCJVCFQv6A6rWyeH7hIFO7imhLOkMSFG16C5c+940AZvK2fBD8leZNqYdaIfjo3qo7pwPklbtZIyIsaHX7oQ+dko6cieglCe3Ny6PsJlGrFHyr+hlai1f2Xonb9DXTXmkIEDLHcnM7sWdvw3864dhSfWUu3pMJwpoLA0l7t4v2JIzMr7+OaChr7ZIbO7Lhyj6er/dJwrmAk1W5vUTV+Yz8m8SPtW45OV4OMpGRP3Sb1adxtgpxYxP3pH9W6EC7LFIeqA3247LNQ8oVgQv6Z4DeDvu89SKyP8j3XMnDxIhHwskHq8vGKP5+4wWTZlqhgyQiuoN9qN/IBwOJ7kScCsREgWKjOVyPSSdsyzncy6ULZ50rcpOIsd4Zs3y5bK4qxQUBBDCPBe0fcvvQ4yqDNto+yuiulhGmvEgC1xwT5kR81ozMWT3va3C8kqM184vURn/FXhqh7oBX7w9A4/BU7MwF0Sj1yXVNIXImeAcYnkSpskq31KpIHOJwZjui9G5mKJzCuPUkFb5hB6YaTqHLS4Pvsk1ltS0/i8a6e2kZIuXtHoj7/h2tBnC/IMo+WMXaVVrKOMAe1HLHUKRtqtsJAsjiWumZGXGwRDxaUpM1X9KAux78Owd3zwrSxjRRMr5EredOk9Dsbw4c=
