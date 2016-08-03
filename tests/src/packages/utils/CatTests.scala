@@ -29,7 +29,7 @@ import spray.json.DefaultJsonProtocol.StringJsonFormat
 class CatTests extends TestHelpers with WskTestHelpers with Matchers {
 
     implicit val wskprops = WskProps()
-    val wsk = new Wsk(usePythonCLI=true)
+    val wsk = new Wsk(usePythonCLI=false)
     val lines = JsArray(JsString("seven"), JsString("eight"), JsString("nine"))
     var catalogDir = new File(scala.util.Properties.userDir.toString(), "../packages")
 
