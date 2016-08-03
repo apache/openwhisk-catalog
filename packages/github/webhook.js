@@ -14,15 +14,29 @@ function main(params) {
   var repository = params.repository;
   var accessToken = params.accessToken;
 
+  var organization,
+    repository;
+
+  if(params.repository) {
+    var repoSegments = params.repository.split('/');
+    if(repoSegments.length == 2) {
+      organization = repoSegments[0];
+      repository = repoSegments[1];
+    } else {
+      repository = params.repository;
+    }
+  }
+
   var endpoint = 'openwhisk.ng.bluemix.net';
   var lifecycleEvent = params.lifecycleEvent;
   var triggerName = params.triggerName.split("/");
 
     // URL of the whisk system. The calls of github will go here.
-  var whiskCallbackUrl = 'https://' + whisk.getAuthKey() + "@" + endpoint + '/api/v1/namespaces/' + triggerName[1] + '/triggers/' + triggerName[2];
+  var whiskCallbackUrl = 'https://' + whisk.getAuthKey() + "@" + endpoint + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
 
     // The URL to create the webhook on Github
-  var registrationEndpoint = 'https://api.github.com/repos/' + username + '/' + repository + '/hooks';
+  var registrationEndpoint = 'https://api.github.com/repos/' + (organization ? organization : username) + '/' + repository + '/hooks';
+  console.log("Using endpoint: " + registrationEndpoint);
 
   var authorizationHeader = 'Basic ' + new Buffer(username + ':' +
   accessToken).toString('base64');
@@ -53,12 +67,29 @@ function main(params) {
 
     request(options, function(error, response, body) {
       if (error) {
-        whisk.error();
+        whisk.error({
+          response: response,
+          error: error,
+          body: body
+        });
+      } else {
+        console.log("Status code: " + response.statusCode);
+
+        if(response.statusCode >= 400) {
+          console.log("Response from Github: " + body);
+          whisk.error({
+            statusCode: response.statusCode,
+            response: body
+          });
+        } else {
+          whisk.done({response: body});
+        }
       }
-      console.log("Status code: " + response.statusCode);
-      whisk.done({response: body});
     });
+
     return whisk.async();
   }
+
+  // some lifecycleEvent for which there is nothing to do here
   return whisk.done();
 }
