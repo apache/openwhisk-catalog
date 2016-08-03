@@ -21,7 +21,7 @@ class WordCountTest extends TestHelpers
     with JsHelpers {
 
     implicit val wskprops = WskProps()
-    val wsk = new Wsk(usePythonCLI=true)
+    val wsk = new Wsk(usePythonCLI=false)
     val wordcountAction = "/whisk.system/samples/wordCount"
 
     behavior of "samples wordCount"

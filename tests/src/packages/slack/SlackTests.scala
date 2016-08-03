@@ -25,7 +25,7 @@ class SlackTests extends TestHelpers
     with JsHelpers {
 
   implicit val wskprops = WskProps()
-  val wsk = new Wsk(usePythonCLI = true)
+  val wsk = new Wsk(usePythonCLI = false)
   val username = "Test";
   val channel = "gittoslack";
   val text = "Hello Test!";

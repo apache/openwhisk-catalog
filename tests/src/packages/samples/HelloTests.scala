@@ -19,7 +19,7 @@ class HelloTests
         with JsHelpers {
 
     implicit val wskprops = WskProps()
-    val wsk = new Wsk(usePythonCLI=true)
+    val wsk = new Wsk(usePythonCLI=false)
     val helloAction = "/whisk.system/samples/helloWorld"
 
     behavior of "samples hello"
