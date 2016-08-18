@@ -7,3 +7,8 @@ project(':WhiskTest').projectDir = new File(whiskhome, 'tests')
 project(':common:scala').projectDir = new File(whiskhome + '/common', 'scala')
 project(':core:dispatcher').projectDir = new File(whiskhome + '/core', 'dispatcher')
 project(':core:controller').projectDir = new File(whiskhome + '/core', 'controller')
+
+gradle.ext.scala = [
+        version: '2.11.8',
+        compileFlags: ['-feature', '-unchecked', '-deprecation', '-Xfatal-warnings', '-Ywarn-unused-import']
+]

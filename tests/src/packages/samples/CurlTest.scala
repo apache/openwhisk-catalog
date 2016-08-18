@@ -4,15 +4,12 @@ import java.io.File
 
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import scala.concurrent.duration.DurationInt
-import scala.language.postfixOps
 
 import common.JsHelpers
 import common.TestHelpers
 import common.Wsk
 import common.WskProps
 import common.WskTestHelpers
-import spray.json.DefaultJsonProtocol.BooleanJsonFormat
 import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json.pimpAny
 

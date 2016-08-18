@@ -1,6 +1,5 @@
 package packages.slack
 
-import java.net.URI
 
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps

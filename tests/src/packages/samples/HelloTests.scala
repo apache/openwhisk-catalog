@@ -9,7 +9,6 @@ import common.Wsk
 import common.WskProps
 import common.WskTestHelpers
 import spray.json.DefaultJsonProtocol.BooleanJsonFormat
-import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json.pimpAny
 
 @RunWith(classOf[JUnitRunner])

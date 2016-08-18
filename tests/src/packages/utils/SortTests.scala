@@ -23,7 +23,6 @@ import org.junit.runner.RunWith
 import org.scalatest.Matchers
 import org.scalatest.junit.JUnitRunner
 import spray.json._
-import spray.json.DefaultJsonProtocol.StringJsonFormat
 
 @RunWith(classOf[JUnitRunner])
 class SortTests extends TestHelpers with WskTestHelpers with Matchers {

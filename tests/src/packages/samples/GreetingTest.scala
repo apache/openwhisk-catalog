@@ -4,8 +4,6 @@ import java.io.File
 
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import scala.concurrent.duration.DurationInt
-import scala.language.postfixOps
 
 import common.JsHelpers
 import common.TestHelpers
