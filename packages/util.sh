@@ -13,7 +13,7 @@ EDGE_HOST=$WHISK_API_HOST
 
 : ${WHISK_NAMESPACE:?"WHISK_NAMESPACE must be set and non-empty"}
 
-USE_PYTHON_CLI=true
+USE_PYTHON_CLI=false
 
 function createPackage() {
     PACKAGE_NAME=$1

@@ -16,7 +16,7 @@ import spray.json.pimpAny
 @RunWith(classOf[JUnitRunner])
 class CurlTest extends TestHelpers with WskTestHelpers with JsHelpers {
     implicit val wskprops = WskProps()
-    val wsk = new Wsk(usePythonCLI=true)
+    val wsk = new Wsk(usePythonCLI=false)
     val greetingAction = "/whisk.system/samples/curl"
     val catalogDir = new File(scala.util.Properties.userDir.toString(), "../packages")
     val path = "samples/curl/javascript/curl.js"
