@@ -17,7 +17,7 @@ createPackage slack \
 
 waitForAll
 
-install "$CATALOG_HOME/slack/post.js" \
+install "$PACKAGE_HOME/slack/post.js" \
     slack/post \
     -a description 'Post a message to Slack' \
     -a parameters '[ {"name":"text", "required":true, "description": "The message you wish to post"} ]' \
