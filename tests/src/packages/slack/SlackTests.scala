@@ -34,7 +34,6 @@ class SlackTests extends TestHelpers
   val expectedChannel = "channel: '" + channel + "'"
   val expectedUsername = "username: '" + username + "'";
   val expectedText = "text: '" + text + "'";
-  val expectedIcon = "icon_emoji: undefined";
 
   it should "The slack api should works" in withAssetCleaner(wskprops) {
     (wp, assetHelper) =>
@@ -46,7 +45,6 @@ class SlackTests extends TestHelpers
           logs should include(expectedChannel)
           logs should include(expectedUsername)
           logs should include(expectedText)
-          logs should include(expectedIcon)
           logs should include(url)
       }
   }
