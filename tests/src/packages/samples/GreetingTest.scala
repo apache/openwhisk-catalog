@@ -20,7 +20,7 @@ class GreetingTest extends TestHelpers
     with JsHelpers {
 
     implicit val wskprops = WskProps()
-    val wsk = new Wsk(usePythonCLI=true)
+    val wsk = new Wsk()
     var catalogDir = new File(scala.util.Properties.userDir.toString(), "../packages")
     val greetingAction = "/whisk.system/samples/greeting"
     val sample_file = "samples/greeting/javascript/greeting.js"
