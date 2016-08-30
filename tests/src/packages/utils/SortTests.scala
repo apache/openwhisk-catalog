@@ -40,7 +40,7 @@ class SortTests extends TestHelpers with WskTestHelpers with Matchers {
     it should "sort an array of strings using the node.js sort action" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
             withActivation(wsk.activation, wsk.action.invoke("/whisk.system/utils/sort", Map("lines" -> lines))) {
-                _.fields("response").toString should include(""""lines":["eight","nine","seven"]""")
+                _.response.result.get.toString should include(""""lines":["eight","nine","seven"]""")
             }
     }
 }

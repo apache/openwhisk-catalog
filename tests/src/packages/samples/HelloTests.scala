@@ -8,8 +8,6 @@ import common.TestHelpers
 import common.Wsk
 import common.WskProps
 import common.WskTestHelpers
-import spray.json.DefaultJsonProtocol.BooleanJsonFormat
-import spray.json.pimpAny
 
 @RunWith(classOf[JUnitRunner])
 class HelloTests
@@ -28,7 +26,7 @@ class HelloTests
             val run = wsk.action.invoke(helloAction, Map())
             withActivation(wsk.activation, run) {
                 activation =>
-                    activation.getFieldPath("response", "success") should be(Some(true.toJson))
+                    activation.response.success shouldBe true
             }
     }
 

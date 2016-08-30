@@ -8,9 +8,8 @@ import common.TestHelpers
 import common.Wsk
 import common.WskProps
 import common.WskTestHelpers
-import spray.json.DefaultJsonProtocol.BooleanJsonFormat
-import spray.json.DefaultJsonProtocol.StringJsonFormat
-import spray.json.pimpAny
+import spray.json._
+import spray.json.DefaultJsonProtocol._
 
 @RunWith(classOf[JUnitRunner])
 class WordCountTest extends TestHelpers
@@ -23,29 +22,27 @@ class WordCountTest extends TestHelpers
 
     behavior of "samples wordCount"
 
-    it should "Return the number of words when sending the words as payload" in withAssetCleaner(wskprops) {
+    it should "return the number of words when sending the words as payload" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
             val expectedNumber = 3
             val run = wsk.action.invoke(wordcountAction,
                 Map("payload" -> "Five fuzzy felines".toJson))
             withActivation(wsk.activation, run) {
                 activation =>
-                    activation.getFieldPath("response", "success") should be(Some(true.toJson))
-                    activation.getFieldPath("response", "result", "count").toString should be(
-                        Some(expectedNumber).toString)
+                    activation.response.success shouldBe true
+                    activation.response.result.get.fields.get("count") shouldBe Some(JsNumber(expectedNumber))
             }
     }
 
-    it should "Return an error has occurred: TypeError: Cannot read property 'toString' of undefined " +
+    it should "return an error has occurred: TypeError: Cannot read property 'toString' of undefined " +
         "failure when sending no payload" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
-            val expectedError = "An error has occurred: TypeError: Cannot read property 'toString' of undefined".toJson
+            val expectedError = "An error has occurred: TypeError: Cannot read property 'toString' of undefined"
             val run = wsk.action.invoke(wordcountAction, Map())
             withActivation(wsk.activation, run) {
                 activation =>
-                    activation.getFieldPath("response", "success") should be(Some(false.toJson))
-                    activation.getFieldPath("response", "result", "error") should be(
-                        Some(expectedError))
+                    activation.response.success shouldBe false
+                    activation.response.result.get.fields.get("error") shouldBe Some(JsString(expectedError))
             }
     }
 }
