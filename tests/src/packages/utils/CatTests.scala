@@ -40,8 +40,7 @@ class CatTests extends TestHelpers with WskTestHelpers with Matchers {
     it should "concatenate an array of strings using the node.js cat action" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
             withActivation(wsk.activation, wsk.action.invoke("/whisk.system/utils/cat", Map("lines" -> lines))) {
-                _.fields("response").toString should include(""""payload":"seven\neight\nnine"""")
+                _.response.result.get.toString should include(""""payload":"seven\neight\nnine"""")
             }
     }
-
 }

@@ -40,7 +40,7 @@ class HeadTests extends TestHelpers with WskTestHelpers with Matchers {
     it should "extract first n elements of an array of strings using the node.js head action" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
             withActivation(wsk.activation, wsk.action.invoke("/whisk.system/utils/head", Map("lines" -> lines, "num" -> JsNumber(2)))) {
-                _.fields("response").toString should include(""""lines":["seven","eight"]""")
+                _.response.result.get.toString should include(""""lines":["seven","eight"]""")
             }
     }
 }

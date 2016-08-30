@@ -27,7 +27,7 @@ class CurlTest extends TestHelpers with WskTestHelpers with JsHelpers {
             val expectedError = "Could not resolve host"
             val run = wsk.action.invoke(greetingAction, Map())
             withActivation(wsk.activation, run) {
-                _.fields("response").toString should include (expectedError)
+                _.response.result.get.toString should include (expectedError)
             }
     }
 
@@ -36,7 +36,7 @@ class CurlTest extends TestHelpers with WskTestHelpers with JsHelpers {
         val expectedBody = "<HTML>"
         val run = wsk.action.invoke(greetingAction, Map("payload" -> "google.com".toJson))
         withActivation(wsk.activation, run) {
-            _.fields("response").toString should include (expectedBody)
+            _.response.result.get.toString should include (expectedBody)
         }
     }
 }

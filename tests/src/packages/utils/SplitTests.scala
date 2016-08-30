@@ -41,7 +41,7 @@ class SplitTests extends TestHelpers with WskTestHelpers with Matchers {
     it should "split a string into an array of strings using the node.js split action" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
             withActivation(wsk.activation, wsk.action.invoke("/whisk.system/utils/split", Map("payload" -> "seven,eight,nine".toJson, "separator" -> ",".toJson))) {
-                _.fields("response").toString should include (""""lines":["seven","eight","nine"]""")
+                _.response.result.get.toString should include(""""lines":["seven","eight","nine"]""")
             }
     }
 }
