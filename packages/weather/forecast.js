@@ -52,9 +52,9 @@ function main(params) {
             console.log('error:', error);
             console.log('body:', body);
             whisk.error({
-                error: error,
-                response: response,
-                body: body
+               error: error,
+               response: response,
+               body: body
             });
         }
     });

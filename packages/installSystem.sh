@@ -78,7 +78,7 @@ install "$PACKAGE_HOME/samples/greeting/javascript/greeting.js" \
 
 install "$PACKAGE_HOME/samples/wordcount/javascript/wordcount.js" \
      samples/wordCount \
-     -a description 'Count words in a string' -a parameters '[{"name": "payload", "required":true, "description":"A string"}, {"name": "binary", "required":false, "description":"true or false"}]' \
+     -a description 'Count words in a string' -a parameters '[{"name": "payload", "required":true, "description":"A string"}]' \
      -a sampleInput '{ "payload": "Five fuzzy felines"}' \
      -a sampleOutput '{ "count": 3 }' \
      -a sampleLogOutput "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
