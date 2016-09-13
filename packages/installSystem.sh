@@ -89,13 +89,6 @@ install "$PACKAGE_HOME/samples/curl/javascript/curl.js" \
 	 -a sampleInput '{ "payload": "google.com"}' \
      -a sampleOutput '{ "msg": "content returned from google.com" }'
 
-#needed temporarily until all existing actions that reference echo are updated to reflect the new location for echo
-install "$PACKAGE_HOME/utils/echo.js" \
-    samples/echo \
-    -a description 'Returns the input' -a parameters '[{"name": "payload", "required":false, "description": "Any JSON entity"}]' \
-    -a sampleInput '{ "payload": "Five fuzzy felines"}' \
-    -a sampleOutput '{ "payload": "Five fuzzy felines"}'
-
 waitForAll
 
 echo whisk.system entities ERRORS = $ERRORS
