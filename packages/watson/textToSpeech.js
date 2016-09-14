@@ -43,23 +43,26 @@ function main(params) {
     version: 'v1'
   });
 
-  textToSpeech.synthesize({
-    voice: voice,
-    accept: accept,
-    text: payload,
-  }, function (err, res) {
-    if (err) {
-      whisk.error(err);
-    } else {
-      whisk.done({
-        payload: res.toString(encoding),
-        encoding: encoding,
-        mimetype: accept
-      });
-    }
-  }, function (err) {
-    whisk.error(err);
+  var promise = new Promise(function(resolve, reject) {
+    textToSpeech.synthesize({
+      voice: voice,
+      accept: accept,
+      text: payload,
+    }, function (err, res) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({
+          payload: res.toString(encoding),
+          encoding: encoding,
+          mimetype: accept
+        });
+      }
+    }, function (err) {
+      reject(err);
+    });
   });
-  return whisk.async();
+
+  return promise;
 }
 

@@ -27,36 +27,38 @@ function main(params) {
 
     var connectionTimeout = 30 * 1000; // 30 seconds
 
-    setTimeout(function() {
-        if (!connectionEstablished) {
-            whisk.error('Did not establish websocket connection to ' + uri + ' in a timely manner.');
-        }
-    }, connectionTimeout);
-
-    ws.on('open', function() {
-        connectionEstablished = true;
-
-        console.log("Sending payload: " + payload);
-        ws.send(payload, function(error) {
-            if (error) {
-                console.log("Error received communicating with websocket: " + error);
-                ws.close();
-                whisk.error(error)
-            } else {
-                console.log("Send was successful.")
-                ws.close();
-                whisk.done({
-                    'payload': payload
-                });
+    var promise = new Promise(function(resolve, reject) {
+        setTimeout(function () {
+            if (!connectionEstablished) {
+                reject('Did not establish websocket connection to ' + uri + ' in a timely manner.');
             }
+        }, connectionTimeout);
+
+        ws.on('open', function () {
+            connectionEstablished = true;
+
+            console.log("Sending payload: " + payload);
+            ws.send(payload, function (error) {
+                if (error) {
+                    console.log("Error received communicating with websocket: " + error);
+                    ws.close();
+                    reject(error);
+                } else {
+                    console.log("Send was successful.");
+                    ws.close();
+                    resolve({
+                        'payload': payload
+                    });
+                }
+            });
+        });
+
+        ws.on('error', function (error) {
+            console.log("Error communicating with websocket: " + error);
+            ws.close();
+            reject(error);
         });
     });
 
-    ws.on('error', function(error) {
-        console.log("Error communicating with websocket: " + error);
-        ws.close();
-        whisk.error(error);
-    });
-
-    return whisk.async();
+    return promise;
 }

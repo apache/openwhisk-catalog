@@ -5,25 +5,26 @@
 function main(params) {
     var str = params.payload;
     console.log("The payload is '" + str + "'");
-    whisk.invoke({
-        name : 'wc',
-        parameters : {
-            payload : str
-        },
-        blocking : true,
-        next : function(error, activation) {
+
+    var promise = new Promise(function(resolve, reject) {
+        whisk.invoke({
+            name: '/whisk.system/samples/wordCount',
+            parameters: {
+                payload: str
+            },
+            blocking: true
+        }).then(function (activation) {
             console.log('activation:', activation);
-            if (!error) {
-                var wordsInDecimal = activation.result.count;
-                var wordsInBinary = wordsInDecimal.toString(2) + ' (base 2)';
-                whisk.done({
-                    binaryCount : wordsInBinary
-                });
-            } else {
-                console.log('error:', error);
-                whisk.error(error);
-            }
-        }
+            var wordsInDecimal = activation.result.count;
+            var wordsInBinary = wordsInDecimal.toString(2) + ' (base 2)';
+            resolve({
+                binaryCount: wordsInBinary
+            });
+        }).catch(function (error) {
+            console.log('error:', error);
+            reject(error);
+        });
     });
-    return whisk.async();
+
+    return promise;
 }

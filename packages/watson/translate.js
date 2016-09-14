@@ -21,17 +21,20 @@ function main(params) {
     input[translateParam] = params[translateParam];
 
     var texts = getTextsToTranslate(input);
-    doTranslateTexts(texts, from, to, params.username, params.password, function(error, translatedTexts) {
+    var promise = new Promise(function(resolve, reject) {
+        doTranslateTexts(texts, from, to, params.username, params.password, function (error, translatedTexts) {
 
-        if (error) {
-            whisk.error(error)
-        } else {
-            var output = setTranslatedTexts(input, {translatedTexts: translatedTexts});
-            console.log('output:', JSON.stringify(output));
-            whisk.done(output);
-        }
+            if (error) {
+                reject(error);
+            } else {
+                var output = setTranslatedTexts(input, {translatedTexts: translatedTexts});
+                console.log('output:', JSON.stringify(output));
+                resolve(output);
+            }
+        });
     });
-    return whisk.async()
+
+    return promise;
 }
 
 /**

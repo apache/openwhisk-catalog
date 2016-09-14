@@ -42,22 +42,30 @@ function main(params) {
     }
 
     console.log('url:', url);
-    request({url:url, qs: qs, auth: {username: username, password: password}, timeout: 30000}, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            var j = JSON.parse(body);
-            whisk.done(j);
-        } else {
-            console.log('error getting forecast');
-            console.log('http status code:', (response||{}).statusCode);
-            console.log('error:', error);
-            console.log('body:', body);
-            whisk.error({
-               error: error,
-               response: response,
-               body: body
-            });
-        }
+
+    var promise = new Promise(function(resolve, reject) {
+        request({
+            url: url,
+            qs: qs,
+            auth: {username: username, password: password},
+            timeout: 30000
+        }, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var j = JSON.parse(body);
+                resolve(j);
+            } else {
+                console.log('error getting forecast');
+                console.log('http status code:', (response || {}).statusCode);
+                console.log('error:', error);
+                console.log('body:', body);
+                reject({
+                    error: error,
+                    response: response,
+                    body: body
+                });
+            }
+        });
     });
 
-    return whisk.async();
+    return promise;
 }

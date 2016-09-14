@@ -20,19 +20,20 @@ function main(params) {
         password: params.password,
         version: 'v2'
     });
-
-    language_translation.identify({text: payload}, function (err, response) {
-        if (err) {
-            console.log('error:', err);
-            whisk.error(err);
-        } else {
-            var language = response.languages[0].language;
-            var confidence = response.languages[0].confidence;
-            console.log('language:', language, ', payload:', payload);
-            whisk.done({language: language, payload: payload, confidence: confidence});
-        }
+    var promise = new Promise(function(resolve, reject) {
+        language_translation.identify({text: payload}, function (err, response) {
+            if (err) {
+                console.log('error:', err);
+                reject(err);
+            } else {
+                var language = response.languages[0].language;
+                var confidence = response.languages[0].confidence;
+                console.log('language:', language, ', payload:', payload);
+                resolve({language: language, payload: payload, confidence: confidence});
+            }
+        });
     });
 
-    return whisk.async()
+    return promise;
 }
 

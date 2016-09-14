@@ -19,7 +19,7 @@ function main(params) {
 
   if(params.repository) {
     var repoSegments = params.repository.split('/');
-    if(repoSegments.length == 2) {
+    if(repoSegments.length === 2) {
       organization = repoSegments[0];
       repository = repoSegments[1];
     } else {
@@ -64,32 +64,30 @@ function main(params) {
         'User-Agent': 'whisk'
       }
     };
-
-    request(options, function(error, response, body) {
-      if (error) {
-        whisk.error({
-          response: response,
-          error: error,
-          body: body
-        });
-      } else {
-        console.log("Status code: " + response.statusCode);
-
-        if(response.statusCode >= 400) {
-          console.log("Response from Github: " + body);
-          whisk.error({
-            statusCode: response.statusCode,
-            response: body
+    var promise = new Promise(function(resolve, reject) {
+      request(options, function (error, response, body) {
+        if (error) {
+          reject({
+            response: response,
+            error: error,
+            body: body
           });
         } else {
-          whisk.done({response: body});
+          console.log("Status code: " + response.statusCode);
+
+          if (response.statusCode >= 400) {
+            console.log("Response from Github: " + body);
+            reject({
+              statusCode: response.statusCode,
+              response: body
+            });
+          } else {
+            resolve({response: body});
+          }
         }
-      }
+      });
     });
 
-    return whisk.async();
+    return promise;
   }
-
-  // some lifecycleEvent for which there is nothing to do here
-  return whisk.done();
 }

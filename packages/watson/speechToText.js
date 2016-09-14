@@ -49,13 +49,13 @@ function main(params) {
   console.log('params:', params);
 
   if (!payload) {
-    return whisk.done({
+    return {
       'error': 'No payload specified.'
-    });
+    };
   } else if (!isValidEncoding(encoding)) {
-    return whisk.done({
+    return {
       'error': 'Not a valid encoding.'
-    });
+    };
   }
 
   var response = {};
@@ -97,23 +97,25 @@ function main(params) {
 
   // Listen for 'data' events for only the final results.
   // Listen for 'results' events to get interim results.
-  ['data', 'results', 'error', 'connection-close'].forEach(function (name) {
-    recognizeStream.on(name, function (event_) {
-      if (name === 'data') {
-        response.data = event_;
-        whisk.done(response);
-      } else if (name === 'results' && params.interim_results) {
-        if (!response.results)
-          response.results = [];
-        response.results.push(event_);
-      } else if (name === 'error' || name === 'connection-close') {
-        response.error = event_ && typeof(event_.toString) === 'function' ?
-          event_.toString() : 'Watson API failed';
-        whisk.done(response);
-      }
+  var promise = new Promise(function(resolve, reject) {
+    ['data', 'results', 'error', 'connection-close'].forEach(function (name) {
+      recognizeStream.on(name, function (event_) {
+        if (name === 'data') {
+          response.data = event_;
+          resolve(response);
+        } else if (name === 'results' && params.interim_results) {
+          if (!response.results)
+            response.results = [];
+          response.results.push(event_);
+        } else if (name === 'error' || name === 'connection-close') {
+          response.error = event_ && typeof(event_.toString) === 'function' ?
+              event_.toString() : 'Watson API failed';
+          resolve(response);
+        }
+      });
     });
   });
 
-  return whisk.async();
+  return promise;
 }
 
