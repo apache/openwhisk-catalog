@@ -50,8 +50,8 @@ SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
 
 # The CLI path is passed as the fourth argument. If it is not provided, use
-# "$OPENWHISK_HOME/bin/go-cli/wsk" as the default value.
-cli_path=${4:-"$OPENWHISK_HOME/bin/go-cli/wsk"}
+# "$OPENWHISK_HOME/bin/wsk" as the default value.
+cli_path=${4:-"$OPENWHISK_HOME/bin/wsk"}
 export WHISK_CLI_PATH=$cli_path
 
 source "$SCRIPTDIR/util.sh"
