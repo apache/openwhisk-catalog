@@ -6,25 +6,16 @@ function main(params) {
     var str = params.payload;
     console.log("The payload is '" + str + "'");
 
-    var promise = new Promise(function(resolve, reject) {
-        whisk.invoke({
-            name: '/whisk.system/samples/wordCount',
-            parameters: {
-                payload: str
-            },
-            blocking: true
-        }).then(function (activation) {
-            console.log('activation:', activation);
-            var wordsInDecimal = activation.result.count;
-            var wordsInBinary = wordsInDecimal.toString(2) + ' (base 2)';
-            resolve({
-                binaryCount: wordsInBinary
-            });
-        }).catch(function (error) {
-            console.log('error:', error);
-            reject(error);
-        });
+    return whisk.invoke({
+        name: '/whisk.system/samples/wordCount',
+        parameters: {
+            payload: str
+        },
+        blocking: true
+    }).then(function (activation) {
+        console.log('activation:', activation);
+        var wordsInDecimal = activation.result.count;
+        var wordsInBinary = wordsInDecimal.toString(2) + ' (base 2)';
+        return { binaryCount: wordsInBinary };
     });
-
-    return promise;
 }
