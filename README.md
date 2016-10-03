@@ -47,3 +47,352 @@ If you want to create your own packages,  [openwhisk-package-template](https://g
 is a good package creation template to help you build, test and integrate new packages.
 
 For more details about how to use these packages, you can go to the README.md under each package folder.
+
+## Using the Weather package
+
+The `/whisk.system/weather` package offers a convenient way to call the Weather Company Data for IBM Bluemix API.
+
+The package includes the following action.
+
+| Entity | Type | Parameters | Description |
+| --- | --- | --- | --- |
+| `/whisk.system/weather` | package | username, password | Services from the Weather Company Data for IBM Bluemix API  |
+| `/whisk.system/weather/forecast` | action | latitude, longitude, timePeriod | forecast for specified time period|
+
+Creating a package binding with the `username` and `password` values is suggested. This way, you don't need to specify the credentials every time you invoke the actions in the package.
+
+### Getting a weather forecast for a location
+
+The `/whisk.system/weather/forecast` action returns a weather forecast for a location by calling an API from The Weather Company. The parameters are as follows:
+
+- `username`: Username for The Weather Company Data for IBM Bluemix that is entitled to invoke the forecast API.
+- `password`: Password for The Weather Company Data for IBM Bluemix that is entitled to invoke the forecast API.
+- `latitude`: The latitude coordinate of the location.
+- `longitude`: The longitude coordinate of the location.
+- `timeperiod`: Time period for the forecast. Valid options are '10day' - (default) Returns a daily 10-day forecast , '48hour' - Returns an hourly 2-day forecast, , 'current' - Returns the current weather conditions, 'timeseries' - Returns both the current observations and up to 24 hours of past observations, from the current date and time.
+
+
+The following is an example of creating a package binding and then getting a 10-day forecast.
+
+1. Create a package binding with your API key.
+
+  ```
+  $ wsk package bind /whisk.system/weather myWeather --param username 'MY_USERNAME' --param password 'MY_PASSWORD'
+  ```
+
+2. Invoke the `forecast` action in your package binding to get the weather forecast.
+
+  ```
+  $ wsk action invoke myWeather/forecast --blocking --result --param latitude '43.7' --param longitude '-79.4'
+  ```
+
+  ```
+  {
+      "forecasts": [
+          {
+              "dow": "Wednesday",
+              "max_temp": -1,
+              "min_temp": -16,
+              "narrative": "Chance of a few snow showers. Highs -2 to 0C and lows -17 to -15C.",
+              ...
+          },
+          {
+              "class": "fod_long_range_daily",
+              "dow": "Thursday",
+              "max_temp": -4,
+              "min_temp": -8,
+              "narrative": "Mostly sunny. Highs -5 to -3C and lows -9 to -7C.",
+              ...
+          },
+          ...
+      ],
+  }
+  ```
+
+
+## Using the Watson package
+
+The `/whisk.system/watson` package offers a convenient way to call various Watson APIs.
+
+The package includes the following actions.
+
+| Entity | Type | Parameters | Description |
+| --- | --- | --- | --- |
+| `/whisk.system/watson` | package | username, password | Actions for the Watson analytics APIs |
+| `/whisk.system/watson/translate` | action | translateFrom, translateTo, translateParam, username, password | Translate text |
+| `/whisk.system/watson/languageId` | action | payload, username, password | Identify language |
+| `/whisk.system/watson/speechToText` | action | payload, content_type, encoding, username, password, continuous, inactivity_timeout, interim_results, keywords, keywords_threshold, max_alternatives, model, timestamps, watson-token, word_alternatives_threshold, word_confidence, X-Watson-Learning-Opt-Out | Convert audio into text |
+| `/whisk.system/watson/textToSpeech` | action | payload, voice, accept, encoding, username, password | Convert text into audio |
+
+Creating a package binding with the `username` and `password` values is suggested. This way, you don't need to specify these credentials every time you invoke the actions in the package.
+
+### Translating text
+
+The `/whisk.system/watson/translate` action translates text from one language to another. The parameters are as follows:
+
+- `username`: The Watson API user name.
+- `password`: The Watson API password.
+- `translateParam`: The input parameter indicating the text to translate. For example, if `translateParam=payload`, then the value of the `payload` parameter that is passed to the action is translated.
+- `translateFrom`: A two-digit code of the source language.
+- `translateTo`: A two-digit code of the target language.
+
+The following is an example of creating a package binding and translating some text.
+
+1. Create a package binding with your Watson credentials.
+
+  ```
+  $ wsk package bind /whisk.system/watson myWatson --param username 'MY_WATSON_USERNAME' --param password 'MY_WATSON_PASSWORD'
+  ```
+
+2. Invoke the `translate` action in your package binding to translate some text from English to French.
+
+  ```
+  $ wsk action invoke myWatson/translate --blocking --result --param payload 'Blue skies ahead' --param translateParam 'payload' --param translateFrom 'en' --param translateTo 'fr'
+  ```
+
+  ```
+  {
+      "payload": "Ciel bleu a venir"
+  }
+  ```
+
+
+### Identifying the language of some text
+
+The `/whisk.system/watson/languageId` action identifies the language of some text. The parameters are as follows:
+
+- `username`: The Watson API user name.
+- `password`: The Watson API password.
+- `payload`: The text to identify.
+
+The following is an example of creating a package binding and identifying the language of some text.
+
+1. Create a package binding with your Watson credentials.
+
+  ```
+  $ wsk package bind /whisk.system/watson myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
+  ```
+
+2. Invoke the `languageId` action in your package binding to identify the language.
+
+  ```
+  $ wsk action invoke myWatson/languageId --blocking --result --param payload 'Ciel bleu a venir'
+  ```
+  ```
+  {
+    "payload": "Ciel bleu a venir",
+    "language": "fr",
+    "confidence": 0.710906
+  }
+  ```
+
+
+### Converting some text to speech
+
+The `/whisk.system/watson/textToSpeech` action converts some text into an audio speech. The parameters are as follows:
+
+- `username`: The Watson API user name.
+- `password`: The Watson API password.
+- `payload`: The text to convert into speech.
+- `voice`: The voice of the speaker.
+- `accept`: The format of the speech file.
+- `encoding`: The encoding of the speech binary data.
+
+The following is an example of creating a package binding and converting some text to speech.
+
+1. Create a package binding with your Watson credentials.
+
+  ```
+  $ wsk package bind /whisk.system/watson myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
+  ```
+
+2. Invoke the `textToSpeech` action in your package binding to convert the text.
+
+  ```
+  $ wsk action invoke myWatson/textToSpeech --blocking --result --param payload 'Hey.' --param voice 'en-US_MichaelVoice' --param accept 'audio/wav' --param encoding 'base64'
+  ```
+  ```
+  {
+    "payload": "<base64 encoding of a .wav file>"
+  }
+  ```
+
+
+### Converting speech to text
+
+The `/whisk.system/watson/speechToText` action converts audio speech into text. The parameters are as follows:
+
+- `username`: The Watson API user name.
+- `password`: The Watson API password.
+- `payload`: The encoded speech binary data to turn into text.
+- `content_type`: The MIME type of the audio.
+- `encoding`: The encoding of the speech binary data.
+- `continuous`: Indicates whether multiple final results that represent consecutive phrases that are separated by long pauses are returned.
+- `inactivity_timeout`: The time in seconds after which, if only silence is detected in submitted audio, the connection is closed.
+- `interim_results`: Indicates whether the service is to return interim results.
+- `keywords`: A list of keywords to spot in the audio.
+- `keywords_threshold`: A confidence value that is the lower bound for spotting a keyword.
+- `max_alternatives`: The maximum number of alternative transcripts to be returned.
+- `model`: The identifier of the model to be used for the recognition request.
+- `timestamps`: Indicates whether time alignment is returned for each word.
+- `watson-token`: Provides an authentication token for the service as an alternative to providing service credentials.
+- `word_alternatives_threshold`: A confidence value that is the lower bound for identifying a hypothesis as a possible word alternative.
+- `word_confidence`: Indicates whether a confidence measure in the range of 0 to 1 is to be returned for each word.
+- `X-Watson-Learning-Opt-Out`: Indicates whether to opt out of data collection for the call.
+ 
+The following is an example of creating a package binding and converting speech to text.
+
+1. Create a package binding with your Watson credentials.
+
+  ```
+  $ wsk package bind /whisk.system/watson myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
+  ```
+
+2. Invoke the `speechToText` action in your package binding to convert the encoded audio.
+
+  ```
+  $ wsk action invoke myWatson/speechToText --blocking --result --param payload <base64 encoding of a .wav file> --param content_type 'audio/wav' --param encoding 'base64'
+  ```
+  ```
+  {
+    "data": "Hello Watson"
+  }
+  ```
+  
+ 
+## Using the Slack package
+
+The `/whisk.system/slack` package offers a convenient way to use the [Slack APIs](https://api.slack.com/).
+
+The package includes the following actions:
+
+| Entity | Type | Parameters | Description |
+| --- | --- | --- | --- |
+| `/whisk.system/slack` | package | url, channel, username | Interact with the Slack API |
+| `/whisk.system/slack/post` | action | text, url, channel, username | Posts a message to a Slack channel |
+
+Creating a package binding with the `username`, `url`, and `channel` values is suggested. With binding, you don't need to specify the values each time that you invoke the action in the package.
+
+### Posting a message to a Slack channel
+
+The `/whisk.system/slack/post` action posts a message to a specified Slack channel. The parameters are as follows:
+
+- `url`: The Slack webhook URL.
+- `channel`: The Slack channel to post the message to.
+- `username`: The name to post the message as.
+- `text`: A message to post.
+- `token`: (optional) A Slack [access token](https://api.slack.com/tokens). See [below](./catalog.md#using-the-slack-token-based-api) for more detail on the use of the Slack access tokens.
+
+The following is an example of configuring Slack, creating a package binding, and posting a message to a channel.
+
+1. Configure a Slack [incoming webhook](https://api.slack.com/incoming-webhooks) for your team.
+
+  After Slack is configured, you get a webhook URL that looks like `https://hooks.slack.com/services/aaaaaaaaa/bbbbbbbbb/cccccccccccccccccccccccc`. You'll need this in the next step.
+
+2. Create a package binding with your Slack credentials, the channel that you want to post to, and the user name to post as.
+
+  ```
+  $ wsk package bind /whisk.system/slack mySlack --param url 'https://hooks.slack.com/services/...' --param username 'Bob' --param channel '#MySlackChannel'
+  ```
+
+3. Invoke the `post` action in your package binding to post a message to your Slack channel.
+
+  ```
+  $ wsk action invoke mySlack/post --blocking --result --param text 'Hello from OpenWhisk!'
+  ```
+
+### Using the Slack token-based API
+
+If you prefer, you may optionally choose to use Slack's token-based API, rather than the webhook API. If you so choose, then pass in a `token` parameter that contains your Slack [access token](https://api.slack.com/tokens). You may then use any of the [Slack API methods](https://api.slack.com/methods) as your `url` parameter. For example, to post a message, you would use a `url` parameter value of [slack.postMessage](https://api.slack.com/methods/chat.postMessage).
+
+## Using the GitHub package
+
+The `/whisk.system/github` package offers a convenient way to use the [GitHub APIs](https://developer.github.com/).
+
+The package includes the following feed:
+
+| Entity | Type | Parameters | Description |
+| --- | --- | --- | --- |
+| `/whisk.system/github` | package | username, repository, accessToken | Interact with the GitHub API |
+| `/whisk.system/github/webhook` | feed | events, username, repository, accessToken | Fire trigger events on GitHub activity |
+
+Creating a package binding with the `username`, `repository`, and `accessToken` values is suggested.  With binding, you don't need to specify the values each time that you use the feed in the package.
+
+### Firing a trigger event with GitHub activity
+
+The `/whisk.system/github/webhook` feed configures a service to fire a trigger when there is activity in a specified GitHub repository. The parameters are as follows:
+
+- `username`: The user name of the GitHub repository.
+- `repository`: The GitHub repository.
+- `accessToken`: Your GitHub personal access token. When you [create your token](https://github.com/settings/tokens), be sure to select the repo:status and public_repo scopes. Also, make sure that you don't have any webhooks already defined for your repository.
+- `events`: The [GitHub event type](https://developer.github.com/v3/activity/events/types/) of interest.
+
+The following is an example of creating a trigger that will be fired each time that there is a new commit to a GitHub repository.
+
+1. Generate a GitHub [personal access token](https://github.com/settings/tokens).
+
+  The access token will be used in the next step.
+
+2. Create a package binding that is configured for your GitHub repository and with your access token.
+
+  ```
+  $ wsk package bind /whisk.system/github myGit --param username myGitUser --param repository myGitRepo --param accessToken aaaaa1111a1a1a1a1a111111aaaaaa1111aa1a1a
+  ```
+
+3. Create a trigger for the GitHub `push` event type by using your `myGit/webhook` feed.
+
+  ```
+  $ wsk trigger create myGitTrigger --feed myGit/webhook --param events push
+  ```
+
+A commit to the GitHub repository by using a `git push` causes the trigger to be fired by the webhook. If there is a rule that matches the trigger, then the associated action will be invoked.
+The action receives the GitHub webhook payload as an input parameter. Each GitHub webhook event has a similar JSON schema, but is a unique payload object that is determined by its event type.
+For more information about the payload content, see the [GitHub events and payload](https://developer.github.com/v3/activity/events/types/) API documentation.
+
+
+## Using the Push package
+
+The `/whisk.system/pushnotifications` package enables you to work with a push service. 
+
+### Install the IBM Push Notification OpenWhisk package 
+
+Download the Push package form the  [wsk-pkg-pushnotification](https://github.com/openwhisk/wsk-pkg-pushnotifications) repository.
+
+Run the install script provided inside the package download
+
+  ```
+  $ git clone --depth=1 https://github.com/openwhisk/wsk-pkg-pushnotifications
+  $ cd wsk-pkg-pushnotifications
+  $ ./install.sh APIHOST AUTH WSK_CLI
+  ```
+
+  The `APIHOST` is the OpenWhisk API hostname, `AUTH` is your auth key, and `WSK_CLI` is location of the Openwhisk CLI binary.		     
+
+The package includes the following action and feed:
+
+| Entity | Type | Parameters | Description |
+| --- | --- | --- | --- |
+| `/whisk.system/pushnotifications` | package | appId, appSecret  | Work with the Push Service |
+| `/whisk.system/pushnotifications/sendMessage` | action | text, url, deviceIds, platforms, tagNames, apnsBadge, apnsCategory, apnsActionKeyTitle, apnsSound, apnsPayload, apnsType, gcmCollapseKey, gcmDelayWhileIdle, gcmPayload, gcmPriority, gcmSound, gcmTimeToLive | Send push notification to one or more specified devices |
+| `/whisk.system/pushnotifications/webhook` | feed | events | Fire trigger events on device activities (device registration, unregistration, subscription, or unsubscription) on the Push service |
+Creating a package binding with the `appId` and `appSecret` values is suggested. This way, you don't need to specify these credentials every time you invoke the actions in the package.
+
+## Using the WebSocket package
+
+The `/whisk.system/websocket` package offers a convenient way post messages to a WebSocket.
+
+The package includes the following action:
+
+| Entity | Type | Parameters | Description |
+| --- | --- | --- | --- |
+| `/whisk.system/websocket` | package | uri | Utilities for communicating with WebSockets |
+| `/whisk.system/websocket/send` | action | uri, payload | Send the payload to the WebSocket URI |
+
+If you plan to send many messages to the same WebSocket URI, creating a package binding with the `uri` value is suggested.  With binding, you don't need to specify the value each time that you use the `send` action.
+
+### Sending a message to a WebSocket
+
+The `/whisk.system/websocket/send` action will send a payload to a WebSocket URI. The parameters are as follows:
+
+- `uri`: The URI of the websocket server (e.g. ws://mywebsockethost:80)
+- `payload`: The message you wish to send to the WebSocket
