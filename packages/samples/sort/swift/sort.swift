@@ -6,7 +6,7 @@
 func main(args: [String:Any]) -> [String:Any] {
     if let lines = args["lines"] as? [Any] {
         let sorted = lines.sorted { (arg1, arg2) -> Bool in
-            String(arg1) < String(arg2)
+            String(describing: arg1) < String(describing: arg2)
         }
         return ["lines": sorted, "length": lines.count]
     } else {
