@@ -2,10 +2,13 @@ var request = require('request');
 
 /**
  *   Action to post to slack
- *  @param {object} params - information about the trigger
- *  @param {string} channel - repository to create webhook
- *  @param {string} username - github username
- *  @param {string} url - slack webhook url
+ *  @param {string} url - Slack webhook url
+ *  @param {string} channel - Slack channel to post the message to
+ *  @param {string} username - name to post the message as
+ *  @param {string} text - message to post
+ *  @param {string} icon_emoji - (optional) emoji to use as the icon for the message
+ *  @param {boolean} as_user - (optional) when the token belongs to a bot, whether to post as the bot itself
+ *  @param {object} attachments - (optional) message attachments (see Slack documentation for format)
  *  @return {object} whisk async
  */
 function main(params) {
@@ -43,6 +46,10 @@ function main(params) {
       body = {
         payload: JSON.stringify(body)
       };
+    }
+
+    if (params.as_user === true) {
+        body.as_user = true;
     }
 
     if (params.attachments) {
