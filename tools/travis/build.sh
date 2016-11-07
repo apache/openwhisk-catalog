@@ -47,4 +47,4 @@ sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCA
 # Test
 
 cd $ROOTDIR
-./gradlew :tests:test
+./gradlew :tests:testWithoutCredentials

@@ -19,7 +19,7 @@ sourceSets {
     }
 }
 
-test {
+def commonConfiguration = {
     systemProperty 'testthreads', System.getProperty('testthreads', '1')
     testLogging {
         events "passed", "skipped", "failed"
@@ -27,6 +27,15 @@ test {
         exceptionFormat = 'full'
     }
     outputs.upToDateWhen { false } // force tests to run everytime
+}
+
+test {
+    configure commonConfiguration
+}
+
+task testWithoutCredentials(type: Test) {
+	exclude 'packages/watson/**'
+	configure commonConfiguration
 }
 
 dependencies {

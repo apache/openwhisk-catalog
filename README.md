@@ -38,7 +38,9 @@ actions and packages.
 | `/whisk.system/samples` | offers sample actions in different languages |
 | `/whisk.system/slack` | offers a convenient way to use the [Slack APIs](https://api.slack.com/). |
 | `/whisk.system/utils` | offers utilities actions such as cat, echo, and etc. |
-| `/whisk.system/watson` | offers a convenient way to call various Watson APIs.|
+| `/whisk.system/watson-translator` | offers a convenient way to call Watson APIs to translate.|
+| `/whisk.system/watson-speechToText` | offers a convenient way to call Watson APIs to convert the speech into text.|
+| `/whisk.system/watson-textToSpeech` | offers a convenient way to call Watson APIs to convert the text into speech.|
 | `/whisk.system/weather` | offers a convenient way to call the IBM Weather Insights API.|
 
 ## How to create packages
@@ -110,25 +112,38 @@ The following is an example of creating a package binding and then getting a 10-
   ```
 
 
-## Using the Watson package
+## Using the Watson-translator package
 
-The `/whisk.system/watson` package offers a convenient way to call various Watson APIs.
+The `/whisk.system/watson-translator` package offers a convenient way to call Watson APIs to translate.
+
+
+## Using the Watson-speechToText package
+
+The `/whisk.system/watson-speechToText` package offers a convenient way to call Watson APIs to convert the speech into text.
+
+
+## Using the Watson-textToSpeech package
+
+The `/whisk.system/watson-textToSpeech` package offers a convenient way to call Watson APIs to convert the text into speech.
+
 
 The package includes the following actions.
 
 | Entity | Type | Parameters | Description |
 | --- | --- | --- | --- |
-| `/whisk.system/watson` | package | username, password | Actions for the Watson analytics APIs |
-| `/whisk.system/watson/translate` | action | translateFrom, translateTo, translateParam, username, password | Translate text |
-| `/whisk.system/watson/languageId` | action | payload, username, password | Identify language |
-| `/whisk.system/watson/speechToText` | action | payload, content_type, encoding, username, password, continuous, inactivity_timeout, interim_results, keywords, keywords_threshold, max_alternatives, model, timestamps, watson-token, word_alternatives_threshold, word_confidence, X-Watson-Learning-Opt-Out | Convert audio into text |
-| `/whisk.system/watson/textToSpeech` | action | payload, voice, accept, encoding, username, password | Convert text into audio |
+| `/whisk.system/watson-translator` | package | username, password | Actions for the Watson analytics APIs to translate |
+| `/whisk.system/watson-speechToText` | package | username, password | Actions for the Watson analytics APIs to convert the speech into text |
+| `/whisk.system/watson-textToSpeech` | package | username, password | Actions for the Watson analytics APIs to convert the text into speech |
+| `/whisk.system/watson-translator/translator` | action | translateFrom, translateTo, translateParam, username, password | Translate text |
+| `/whisk.system/watson-translator/languageId` | action | payload, username, password | Identify language |
+| `/whisk.system/watson-speechToText/speechToText` | action | payload, content_type, encoding, username, password, continuous, inactivity_timeout, interim_results, keywords, keywords_threshold, max_alternatives, model, timestamps, watson-token, word_alternatives_threshold, word_confidence, X-Watson-Learning-Opt-Out | Convert audio into text |
+| `/whisk.system/watson-textToSpeech/textToSpeech` | action | payload, voice, accept, encoding, username, password | Convert text into audio |
 
 Creating a package binding with the `username` and `password` values is suggested. This way, you don't need to specify these credentials every time you invoke the actions in the package.
 
 ### Translating text
 
-The `/whisk.system/watson/translate` action translates text from one language to another. The parameters are as follows:
+The `/whisk.system/watson-translator/translator` action translates text from one language to another. The parameters are as follows:
 
 - `username`: The Watson API user name.
 - `password`: The Watson API password.
@@ -141,13 +156,13 @@ The following is an example of creating a package binding and translating some t
 1. Create a package binding with your Watson credentials.
 
   ```
-  $ wsk package bind /whisk.system/watson myWatson --param username 'MY_WATSON_USERNAME' --param password 'MY_WATSON_PASSWORD'
+  $ wsk package bind /whisk.system/watson-translator myWatson --param username 'MY_WATSON_USERNAME' --param password 'MY_WATSON_PASSWORD'
   ```
 
-2. Invoke the `translate` action in your package binding to translate some text from English to French.
+2. Invoke the `translator` action in your package binding to translate some text from English to French.
 
   ```
-  $ wsk action invoke myWatson/translate --blocking --result --param payload 'Blue skies ahead' --param translateParam 'payload' --param translateFrom 'en' --param translateTo 'fr'
+  $ wsk action invoke myWatson/translator --blocking --result --param payload 'Blue skies ahead' --param translateParam 'payload' --param translateFrom 'en' --param translateTo 'fr'
   ```
 
   ```
@@ -159,7 +174,7 @@ The following is an example of creating a package binding and translating some t
 
 ### Identifying the language of some text
 
-The `/whisk.system/watson/languageId` action identifies the language of some text. The parameters are as follows:
+The `/whisk.system/watson-translator/languageId` action identifies the language of some text. The parameters are as follows:
 
 - `username`: The Watson API user name.
 - `password`: The Watson API password.
@@ -170,7 +185,7 @@ The following is an example of creating a package binding and identifying the la
 1. Create a package binding with your Watson credentials.
 
   ```
-  $ wsk package bind /whisk.system/watson myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
+  $ wsk package bind /whisk.system/watson-translator myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
   ```
 
 2. Invoke the `languageId` action in your package binding to identify the language.
@@ -189,7 +204,7 @@ The following is an example of creating a package binding and identifying the la
 
 ### Converting some text to speech
 
-The `/whisk.system/watson/textToSpeech` action converts some text into an audio speech. The parameters are as follows:
+The `/whisk.system/watson-speechToText/textToSpeech` action converts some text into an audio speech. The parameters are as follows:
 
 - `username`: The Watson API user name.
 - `password`: The Watson API password.
@@ -203,7 +218,7 @@ The following is an example of creating a package binding and converting some te
 1. Create a package binding with your Watson credentials.
 
   ```
-  $ wsk package bind /whisk.system/watson myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
+  $ wsk package bind /whisk.system/watson-speechToText myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
   ```
 
 2. Invoke the `textToSpeech` action in your package binding to convert the text.
@@ -220,7 +235,7 @@ The following is an example of creating a package binding and converting some te
 
 ### Converting speech to text
 
-The `/whisk.system/watson/speechToText` action converts audio speech into text. The parameters are as follows:
+The `/whisk.system/watson-speechToText/speechToText` action converts audio speech into text. The parameters are as follows:
 
 - `username`: The Watson API user name.
 - `password`: The Watson API password.
@@ -245,7 +260,7 @@ The following is an example of creating a package binding and converting speech 
 1. Create a package binding with your Watson credentials.
 
   ```
-  $ wsk package bind /whisk.system/watson myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
+  $ wsk package bind /whisk.system/watson-speechToText myWatson -p username 'MY_WATSON_USERNAME' -p password 'MY_WATSON_PASSWORD'
   ```
 
 2. Invoke the `speechToText` action in your package binding to convert the encoded audio.
