@@ -28,7 +28,7 @@ function install() {
     RELATIVE_PATH=$1
     ACTION_NAME=$2
     REST=("${@:3}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" action update --auth "$AUTH_KEY" --shared yes "$WHISK_NAMESPACE/$ACTION_NAME" "$RELATIVE_PATH" "${REST[@]}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" action update --auth "$AUTH_KEY" "$WHISK_NAMESPACE/$ACTION_NAME" "$RELATIVE_PATH" "${REST[@]}")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!
