@@ -13,31 +13,33 @@ echo Installing Watson package.
 
 createPackage watson \
     -a description "Actions for the Watson analytics APIs" \
-    -a parameters '[ {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]'
+    -a parameters '[ {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
+    -a deprecated true
 
 createPackage watson-translator \
     -a description "Actions for the Watson analytics APIs to translate" \
     -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
-	-a tags '["watson"]' \
-	-p bluemixServiceName 'language_translator'
+	  -a tags '["watson"]' \
+	  -p bluemixServiceName 'language_translator'
 
 createPackage watson-speechToText \
     -a description "Actions for the Watson analytics APIs to convert speech into text" \
     -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
-	-a tags '["watson"]' \
-	-p bluemixServiceName 'speech_to_text'
+	  -a tags '["watson"]' \
+	  -p bluemixServiceName 'speech_to_text'
 
 createPackage watson-textToSpeech \
     -a description "Actions for the Watson analytics APIs to convert text into speech" \
     -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
-	-a tags '["watson"]' \
-	-p bluemixServiceName 'text_to_speech'
+	  -a tags '["watson"]' \
+	  -p bluemixServiceName 'text_to_speech'
 
 waitForAll
 
 install "$PACKAGE_HOME/watson/speechToText.js" \
     watson/speechToText \
     -a description 'Convert speech to text' \
+    -a deprecated true \
     -a parameters '[
   {
     "name": "content_type",
@@ -134,6 +136,7 @@ install "$PACKAGE_HOME/watson/speechToText.js" \
 install "$PACKAGE_HOME/watson/translate.js" \
     watson/translate \
     -a description 'Translate text' \
+    -a deprecated true \
     -a parameters '[ {"name":"translateFrom", "required":false}, {"name":"translateTo", "required":false}, {"name":"payload", "required":false}, {"name":"username", "required":true, "bindTime":true}, {"name":"password", "required":true, "type":"password", "bindTime":true} ]' \
     -a sampleInput '{"translateFrom":"en", "translateTo":"fr", "payload":"Hello", "username":"XXX", "password":"XXX"}' \
     -a sampleOutput '{"payload":"Bonjour"}'
@@ -141,6 +144,7 @@ install "$PACKAGE_HOME/watson/translate.js" \
 install "$PACKAGE_HOME/watson/languageId.js" \
     watson/languageId \
     -a description 'Identify language' \
+    -a deprecated true \
     -a parameters '[ {"name":"username", "required":true, "bindTime":true}, {"name":"password", "required":true, "type":"password", "bindTime":true}, {"name":"payload", "required":true} ]' \
     -a sampleInput '{"payload": "Bonjour", "username":"XXX", "password":"XXX"}' \
     -a sampleOutput '{"language": "French", "confidence": 1}'
@@ -148,6 +152,7 @@ install "$PACKAGE_HOME/watson/languageId.js" \
 install "$PACKAGE_HOME/watson/textToSpeech.js" \
     watson/textToSpeech \
     -a description 'Synthesize text to spoken audio' \
+    -a deprecated true \
     -a parameters '[
         {"name":"username", "required":true, "bindTime":true, "description":"The Watson service username"},
         {"name":"password", "required":true, "type":"password", "bindTime":true, "description":"The Watson service password"},
