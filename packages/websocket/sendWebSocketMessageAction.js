@@ -6,28 +6,28 @@
  * @return  Standard OpenWhisk success/error response
  */
 function main(params) {
-    if (!params.uri) {
-        return whisk.error('You must specify a uri parameter.');
-    }
-    var uri = params.uri;
-
-    console.log("URI param is " + params.uri);
-
-    if (!params.payload) {
-        return whisk.error('You must specify a payload parameter.');
-    }
-    var payload = params.payload;
-
-    console.log("Payload param is " + params.payload);
-
-    var WebSocket = require('ws');
-
-    var connectionEstablished = false;
-    var ws = new WebSocket(uri);
-
-    var connectionTimeout = 30 * 1000; // 30 seconds
-
     var promise = new Promise(function(resolve, reject) {
+    	if (!params.uri) {
+            reject('You must specify a uri parameter.');
+        }
+        var uri = params.uri;
+
+        console.log("URI param is " + params.uri);
+
+        if (!params.payload) {
+            reject('You must specify a payload parameter.');
+        }
+        var payload = params.payload;
+
+        console.log("Payload param is " + params.payload);
+
+        var WebSocket = require('ws');
+
+        var connectionEstablished = false;
+        var ws = new WebSocket(uri);
+
+        var connectionTimeout = 30 * 1000; // 30 seconds
+
         setTimeout(function () {
             if (!connectionEstablished) {
                 reject('Did not establish websocket connection to ' + uri + ' in a timely manner.');
