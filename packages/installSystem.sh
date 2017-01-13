@@ -12,15 +12,10 @@ source "$PACKAGE_HOME/util.sh"
 
 echo Installing whisk.system entities.
 
-createPackage system -a description "Low-level OpenWhisk utilities"
 createPackage utils -a description "Building blocks that format and assemble data"
 createPackage samples -a description "A suite of simple actions to help you get started with OpenWhisk"
 
 waitForAll
-
-install "$PACKAGE_HOME/system/pipe.js" \
-     system/pipe \
-     -a system true
 
 install "$PACKAGE_HOME/utils/echo.js" \
     utils/echo \
