@@ -2,19 +2,22 @@
  * Return word count as a binary number. This demonstrates the use of a blocking
  * invoke.
  */
+var openwhisk = require('openwhisk')
+
 function main(params) {
+    var wsk = openwhisk({ignore_certs: params.ignore_certs || false});
     var str = params.payload;
     console.log("The payload is '" + str + "'");
 
-    return whisk.invoke({
-        name: '/whisk.system/samples/wordCount',
-        parameters: {
+    return wsk.actions.invoke({
+        actionName: '/whisk.system/samples/wordCount',
+        params: {
             payload: str
         },
         blocking: true
-    }).then(function (activation) {
+    }).then(activation => {
         console.log('activation:', activation);
-        var wordsInDecimal = activation.result.count;
+        var wordsInDecimal = activation.response.result.count;
         var wordsInBinary = wordsInDecimal.toString(2) + ' (base 2)';
         return { binaryCount: wordsInBinary };
     });

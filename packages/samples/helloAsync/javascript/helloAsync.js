@@ -2,18 +2,18 @@
  * word count utility, coded as an asynchronous action for pedagogical
  * purposes
  */
-function wc(params) {
+function wc(params, resolve) {
     var str = params.payload;
     var words = str.split(" ");
     var count = words.length;
     console.log("The message '"+str+"' has", count, 'words');
-    whisk.done({count: count});
+    resolve({count: count});
 }
 
 function main(params) {
-    setTimeout(function() {
-        wc(params);
-    }, 100);
-
-    return whisk.async();
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            wc(params, resolve);
+        }, 100);
+    })
 }

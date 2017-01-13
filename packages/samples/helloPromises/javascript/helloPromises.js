@@ -5,17 +5,20 @@
  * @param name A person's name.
  * @param place Where the person is from.
  */
+var openwhisk = require('openwhisk')
+
 function main(params) {
-    return whisk.invoke({
-        name: '/whisk.system/samples/greeting',
-        parameters: {
+    var wsk = openwhisk({ignore_certs: params.ignore_certs || false});
+    return wsk.actions.invoke({
+        actionName: '/whisk.system/samples/greeting',
+        params: {
             name: params.name,
             place: params.place
         },
         blocking: true
-    }).then(function (activation) {
+    }).then(activation => {
         console.log('activation:', activation);
-        var payload = activation.result.payload.toString();
+        var payload = activation.response.result.payload.toString();
         var lines = payload.split(' ');
         return { lines: lines };
     });

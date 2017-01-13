@@ -12,51 +12,50 @@ var request = require('request');
  *  @return {object} whisk async
  */
 function main(params) {
-
-  if (checkParams(params)) {
-
-    var body = {
-      channel: params.channel,
-      username: params.username || 'Simple Message Bot',
-      text: params.text
-    };
-
-    if (params.icon_emoji) {
-      // guard against sending icon_emoji: undefined
-      body.icon_emoji = params.icon_emoji;
-    }
-
-    if (params.token) {
-      //
-      // this allows us to support /api/chat.postMessage
-      // e.g. users can pass params.url = https://slack.com/api/chat.postMessage
-      //                 and params.token = <their auth token>
-      //
-      body.token = params.token;
-    } else {
-      //
-      // the webhook api expects a nested payload
-      //
-      // notice that we need to stringify; this is due to limitations
-      // of the formData npm: it does not handle nested objects
-      //
-      console.log(body);
-      console.log("to: " + params.url);
-
-      body = {
-        payload: JSON.stringify(body)
-      };
-    }
-
-    if (params.as_user === true) {
-        body.as_user = true;
-    }
-
-    if (params.attachments) {
-      body.attachments = params.attachments;
-    }
-
     var promise = new Promise(function (resolve, reject) {
+      checkParams(params, reject);
+
+      var body = {
+        channel: params.channel,
+        username: params.username || 'Simple Message Bot',
+        text: params.text
+      };
+
+      if (params.icon_emoji) {
+        // guard against sending icon_emoji: undefined
+        body.icon_emoji = params.icon_emoji;
+      }
+
+      if (params.token) {
+        //
+        // this allows us to support /api/chat.postMessage
+        // e.g. users can pass params.url = https://slack.com/api/chat.postMessage
+        //                 and params.token = <their auth token>
+        //
+        body.token = params.token;
+      } else {
+        //
+        // the webhook api expects a nested payload
+        //
+        // notice that we need to stringify; this is due to limitations
+        // of the formData npm: it does not handle nested objects
+        //
+        console.log(body);
+        console.log("to: " + params.url);
+
+        body = {
+          payload: JSON.stringify(body)
+        };
+      }
+
+      if (params.as_user === true) {
+          body.as_user = true;
+      }
+
+      if (params.attachments) {
+          body.attachments = params.attachments;
+      }
+
       request.post({
         url: params.url,
         formData: body
@@ -72,24 +71,19 @@ function main(params) {
     });
 
     return promise;
-  }
 }
 
 /**
 Checks if all required params are set
 */
-function checkParams(params) {
+function checkParams(params, reject) {
   if (params.text === undefined) {
-    whisk.error('No text provided');
-    return false;
+    reject('No text provided');
   }
   if (params.url === undefined) {
-    whisk.error('No Webhook URL provided');
-    return false;
+	reject('No Webhook URL provided');
   }
   if (params.channel === undefined) {
-    whisk.error('No channel provided');
-    return false;
+	reject('No channel provided');
   }
-  return true;
 }

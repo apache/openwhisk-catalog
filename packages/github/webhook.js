@@ -31,7 +31,7 @@ function main(params) {
   var triggerName = params.triggerName.split("/");
 
     // URL of the whisk system. The calls of github will go here.
-  var whiskCallbackUrl = 'https://' + whisk.getAuthKey() + "@" + params.endpoint + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
+  var whiskCallbackUrl = 'https://' + process.env['__OW_API_KEY'] + "@" + params.endpoint + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
 
     // The URL to create the webhook on Github
   var registrationEndpoint = 'https://api.github.com/repos/' + (organization ? organization : username) + '/' + repository + '/hooks';
@@ -130,7 +130,7 @@ function main(params) {
 
                   request(options, function(error, response, body) {
                       if (error) {
-                          whisk.error({
+                          reject({
                             response: response,
                             error:error,
                             body:body
