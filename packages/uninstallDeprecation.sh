@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-# use the command line interface to install standard actions deployed
-# automatically
+# use the command line interface to uninstall the deprecated actions and packages
 #
 : ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
 
@@ -16,16 +15,24 @@ source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3 $4
 
 source "$SCRIPTDIR/util.sh"
 
-echo Installing open catalog
+echo Uninstalling open catalog deprecated actions and packages
 
-runPackageInstallScript "$SCRIPTDIR" installSystem.sh
-runPackageInstallScript "$SCRIPTDIR" installGit.sh
-runPackageInstallScript "$SCRIPTDIR" installSlack.sh
-runPackageInstallScript "$SCRIPTDIR" installWatson.sh
-runPackageInstallScript "$SCRIPTDIR" installWeather.sh
-runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
+actionArray=("util/cat" "util/date" "util/head" "util/sort" "util/split" "samples/echo" "watson/speechToText" "watson/textToSpeech" "watson/languageId" "watson/translate" "system/pipe")
+for i in "${actionArray[@]}"
+do
+	echo Deleting the deprecated open catalog action $i
+	removeAction $i
+done
 
 waitForAll
 
-echo open catalog ERRORS = $ERRORS
-exit $ERRORS
+packageArray=("util" "watson" "system")
+for i in "${packageArray[@]}"
+do
+	echo Deleting the deprecated open catalog package $i
+	removePackage $i
+done
+
+waitForAll
+
+exit

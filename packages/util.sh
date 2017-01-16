@@ -45,6 +45,28 @@ function runPackageInstallScript() {
     echo "Installing package $2 with pid $PID"
 }
 
+function removePackage() {
+    PACKAGE_NAME=$1
+    REST=("${@:2}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" package delete --auth "$WHISK_SYSTEM_AUTH" "$WHISK_NAMESPACE/$PACKAGE_NAME")
+    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
+    "${CMD_ARRAY[@]}" &
+    PID=$!
+    PIDS+=($PID)
+    echo "Deleting package $PACKAGE_NAME"
+}
+
+function removeAction() {
+    ACTION_NAME=$1
+    REST=("${@:2}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" action delete --auth "$WHISK_SYSTEM_AUTH" "$WHISK_NAMESPACE/$ACTION_NAME")
+    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
+    "${CMD_ARRAY[@]}" &
+    PID=$!
+    PIDS+=($PID)
+    echo "Deleting action $ACTION_NAME"
+}
+
 # PIDS is the list of ongoing processes and ERRORS the total number of processes that failed
 PIDS=()
 ERRORS=0
