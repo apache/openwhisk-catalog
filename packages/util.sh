@@ -13,8 +13,6 @@ EDGE_HOST=$WHISK_API_HOST
 
 : ${WHISK_NAMESPACE:?"WHISK_NAMESPACE must be set and non-empty"}
 
-wsk -i action list /whisk.system/samples
-
 function createPackage() {
     PACKAGE_NAME=$1
     REST=("${@:2}")
