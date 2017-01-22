@@ -11,14 +11,10 @@ OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
 : ${WHISK_API_HOST:?"WHISK_API_HOST must be set and non-empty"}
 EDGE_HOST=$WHISK_API_HOST
 
-: ${WHISK_NAMESPACE:?"WHISK_NAMESPACE must be set and non-empty"}
-
-wsk -i action list /whisk.system/samples
-
 function createPackage() {
     PACKAGE_NAME=$1
     REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" package update --auth "$AUTH_KEY" --shared yes "$WHISK_NAMESPACE/$PACKAGE_NAME" "${REST[@]}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" package update --auth "$AUTH_KEY" --shared yes "$PACKAGE_NAME" "${REST[@]}")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!
@@ -30,7 +26,7 @@ function install() {
     RELATIVE_PATH=$1
     ACTION_NAME=$2
     REST=("${@:3}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" action update --auth "$AUTH_KEY" "$WHISK_NAMESPACE/$ACTION_NAME" "$RELATIVE_PATH" "${REST[@]}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" action update --auth "$AUTH_KEY" "$ACTION_NAME" "$RELATIVE_PATH" "${REST[@]}")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!
@@ -48,7 +44,7 @@ function runPackageInstallScript() {
 function removePackage() {
     PACKAGE_NAME=$1
     REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" package delete --auth "$WHISK_SYSTEM_AUTH" "$WHISK_NAMESPACE/$PACKAGE_NAME")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" package delete --auth "$WHISK_SYSTEM_AUTH" "$PACKAGE_NAME")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!
@@ -59,7 +55,7 @@ function removePackage() {
 function removeAction() {
     ACTION_NAME=$1
     REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" action delete --auth "$WHISK_SYSTEM_AUTH" "$WHISK_NAMESPACE/$ACTION_NAME")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" action delete --auth "$WHISK_SYSTEM_AUTH" "$ACTION_NAME")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!

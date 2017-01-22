@@ -33,17 +33,6 @@ fi
 : ${API_HOST:?"API_HOST must be set and non-empty"}
 export WHISK_API_HOST=$API_HOST
 
-# The api host is passed as the third argument. If it is not provided, take "/whisk.system"
-# as the default value.
-catalog_namespace=${3:-"/whisk.system"}
-
-# If the catalog_namespace does not start with a forward slash, add it.
-if [[ $catalog_namespace != \/* ]] ; then
-    catalog_namespace="/$catalog_namespace"
-fi
-
-export WHISK_NAMESPACE=$catalog_namespace
-
 # The CLI path is passed as the fourth argument. If it is not provided, use
 # "$OPENWHISK_HOME/bin/wsk" as the default value.
 cli_path=${4:-"$OPENWHISK_HOME/bin/wsk"}
