@@ -42,20 +42,15 @@ class SlackTests extends TestHelpers
     val url = "https://hooks.slack.com/services/ABC/";
     val slackAction = "/whisk.system/slack/post"
 
-    val expectedChannel = "channel: '" + channel + "'"
-    val expectedUsername = "username: '" + username + "'";
-    val expectedText = "text: '" + text + "'";
-
     "Slack Package" should "print the object being sent to slack" in {
         val run = wsk.action.invoke(slackAction, Map("username" -> username.toJson, "channel" -> channel.toJson, "text" -> text.toJson, "url" -> url.toJson))
         withActivation(wsk.activation, run) {
             activation =>
-                activation.response.success shouldBe true
-                val logs = activation.logs.get.mkString("\n")
-                logs should include(expectedChannel)
-                logs should include(expectedUsername)
-                logs should include(expectedText)
-                logs should include(url)
+                val result = activation.response.result.get.compactPrint 
+                result should include(url)
+                result should include(text)
+                result should include(channel)
+                result should include(username)
         }
     }
 
