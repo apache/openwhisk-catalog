@@ -1,32 +1,61 @@
-# Contributing to OpenWhisk catalog
+<!--
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+# license agreements.  See the NOTICE file distributed with this work for additional 
+# information regarding copyright ownership.  The ASF licenses this file to you
+# under the Apache License, Version 2.0 (the # "License"); you may not use this 
+# file except in compliance with the License.  You may obtain a copy of the License 
+# at:
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed 
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+# CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations under the License.
+#
+-->
 
-We welcome contributions, but request you to follow these guidelines.
+# Contributing to Apache OpenWhisk
 
- - [Raising issues](#raising-issues)
+Anyone can contribute to the OpenWhisk project and we welcome your contributions.
+
+There are multiple ways to contribute: report bugs, improve the docs, and
+contribute code, but you must follow these prerequisites and guidelines:
+
  - [Contributor License Agreement](#contributor-license-agreement)
+ - [Raising issues](#raising-issues)
  - [Coding Standards](#coding-standards)
- - [Contributing your own package](#contributing-your-own-package)
+
+### Contributor License Agreement
+
+All contributors must sign and submit an Apache CLA (Contributor License Agreement).
+
+Instructions on how to do this can be found here:
+[http://www.apache.org/licenses/#clas](http://www.apache.org/licenses/#clas)
+
+Once submitted, you will receive a confirmation email from the Apache Software Foundation (ASF) and be added to
+the following list: http://people.apache.org/unlistedclas.html. 
+
+Project committers will use this list to verify pull requests (PRs) come from contributors that have signed a CLA.
+
+We look forward to your contributions! 
 
 ## Raising issues
 
-Please submit bug reports on the issue tracker. Be sure to
-search the list to see if your issue has already been raised.
+Please raise any bug reports on the respective project repository's GitHub issue tracker. Be sure to search the 
+list to see if your issue has already been raised.
 
-A good bug report is one that makes it easy for us to understand what you were
-trying to do and what went wrong. Provide as much context as possible so we can try to recreate the issue.
+A good bug report is one that make it easy for us to understand what you were trying to do and what went wrong. 
+Provide as much context as possible so we can try to recreate the issue.
 
-## Contributor License Agreement
+### Discussion
 
-In order for us to accept pull-requests, the contributor must first complete
-a Contributor License Agreement (CLA). This clarifies the intellectual
-property license granted with any contribution. It is for your protection as a
-Contributor as well as the protection of IBM and its customers; it does not
-change your rights to use your own Contributions for any other purpose.
+Please use the project's developer email list to engage our community:
+[dev@openwhisk.incubator.apache.org](dev@openwhisk.incubator.apache.org)
 
-You can download the CLAs here:
-
-- [individual](https://github.com/openwhisk/openwhisk/blob/master/CLA-INDIVIDUAL.md)
-- [corporate](https://github.com/openwhisk/openwhisk/blob/master/CLA-CORPORATE.md)
+In addition, we provide a "dev" Slack team channel for conversations at:
+https://openwhisk-team.slack.com/messages/dev/
 
 ### Coding standards
 
@@ -35,46 +64,3 @@ code base. Some basic rules include:
 
  - all files must have the Apache license in the header.
  - all PRs must have passing builds for all operating systems.
-
-
-## Contributing your own package
-
-If you want to contribute your own package to openwhisk-catalog, you need to have the following files ready:
-- source codes to be put under the folder `openwhisk-catalog/packages`. You can create a folder with a meaningful name to maintain your package files.
-- test files to be put under the folder `openwhisk-catalog/tests/src`. You can create a folder with the same name as you created in package to maintain your package test files.
-- `README.md` to describe the actions/feeds in your package and how to use them.
-- `installYOURPKG.sh` to install your package. `YOURPKG` can be the name of your package.
-- Add the invocation of your package install script to `installCatalog.sh`.
-
-
-### How to make sure all tests are passed
-
-Before contributing your package, you must make sure all the tests in tests folder are passed.
-
-For Mac or Linux users:
-Open the terminal, and go the directory of the openWhisk-catalog. Then run all the test cases with command
-```
-./gradlew :tests:test
-```
-
-If you would like to test a single test cases, you can either run 
-```
-./gradlew -Dtest.single=*<name of the test file>* tests:test
-```
-
-or 
-```
-./gradlew :tests:test --tests <package name>
-```
-.
-
-For Windows users:
-Please replace `gradlew` with `gradlew.bat` for the commands in above paragraphs.
-
-Please note openwhisk-catalog have dependencies on openwhisk core projects and tests. In order to run the tests, you must make sure openwhisk repository is cloned and the environment variable `OPENWHISK_HOME` is configured.
-
-### Reference documents
-
-- [How to use and create OpenWhisk packages](https://github.com/openwhisk/openwhisk/blob/master/docs/packages.md)
-- [How to create and invoke OpenWhisk actions](https://github.com/openwhisk/openwhisk/blob/master/docs/actions.md)
-- [openwhisk-package-template](https://github.com/openwhisk/openwhisk-package-template) is the package template you may refer to.
