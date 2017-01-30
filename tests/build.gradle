@@ -34,8 +34,9 @@ test {
 }
 
 task testWithoutCredentials(type: Test) {
-	exclude 'packages/watson/**'
-	configure commonConfiguration
+    exclude 'packages/watson/**'
+    exclude 'packages/slack/**'
+    configure commonConfiguration
 }
 
 dependencies {

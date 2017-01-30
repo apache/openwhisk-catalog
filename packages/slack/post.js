@@ -1,4 +1,4 @@
-var request = require('request-promise');
+var request = require('request');
 
 /**
  * Action to post to slack
@@ -56,14 +56,22 @@ function main(params) {
         };
     }
 
-    let options = {
-        method: 'POST',
-        url: params.url,
-        formData: body,
-        json: true
-    };
+    var promise = new Promise(function (resolve, reject) {
+        request.post({
+            url: params.url,
+            formData: body
+        }, function (err, res, body) {
+            if (err) {
+                console.log('error: ', err, body);
+                reject(err);
+            } else {
+                console.log('success: ', params.text, 'successfully sent');
+                resolve();
+            }
+        });
+    });
 
-    return request(options);
+    return promise;
 }
 
 /**
