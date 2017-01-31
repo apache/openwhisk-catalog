@@ -25,7 +25,6 @@ import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.junit.JUnitRunner
 
-import common.JsHelpers
 import common.TestHelpers
 import common.Wsk
 import common.WskProps
@@ -38,8 +37,7 @@ import spray.json.JsObject
 class WebSocketTests
     extends TestHelpers
     with WskTestHelpers
-    with BeforeAndAfterAll
-    with JsHelpers {
+    with BeforeAndAfterAll {
 
     implicit val wskprops = WskProps()
     val wsk = new Wsk()

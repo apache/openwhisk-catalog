@@ -13,11 +13,11 @@ var watson = require('watson-developer-cloud/language-translator/v2');
  *         }
  */
 function main({payload: payload,
-	username: username,
-	password: password,
-	url: url = 'https://gateway.watsonplatform.net/language-translator/api'
-		}) {
-	console.log('payload is', payload);
+    username: username,
+    password: password,
+    url: url = 'https://gateway.watsonplatform.net/language-translator/api'
+        }) {
+    console.log('payload is', payload);
     var language_translation = new watson({
         username: username,
         password: password,

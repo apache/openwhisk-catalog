@@ -10,7 +10,7 @@ WHISKDIR="$ROOTDIR/../openwhisk"
 # Install OpenWhisk
 
 cd $WHISKDIR
-tools/build/scanCode.py .
+tools/build/scanCode.py $ROOTDIR
 
 cd $WHISKDIR/ansible
 
