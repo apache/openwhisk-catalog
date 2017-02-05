@@ -15,11 +15,12 @@ source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3 $4
 
 source "$SCRIPTDIR/util.sh"
 
-echo Installing open catalog
+echo Installing OpenWhisk packages
 
-runPackageInstallScript "$SCRIPTDIR" installSystem.sh
+runPackageInstallScript "$SCRIPTDIR" installCombinators.sh
 runPackageInstallScript "$SCRIPTDIR" installGit.sh
 runPackageInstallScript "$SCRIPTDIR" installSlack.sh
+runPackageInstallScript "$SCRIPTDIR" installSystem.sh
 runPackageInstallScript "$SCRIPTDIR" installWatson.sh
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
 runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
