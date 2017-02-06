@@ -47,14 +47,9 @@ class WebSocketTests
     behavior of "Websocket action"
 
     /**
-     * This test requires a websocket server running on Bluemix.
-     * A very simple CF app has been deployed to the "IBM Whisk" org
-     * and "dev" space using the lime account.
-     *
-     * If the test fails, the first thing to check would be ensure
-     * the "TestAppForWebSocketAction" app is actually running.
+     * This test requires a websocket server running on the given URI.
      */
-    var serverURI: URI = new URI("ws://owwebsocketserver.mybluemix.net:80")
+    var serverURI: URI = new URI("ws://169.46.21.246:80")
 
     it should "Use the websocket action to send a payload" in withAssetCleaner(wskprops) {
         (wp, assetHelper) =>
