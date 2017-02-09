@@ -32,41 +32,37 @@ class GreetingTests extends TestHelpers
 
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
-    val catalogDir = new File(scala.util.Properties.userDir.toString(), "../packages")
     val greetingAction = "/whisk.system/samples/greeting"
 
     behavior of "Greeting sample"
 
-    it should "contain stranger from somewhere when using a 'wrong' parameter" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val helloMessage = "Hello, stranger from somewhere!".toJson
-            val run = wsk.action.invoke(greetingAction, Map("dummy" -> "dummy".toJson))
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe true
-                    activation.response.result shouldBe Some(JsObject("payload" -> helloMessage.toJson))
-            }
+    it should "contain stranger from somewhere when using a 'wrong' parameter" in {
+        val helloMessage = "Hello, stranger from somewhere!".toJson
+        val run = wsk.action.invoke(greetingAction, Map("dummy" -> "dummy".toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe true
+                activation.response.result shouldBe Some(JsObject("payload" -> helloMessage.toJson))
+        }
     }
 
-    it should "contain the sent name when using the 'name' parameter, defaulting the place to somewhere" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val helloStranger = "Hello, Mork from somewhere!".toJson
-            val run = wsk.action.invoke(greetingAction, Map("name" -> "Mork".toJson))
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe true
-                    activation.response.result shouldBe Some(JsObject("payload" -> helloStranger.toJson))
-            }
+    it should "contain the sent name when using the 'name' parameter, defaulting the place to somewhere" in {
+        val helloStranger = "Hello, Mork from somewhere!".toJson
+        val run = wsk.action.invoke(greetingAction, Map("name" -> "Mork".toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe true
+                activation.response.result shouldBe Some(JsObject("payload" -> helloStranger.toJson))
+        }
     }
 
-    it should "contain the sent name and place when using 'name' and 'place' parameters" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val helloMessage = "Hello, Mork from Ork!".toJson
-            val run = wsk.action.invoke(greetingAction, Map("name" -> "Mork".toJson, "place" -> "Ork".toJson))
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe true
-                    activation.response.result shouldBe Some(JsObject("payload" -> helloMessage.toJson))
-            }
+    it should "contain the sent name and place when using 'name' and 'place' parameters" in {
+        val helloMessage = "Hello, Mork from Ork!".toJson
+        val run = wsk.action.invoke(greetingAction, Map("name" -> "Mork".toJson, "place" -> "Ork".toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe true
+                activation.response.result shouldBe Some(JsObject("payload" -> helloMessage.toJson))
+        }
     }
 }

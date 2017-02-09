@@ -15,35 +15,34 @@
  */
 package packages.samples
 
-import common.{TestHelpers, Wsk, WskProps, WskTestHelpers}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import spray.json.DefaultJsonProtocol.StringJsonFormat
-import spray.json.pimpAny
+
+import common.{ TestHelpers, Wsk, WskProps, WskTestHelpers }
+import spray.json._
+import spray.json.DefaultJsonProtocol._
 
 @RunWith(classOf[JUnitRunner])
 class CurlTest extends TestHelpers with WskTestHelpers {
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
     val greetingAction = "/whisk.system/samples/curl"
-    val path = "samples/curl/javascript/curl.js"
+
     behavior of "samples curl"
 
-    it should "Return Could not resolve host when sending no parameter" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val expectedError = "Could not resolve host"
-            val run = wsk.action.invoke(greetingAction, Map())
-            withActivation(wsk.activation, run) {
-                _.response.result.get.toString should include (expectedError)
-            }
+    it should "Return Could not resolve host when sending no parameter" in {
+        val expectedError = "Could not resolve host"
+        val run = wsk.action.invoke(greetingAction, Map())
+        withActivation(wsk.activation, run) {
+            _.response.result.get.toString should include(expectedError)
+        }
     }
 
-    it should "Return the web content when sending the public google as the payload" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
+    it should "Return the web content when sending the public google as the payload" in {
         val expectedBody = "<HTML>"
         val run = wsk.action.invoke(greetingAction, Map("payload" -> "google.com".toJson))
         withActivation(wsk.activation, run) {
-            _.response.result.get.toString should include (expectedBody)
+            _.response.result.get.toString should include(expectedBody)
         }
     }
 }

@@ -2,4 +2,9 @@
 .gradle
 build/
 tests/credentials.json
-
+.project
+tests/.cache-main
+tests/.classpath
+tests/.gitignore
+tests/.project
+tests/.settings/
