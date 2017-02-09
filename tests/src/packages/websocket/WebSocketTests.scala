@@ -29,9 +29,8 @@ import common.TestHelpers
 import common.Wsk
 import common.WskProps
 import common.WskTestHelpers
-import spray.json.DefaultJsonProtocol.StringJsonFormat
-import spray.json.pimpAny
-import spray.json.JsObject
+import spray.json._
+import spray.json.DefaultJsonProtocol._
 
 @RunWith(classOf[JUnitRunner])
 class WebSocketTests
@@ -51,51 +50,47 @@ class WebSocketTests
      */
     var serverURI: URI = new URI("ws://169.46.21.246:80")
 
-    it should "Use the websocket action to send a payload" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val uniquePayload = s"The cow says ${System.currentTimeMillis()}".toJson
-            val run = wsk.action.invoke(websocketSendAction, Map("uri" -> serverURI.toString.toJson, "payload" -> uniquePayload))
-            withActivation(wsk.activation, run, 1 second, 1 second, 180 seconds) {
-                activation =>
-                    activation.response.success shouldBe true
-                    activation.response.result shouldBe Some(JsObject(
-                        "payload" -> uniquePayload))
-            }
+    it should "Use the websocket action to send a payload" in {
+        val uniquePayload = s"The cow says ${System.currentTimeMillis()}".toJson
+        val run = wsk.action.invoke(websocketSendAction, Map("uri" -> serverURI.toString.toJson, "payload" -> uniquePayload))
+        withActivation(wsk.activation, run, 1 second, 1 second, 180 seconds) {
+            activation =>
+                activation.response.success shouldBe true
+                activation.response.result shouldBe Some(JsObject(
+                    "payload" -> uniquePayload))
+        }
     }
 
-    it should "Return an error due to a malformed URI" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val badURI = new URI("ws://localhost:80")
+    it should "Return an error due to a malformed URI" in {
+        val badURI = new URI("ws://localhost:80")
 
-            val run = wsk.action.invoke(websocketSendAction, Map("uri" -> badURI.toString.toJson, "payload" -> "This is the message to send".toJson))
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe false
+        val run = wsk.action.invoke(websocketSendAction, Map("uri" -> badURI.toString.toJson, "payload" -> "This is the message to send".toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe false
 
-                    // the exact error content comes from the ws Node module
-                    activation.response.result.get.fields.get("error") shouldBe defined
-            }
+                // the exact error content comes from the ws Node module
+                activation.response.result.get.fields.get("error") shouldBe defined
+        }
     }
 
-    it should "Require a payload parameter" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val run = wsk.action.invoke(websocketSendAction, Map("uri" -> serverURI.toString.toJson))
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe false
-                    activation.response.result shouldBe Some(JsObject(
-                        "error" -> "You must specify a payload parameter.".toJson))
-            }
+    it should "Require a payload parameter" in {
+        val run = wsk.action.invoke(websocketSendAction, Map("uri" -> serverURI.toString.toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe false
+                activation.response.result shouldBe Some(JsObject(
+                    "error" -> "You must specify a payload parameter.".toJson))
+        }
     }
 
-    it should "Require a uri parameter" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val run = wsk.action.invoke(websocketSendAction, Map("payload" -> "This is the message to send".toJson))
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe false
-                    activation.response.result shouldBe Some(JsObject(
-                        "error" -> "You must specify a uri parameter.".toJson))
-            }
+    it should "Require a uri parameter" in {
+        val run = wsk.action.invoke(websocketSendAction, Map("payload" -> "This is the message to send".toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe false
+                activation.response.result shouldBe Some(JsObject(
+                    "error" -> "You must specify a uri parameter.".toJson))
+        }
     }
 }

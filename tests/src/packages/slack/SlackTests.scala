@@ -31,15 +31,19 @@ class SlackTests extends TestHelpers
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
 
-    var credentials = TestUtils.getCredentials("slack_webhook")
+    val credentials = TestUtils.getCredentials("slack_webhook")
     val url = credentials.get("url").getAsString()
-    var channel = credentials.get("channel").getAsString()
+    val channel = credentials.get("channel").getAsString()
     val text = "The openwhisk-catalog slack test has finished."
     val username = "incoming-webhook"
     val slackAction = "/whisk.system/slack/post"
 
     "Slack Package" should "print the object being sent to slack" in {
-        val run = wsk.action.invoke(slackAction, Map("username" -> username.toJson, "channel" -> channel.toJson, "text" -> text.toJson, "url" -> url.toJson))
+        val run = wsk.action.invoke(slackAction, Map(
+            "username" -> username.toJson,
+            "channel" -> channel.toJson,
+            "text" -> text.toJson,
+            "url" -> url.toJson))
         withActivation(wsk.activation, run) {
             activation =>
                 activation.response.success shouldBe true

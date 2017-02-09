@@ -16,12 +16,11 @@
 
 package packages.utils
 
-import java.io.File
-
-import common._
 import org.junit.runner.RunWith
 import org.scalatest.Matchers
 import org.scalatest.junit.JUnitRunner
+
+import common._
 import spray.json._
 
 @RunWith(classOf[JUnitRunner])
@@ -30,17 +29,15 @@ class HeadTests extends TestHelpers with WskTestHelpers with Matchers {
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
     val lines = JsArray(JsString("seven"), JsString("eight"), JsString("nine"))
-    var catalogDir = new File(scala.util.Properties.userDir.toString(), "../packages")
 
     behavior of "utils/head Actions"
 
     /**
-      * Test the Node.js "head" action
-      */
-    it should "extract first n elements of an array of strings using the node.js head action" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            withActivation(wsk.activation, wsk.action.invoke("/whisk.system/utils/head", Map("lines" -> lines, "num" -> JsNumber(2)))) {
-                _.response.result.get.toString should include(""""lines":["seven","eight"]""")
-            }
+     * Test the Node.js "head" action
+     */
+    it should "extract first n elements of an array of strings using the node.js head action" in {
+        withActivation(wsk.activation, wsk.action.invoke("/whisk.system/utils/head", Map("lines" -> lines, "num" -> JsNumber(2)))) {
+            _.response.result.get.toString should include(""""lines":["seven","eight"]""")
+        }
     }
 }

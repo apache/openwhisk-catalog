@@ -25,8 +25,8 @@ import common.WskTestHelpers
 
 @RunWith(classOf[JUnitRunner])
 class HelloTests
-        extends TestHelpers
-        with WskTestHelpers {
+    extends TestHelpers
+    with WskTestHelpers {
 
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
@@ -34,13 +34,12 @@ class HelloTests
 
     behavior of "samples hello"
 
-    it should "indicates this action is successfully called" in withAssetCleaner(wskprops) {
-        (wp, assetHelper) =>
-            val run = wsk.action.invoke(helloAction, Map())
-            withActivation(wsk.activation, run) {
-                activation =>
-                    activation.response.success shouldBe true
-            }
+    it should "indicates this action is successfully called" in {
+        val run = wsk.action.invoke(helloAction, Map())
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe true
+        }
     }
 
 }
