@@ -25,11 +25,12 @@
 var openwhisk = require('openwhisk')
 
 function main (args) {
-  const wsk = openwhisk({ignore_certs: args.ignore_certs || true})
+  const wsk = openwhisk({ignore_certs: args['$ignore_certs'] || false})
 
   const tryName = args['$tryName']
   const catchName = args['$catchName']
 
+  delete args['$ignore_certs']
   delete args['$tryName']
   delete args['$catchName']
 

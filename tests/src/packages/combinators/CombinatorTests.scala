@@ -31,13 +31,14 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     val echo = s"/$catalogNamespace/utils/echo"
     val hello = s"/$catalogNamespace/samples/greeting"
     def combinator(c: String) = s"/$catalogNamespace/combinators/$c"
+    val ignoreCerts = Map("$ignore_certs" -> true.toJson)
 
     behavior of "retry"
 
     it should "retry action up to n times" in {
         val rr = wsk.action.invoke(
             combinator("retry"),
-            Map("$actionName" -> echo.toJson,
+            ignoreCerts ++ Map("$actionName" -> echo.toJson,
                 "$attempts" -> 3.toJson,
                 "error" -> true.toJson))
 
@@ -53,7 +54,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "retry action just once when successful" in {
         val rr = wsk.action.invoke(
             combinator("retry"),
-            Map("$actionName" -> echo.toJson,
+            ignoreCerts ++ Map("$actionName" -> echo.toJson,
                 "$attempts" -> 3.toJson,
                 "success" -> true.toJson))
 
@@ -71,7 +72,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "run condition action when predicate is true" in {
         val continue = wsk.action.invoke(
             combinator("eca"),
-            Map("$conditionName" -> echo.toJson,
+            ignoreCerts ++ Map("$conditionName" -> echo.toJson,
                 "$actionName" -> hello.toJson,
                 "name" -> "eca".toJson,
                 "place" -> "test".toJson))
@@ -87,7 +88,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "not run condition action when predicate is false" in {
         val break = wsk.action.invoke(
             combinator("eca"),
-            Map("$conditionName" -> echo.toJson,
+            ignoreCerts ++ Map("$conditionName" -> echo.toJson,
                 "$actionName" -> hello.toJson,
                 "error" -> true.toJson))
 
@@ -104,7 +105,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "forward parameters" in {
         val rr = wsk.action.invoke(
             combinator("forwarder"),
-            Map("$actionName" -> hello.toJson,
+            ignoreCerts ++ Map("$actionName" -> hello.toJson,
                 "$actionArgs" -> Array("name", "place").toJson,
                 "$forward" -> Array("xyz").toJson,
                 "name" -> "forwarder".toJson,
@@ -124,7 +125,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "return error when intermediate action fails" in {
         val rr = wsk.action.invoke(
             combinator("forwarder"),
-            Map("$actionName" -> echo.toJson,
+            ignoreCerts ++ Map("$actionName" -> echo.toJson,
                 "$actionArgs" -> Array("error").toJson,
                 "$forward" -> Array("xyz").toJson,
                 "error" -> true.toJson,
@@ -143,7 +144,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "try and continue when there is no error" in {
         val rr = wsk.action.invoke(
             combinator("trycatch"),
-            Map("$tryName" -> echo.toJson,
+            ignoreCerts ++ Map("$tryName" -> echo.toJson,
                 "$catchName" -> hello.toJson,
                 "name" -> "trycatch".toJson,
                 "place" -> "test".toJson))
@@ -161,7 +162,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "catch and handle when there is an error" in {
         val rr = wsk.action.invoke(
             combinator("trycatch"),
-            Map("$tryName" -> echo.toJson,
+            ignoreCerts ++ Map("$tryName" -> echo.toJson,
                 "$catchName" -> hello.toJson,
                 "error" -> true.toJson))
 
@@ -176,7 +177,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
     it should "catch and preserve handler error when handler fails" in {
         val rr = wsk.action.invoke(
             combinator("trycatch"),
-            Map("$tryName" -> echo.toJson,
+            ignoreCerts ++ Map("$tryName" -> echo.toJson,
                 "$catchName" -> echo.toJson,
                 "error" -> true.toJson))
 
@@ -192,7 +193,7 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
         val badCatchName = "invalid%name"
         val rr = wsk.action.invoke(
             combinator("trycatch"),
-            Map("$tryName" -> echo.toJson,
+            ignoreCerts ++ Map("$tryName" -> echo.toJson,
                 "$catchName" -> badCatchName.toJson,
                 "error" -> true.toJson))
 
