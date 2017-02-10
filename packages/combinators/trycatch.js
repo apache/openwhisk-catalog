@@ -25,7 +25,7 @@
 var openwhisk = require('openwhisk')
 
 function main (args) {
-  const wsk = openwhisk({ignore_certs: args.ignore_certs || false})
+  const wsk = openwhisk({ignore_certs: args.ignore_certs || true})
 
   const tryName = args['$tryName']
   const catchName = args['$catchName']
@@ -67,10 +67,17 @@ function main (args) {
           .then(activation => activation.response.result)
           .catch(error => {
                   try {
+                      // if the action ran and failed, the result field is guaranteed
+                      // to contain an error field causing the overall action to fail
+                      // with that error
                       return error.error.response.result
                   } catch (e) {
-                      console.log(error)
-                      return { error: `There was a problem invoking ${catchArgs}` }
+                      return {
+                          error: {
+                              message: `There was a problem invoking ${catchName}.`,
+                              cause: error.error
+                          }
+                      }
                   }
               })
       })

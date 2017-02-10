@@ -187,4 +187,20 @@ class CombinatorTests extends TestHelpers with WskTestHelpers {
             }
         }
     }
+
+    it should "catch and chain exception when catch handler fails" in {
+        val badCatchName = "invalid%name"
+        val rr = wsk.action.invoke(
+            combinator("trycatch"),
+            Map("$tryName" -> echo.toJson,
+                "$catchName" -> badCatchName.toJson,
+                "error" -> true.toJson))
+
+        withActivation(wsk.activation, rr) { activation =>
+            activation.response.success shouldBe false
+            val error = activation.response.result.get.fields("error").asJsObject
+            error.fields("message") shouldBe JsString(s"There was a problem invoking $badCatchName.")
+            error.fields("cause") shouldBe a[JsString]
+        }
+    }
 }
