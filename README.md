@@ -50,34 +50,6 @@ is a good package creation template to help you build, test and integrate new pa
 
 For more details about how to use these packages, you can go to the README.md under each package folder.
 
-
-## Using the Push package
-
-The `/whisk.system/pushnotifications` package enables you to work with a push service. 
-
-### Install the IBM Push Notification OpenWhisk package 
-
-Download the Push package form the  [wsk-pkg-pushnotification](https://github.com/openwhisk/wsk-pkg-pushnotifications) repository.
-
-Run the install script provided inside the package download
-
-  ```
-  $ git clone --depth=1 https://github.com/openwhisk/wsk-pkg-pushnotifications
-  $ cd wsk-pkg-pushnotifications
-  $ ./install.sh APIHOST AUTH WSK_CLI
-  ```
-
-  The `APIHOST` is the OpenWhisk API hostname, `AUTH` is your auth key, and `WSK_CLI` is location of the Openwhisk CLI binary.		     
-
-The package includes the following action and feed:
-
-| Entity | Type | Parameters | Description |
-| --- | --- | --- | --- |
-| `/whisk.system/pushnotifications` | package | appId, appSecret  | Work with the Push Service |
-| `/whisk.system/pushnotifications/sendMessage` | action | text, url, deviceIds, platforms, tagNames, apnsBadge, apnsCategory, apnsActionKeyTitle, apnsSound, apnsPayload, apnsType, gcmCollapseKey, gcmDelayWhileIdle, gcmPayload, gcmPriority, gcmSound, gcmTimeToLive | Send push notification to one or more specified devices |
-| `/whisk.system/pushnotifications/webhook` | feed | events | Fire trigger events on device activities (device registration, unregistration, subscription, or unsubscription) on the Push service |
-Creating a package binding with the `appId` and `appSecret` values is suggested. This way, you don't need to specify these credentials every time you invoke the actions in the package.
-
 ## Using the WebSocket package
 
 The `/whisk.system/websocket` package offers a convenient way post messages to a WebSocket.
