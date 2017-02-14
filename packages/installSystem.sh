@@ -30,6 +30,13 @@ install "$PACKAGE_HOME/utils/cat.js" \
      -a sampleInput '{ "lines": [4, 2, 3] }' \
      -a sampleOutput '{ "lines": [4, 2, 3] }'
 
+install "$PACKAGE_HOME/utils/smash.js" \
+     utils/smash \
+     -a description 'Nests all properties under given property.' \
+     -a parameters '[{"name": "$fieldName", "required":true, "type": "string", "description": "Name of property to nest object under" }]' \
+     -a sampleInput '{ "a": 1, "b": { "c": 2, "d": 3 }, "$fieldName": "p" }' \
+     -a sampleOutput '{ "p": { "a": 1, "b": { "c": 2, "d": 3 } } }'
+
 install "$PACKAGE_HOME/utils/split.js" \
      utils/split \
      -a description 'Split a string into an array' \
