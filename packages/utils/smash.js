@@ -5,17 +5,17 @@
  * @returns { p: { a: 1, b: 2, c: { d: 1, e: 2 } } }
  */
 function main(args) {
-    let parent = args['$fieldName']
+    let parent = args.$fieldName;
 
     if (typeof parent !== 'string') {
         return {
             error : "Expected an argument '$fieldName' of type 'string'."
-        }
+        };
     }
 
-    delete args['$fieldName']
+    delete args.$fieldName;
 
-    let result = {}
-    result[parent] = args
-    return result
+    let result = {};
+    result[parent] = args;
+    return result;
 }

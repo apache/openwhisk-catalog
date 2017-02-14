@@ -104,8 +104,9 @@ function main(params) {
           response.data = event_;
           resolve(response);
         } else if (name === 'results' && params.interim_results) {
-          if (!response.results)
-            response.results = [];
+          if (!response.results) {
+              response.results = [];
+          }
           response.results.push(event_);
         } else if (name === 'error' || name === 'connection-close') {
           response.error = event_ && typeof(event_.toString) === 'function' ?

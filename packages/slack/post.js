@@ -13,7 +13,9 @@ var request = require('request');
  */
 function main(params) {
     let errorMsg = checkParams(params);
-    if (errorMsg) return { error: errorMsg };
+    if (errorMsg) {
+        return { error: errorMsg };
+    }
 
     var body = {
         channel: params.channel,
@@ -87,5 +89,7 @@ function checkParams(params) {
     else if (params.channel === undefined) {
         return 'No channel provided';
     }
-    else return undefined;
+    else {
+        return undefined;
+    }
 }

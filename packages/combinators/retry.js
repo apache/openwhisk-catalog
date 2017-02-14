@@ -20,30 +20,30 @@
 // - $attempts: integer, number of times the action should be tried (>= 1)
 // - all other arguments are passed to the inner action
 
-var openwhisk = require('openwhisk')
+var openwhisk = require('openwhisk');
 
 function main (args) {
-  const wsk = openwhisk({ignore_certs: args['$ignore_certs'] || false})
+  const wsk = openwhisk({ignore_certs: args.$ignore_certs || false});
 
-  const actionName = args['$actionName']
-  const attempts = args['$attempts']
+  const actionName = args.$actionName;
+  const attempts = args.$attempts;
 
-  delete args['$ignore_certs']
-  delete args['$actionName']
-  delete args['$attempts']
+  delete args.$ignore_certs;
+  delete args.$actionName;
+  delete args.$attempts;
 
   if (typeof actionName !== 'string') {
-    return { error: `Expected an argument '$actionName' of type 'string', got '${actionName}'.` }
+    return { error: `Expected an argument '$actionName' of type 'string', got '${actionName}'.` };
   }
 
   if (typeof attempts !== 'number' || attempts < 1) {
-    return { error: `Expected an argument '$attempts' of type 'number' and greater than zero, got '${attempts}'.` }
+    return { error: `Expected an argument '$attempts' of type 'number' and greater than zero, got '${attempts}'.` };
   }
 
   return new Promise(function (resolve, reject) {
           function retry (n) {
               if (n <= 0) {
-                  reject('Invocation failed. No retries left.')
+                  reject('Invocation failed. No retries left.');
               } else {
                   wsk.actions
                   .invoke({
@@ -53,12 +53,12 @@ function main (args) {
                       })
                   .then(activation => resolve(activation.response.result) )
                   .catch(error => {
-                          console.log(`attempt ${n} failed, retrying`)
-                          retry(n - 1)
-                      })
+                          console.log(`attempt ${n} failed, retrying`);
+                          retry(n - 1);
+                      });
               }
           }
 
-          retry(attempts)
-      })
+          retry(attempts);
+      });
 }

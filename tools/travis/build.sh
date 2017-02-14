@@ -7,11 +7,15 @@ SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 ROOTDIR="$SCRIPTDIR/../.."
 WHISKDIR="$ROOTDIR/../openwhisk"
 
-# Install OpenWhisk
-
+# run scancode
 cd $WHISKDIR
 tools/build/scanCode.py $ROOTDIR
 
+# run jshint
+cd $ROOTDIR/packages
+jshint .
+
+# Install OpenWhisk
 cd $WHISKDIR/ansible
 
 ANSIBLE_CMD="ansible-playbook -i environments/local"

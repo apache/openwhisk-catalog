@@ -22,36 +22,36 @@
 //         -p '$forward' '[ "y" ]' \
 //         -p x 11 -p y 42
 
-var openwhisk = require('openwhisk')
+var openwhisk = require('openwhisk');
 
 function main (args) {
-  const wsk = openwhisk({ignore_certs: args['$ignore_certs'] || false})
+  const wsk = openwhisk({ignore_certs: args.$ignore_certs || false});
 
-  delete args['$ignore_certs']
-  const actionName = args['$actionName']
-  const actionArgs = args['$actionArgs']
-  const toForward = args['$forward']
+  delete args.$ignore_certs;
+  const actionName = args.$actionName;
+  const actionArgs = args.$actionArgs;
+  const toForward = args.$forward;
 
   if (typeof actionName !== 'string') {
-    return { error: "Expected an argument '$actionName' of type 'string'." }
+    return { error: "Expected an argument '$actionName' of type 'string'." };
   }
 
   if (!Array.isArray(actionArgs)) {
-    return { error: "Expected an array argument '$actionArgs'." }
+    return { error: "Expected an array argument '$actionArgs'." };
   }
 
   if (!Array.isArray(toForward)) {
-    return { error: "Expected an array argument '$toFoward'." }
+    return { error: "Expected an array argument '$toFoward'." };
   }
 
-  let subArgs = {}
+  let subArgs = {};
   for (const k of actionArgs) {
-    subArgs[k] = args[k]
+    subArgs[k] = args[k];
   }
 
-  let result = {}
+  let result = {};
   for (const k of toForward) {
-    result[k] = args[k]
+    result[k] = args[k];
   }
 
   return wsk.actions
@@ -62,12 +62,12 @@ function main (args) {
       })
   .then(activation => {
           for (let k in activation.response.result) {
-              result[k] = activation.response.result[k]
+              result[k] = activation.response.result[k];
           }
-          return result
+          return result;
       })
   .catch(error => {
-          console.log(error)
-          return { error: `There was a problem invoking ${actionName}` }
-      })
+          console.log(error);
+          return { error: `There was a problem invoking ${actionName}` };
+      });
 }

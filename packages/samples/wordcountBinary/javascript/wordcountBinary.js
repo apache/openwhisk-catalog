@@ -2,7 +2,7 @@
  * Return word count as a binary number. This demonstrates the use of a blocking
  * invoke.
  */
-var openwhisk = require('openwhisk')
+var openwhisk = require('openwhisk');
 
 function main(params) {
     var wsk = openwhisk({ignore_certs: params.ignore_certs || false});

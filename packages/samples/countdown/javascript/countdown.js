@@ -2,7 +2,7 @@
  * An action that invokes itself recursively, programmatically using the whisk
  * Javascript API.
  */
-var openwhisk = require('openwhisk')
+var openwhisk = require('openwhisk');
 
 function main(params) {
     var wsk = openwhisk({ignore_certs: params.ignore_certs || false});
@@ -12,7 +12,7 @@ function main(params) {
         console.log('Happy New Year!');
     } else if (n > 0) {
         return wsk.actions.invoke({
-            actionName: process.env['__OW_ACTION_NAME'],
+            actionName: process.env.__OW_ACTION_NAME,
             params : {
                 n : n - 1
             }

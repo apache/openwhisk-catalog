@@ -15,5 +15,5 @@ function main(params) {
         setTimeout(function() {
             wc(params, resolve);
         }, 100);
-    })
+    });
 }

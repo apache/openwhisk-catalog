@@ -1,0 +1,7 @@
+{
+  "forin"         : false,
+  "esversion"     : 6,
+  "loopfunc"      : true,
+  "module"        : true,
+  "node"          : true
+}

@@ -11,15 +11,14 @@ var request = require('request');
  */
 function main(params) {
   var username = params.username;
-  var repository = params.repository;
   var accessToken = params.accessToken;
 
   var organization,
     repository;
 
-  if(params.repository) {
+  if (params.repository) {
     var repoSegments = params.repository.split('/');
-    if(repoSegments.length === 2) {
+    if (repoSegments.length === 2) {
       organization = repoSegments[0];
       repository = repoSegments[1];
     } else {
@@ -31,7 +30,7 @@ function main(params) {
   var triggerName = params.triggerName.split("/");
 
     // URL of the whisk system. The calls of github will go here.
-  var whiskCallbackUrl = 'https://' + process.env['__OW_API_KEY'] + "@" + params.endpoint + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
+  var whiskCallbackUrl = 'https://' + process.env.__OW_API_KEY + "@" + params.endpoint + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
 
     // The URL to create the webhook on Github
   var registrationEndpoint = 'https://api.github.com/repos/' + (organization ? organization : username) + '/' + repository + '/hooks';
@@ -90,7 +89,7 @@ function main(params) {
     return promise;
   } else if(lifecycleEvent === 'DELETE') {
     //list all the existing webhooks first.
-    var options = {
+    var deleteOptions = {
         method: 'GET',
         url: registrationEndpoint,
         json: true,
@@ -99,10 +98,10 @@ function main(params) {
             'Authorization': authorizationHeader,
             'User-Agent': 'whisk'
         }
-    }
+    };
 
-    var promise = new Promise(function(resolve, reject) {
-      request(options, function(error, response, body){
+    var deletePromise = new Promise(function(resolve, reject) {
+      request(deleteOptions, function(error, response, body){
         // the URL that comes back from GitHub does not include auth info
         var foundWebhookToDelete = false;
 
@@ -113,7 +112,7 @@ function main(params) {
             body:body
           });
         } else {
-          for(i=0; i<body.length;i++){
+          for (var i=0; i<body.length;i++){
               if (decodeURI(body[i].config.url) === whiskCallbackUrl) {
                   foundWebhookToDelete = true;
 
@@ -126,7 +125,7 @@ function main(params) {
                           'Authorization': authorizationHeader,
                           'User-Agent': 'whisk'
                       }
-                  }
+                  };
 
                   request(options, function(error, response, body) {
                       if (error) {
@@ -137,7 +136,7 @@ function main(params) {
                           });
                       } else {
                           console.log("Status code: " + response.statusCode);
-                          if(response.statusCode >= 400) {
+                          if (response.statusCode >= 400) {
                               console.log("Response from Github: " + body);
 
                               // a 404 is common and confusing enough to warrant an extra message
@@ -157,13 +156,13 @@ function main(params) {
               }
           }
 
-          if(!foundWebhookToDelete) {
+          if (!foundWebhookToDelete) {
             reject('Found no existing webhooks for trigger URL ' + whiskCallbackUrl);
           }
         }
       });
     });
 
-    return promise;
+    return deletePromise;
   }
 }

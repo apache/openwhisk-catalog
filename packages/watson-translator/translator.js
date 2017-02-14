@@ -50,10 +50,12 @@ function getTextsToTranslate(obj) {
     } else if (typeof obj === 'object') {
         for (var e in obj) {
             var value = obj[e];
-            if (typeof value === 'string')
+            if (typeof value === 'string') {
                 texts.push(value);
-            else if (typeof value === 'object')
+            }
+            else if (typeof value === 'object') {
                 texts = texts.concat(getTextsToTranslate(value));
+            }
         }
     }
     return texts;
@@ -75,9 +77,9 @@ function setTranslatedTexts(obj, translations) {
             if (typeof value === 'string') {
                 obj[e] = translatedTexts[i++];
             } else if (typeof value === 'object') {
-                var translations = {translatedTexts: translatedTexts, start: i};
-                setTranslatedTexts(value, translations);
-                i = translations.start;
+                var textTranslations = {translatedTexts: translatedTexts, start: i};
+                setTranslatedTexts(value, textTranslations);
+                i = textTranslations.start;
             }
         }
     }
@@ -99,7 +101,9 @@ function doTranslateTexts(texts, from, to, username, password, url, next) {
     language_translation.translate(options, function (err, response) {
         if (err) {
             console.log('error:', err);
-            if (next) next(err, null)
+            if (next) {
+                next(err, null);
+            }
         } else {
             var translation = response.translations[0].translation;
             //console.log('response:', response);
@@ -107,7 +111,9 @@ function doTranslateTexts(texts, from, to, username, password, url, next) {
                 translated.push(removeDiacritics(response.translations[e].translation));
             }
         }
-        if (next) next(null, translated);
+        if (next) {
+            next(null, translated);
+        }
     });
 }
 
@@ -204,7 +210,7 @@ function removeDiacritics (str) {
     {'base':'z','letters':/[\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763]/g}
   ];
 
-  for(var i=0; i<defaultDiacriticsRemovalMap.length; i++) {
+  for (var i=0; i<defaultDiacriticsRemovalMap.length; i++) {
     str = str.replace(defaultDiacriticsRemovalMap[i].letters, defaultDiacriticsRemovalMap[i].base);
   }
 

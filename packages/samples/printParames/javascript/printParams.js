@@ -6,9 +6,9 @@ function main(params) {
     var retn = {};
     var keys = [];
 
-    for (var key in params) {
-        if (params.hasOwnProperty(key)) {
-            keys.push(key);
+    for (var k in params) {
+        if (params.hasOwnProperty(k)) {
+            keys.push(k);
         }
     }
 

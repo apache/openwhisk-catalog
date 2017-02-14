@@ -22,24 +22,24 @@
 //          -p '$actionName' test \
 //          -p x 12 -p password 'ok'
 
-var openwhisk = require('openwhisk')
+var openwhisk = require('openwhisk');
 
 function main (args) {
-  const wsk = openwhisk({ignore_certs: args['$ignore_certs'] || false})
+  const wsk = openwhisk({ignore_certs: args.$ignore_certs || false});
 
-  const tryName = args['$tryName']
-  const catchName = args['$catchName']
+  const tryName = args.$tryName;
+  const catchName = args.$catchName;
 
-  delete args['$ignore_certs']
-  delete args['$tryName']
-  delete args['$catchName']
+  delete args.$ignore_certs;
+  delete args.$tryName;
+  delete args.$catchName;
 
   if (typeof tryName !== 'string') {
-    return { error: "Expected an argument '$tryName' of type 'string'." }
+    return { error: "Expected an argument '$tryName' of type 'string'." };
   }
 
   if (typeof catchName !== 'string') {
-    return { error: "Expected an argument '$catchName' of type 'string'." }
+    return { error: "Expected an argument '$catchName' of type 'string'." };
   }
 
   return wsk.actions
@@ -50,13 +50,13 @@ function main (args) {
       })
   .then(activation => activation.response.result)
   .catch(error => {
-      console.log(`try ${tryName} failed, catching with ${catchName}`)
+      console.log(`try ${tryName} failed, catching with ${catchName}`);
 
-      var catchArgs = undefined
+      var catchArgs;
       try {
-          catchArgs = error.error.response.result
+          catchArgs = error.error.response.result;
       } catch (e) {
-          catchArgs = error
+          catchArgs = error;
       }
 
       return wsk.actions
@@ -71,15 +71,15 @@ function main (args) {
                       // if the action ran and failed, the result field is guaranteed
                       // to contain an error field causing the overall action to fail
                       // with that error
-                      return error.error.response.result
+                      return error.error.response.result;
                   } catch (e) {
                       return {
                           error: {
                               message: `There was a problem invoking ${catchName}.`,
                               cause: error.error
                           }
-                      }
+                      };
                   }
-              })
-      })
+              });
+      });
 }

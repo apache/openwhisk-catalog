@@ -5,7 +5,7 @@
  * @param name A person's name.
  * @param place Where the person is from.
  */
-var openwhisk = require('openwhisk')
+var openwhisk = require('openwhisk');
 
 function main(params) {
     var wsk = openwhisk({ignore_certs: params.ignore_certs || false});
