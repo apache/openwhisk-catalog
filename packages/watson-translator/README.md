@@ -102,4 +102,3 @@ The `/whisk.system/watson-translator/languageId` action identifies the language 
     "confidence": 0.710906
   }
   ```
-  

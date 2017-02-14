@@ -90,4 +90,3 @@ The `/whisk.system/watson-speechToText/speechToText` action converts audio speec
     "data": "Hello Watson"
   }
   ```
-  

@@ -79,4 +79,3 @@ The `/whisk.system/watson-speechToText/textToSpeech` action converts some text i
     "payload": "<base64 encoding of a .wav file>"
   }
   ```
-  

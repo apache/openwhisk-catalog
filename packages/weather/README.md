@@ -58,4 +58,3 @@ The following is an example of creating a package binding and then getting a 10-
       ],
   }
   ```
-  
