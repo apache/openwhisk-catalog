@@ -35,13 +35,20 @@ actions and packages.
 | Package | Description |
 | --- | --- |
 | [/whisk.system/github](./packages/github/README.md) | offers a convenient way to use the [GitHub APIs](https://developer.github.com/). |
-| `/whisk.system/samples` | offers sample actions in different languages |
 | [/whisk.system/slack](./packages/watson-translator/README.md) | offers a convenient way to use the [Slack APIs](https://api.slack.com/). |
-| `/whisk.system/utils` | offers utilities actions such as cat, echo, and etc. |
 | [/whisk.system/watson-translator](./packages/watson-translator/README.md) | Package for text translation and language identification|
 | [/whisk.system/watson-speechToText](./packages/watson-speechToText/README.md) | Package to convert speech into text|
 | [/whisk.system/watson-textToSpeech](./packages/watson-textToSpeech/README.md) | Package to convert text into speech|
 | [/whisk.system/weather](./packages/weather/README.md) | Services from the Weather Company Data for IBM Bluemix API|
+
+<!--
+TODO: place holder until we have a README for samples 
+| [/whisk.system/samples](./packages/samples/README.md) | offers sample actions in different programming languages |
+-->
+<!--
+TODO: place holder until we have a README for utils
+| [/whisk.system/utils](./packages/utils/README.md) | offers utilities actions such as cat, echo, and etc. |
+-->
 
 ## How to create packages
 
