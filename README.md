@@ -22,13 +22,12 @@ for information about how to browse the catalog by using the command line tool.
 We should be able to run the script installCatalog.sh to install the catalog like:
 
 ```
-./installCatalog.sh <catalog_auth_key> <api_host> <catalog_namespace> 
+./installCatalog.sh [catalog_auth_key] [api_host]
 ```
 
-The first argument \<catalog_auth_key\>, defines the secret key used to authenticate the openwhisk
-service. The second argument \<api_host\>, determines the location, where the openwhisk edge host is running,
-in the format of IP or hostname. The third argument \<catalog_namespace\>, specifies the namespace used for all the
-actions and packages.
+The first argument `catalog_auth_key`, defines the secret key used to authenticate the openwhisk
+service. The second argument `api_host`, determines the location, where the openwhisk edge host is running,
+in the format of IP or hostname.
 
 ## Existing packages in catalog
 
