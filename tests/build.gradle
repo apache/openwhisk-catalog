@@ -36,6 +36,7 @@ test {
 task testWithoutCredentials(type: Test) {
     exclude 'packages/watson/**'
     exclude 'packages/slack/**'
+    exclude 'packages/weather/**'
     configure commonConfiguration
 }
 
