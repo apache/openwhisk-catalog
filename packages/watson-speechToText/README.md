@@ -1,4 +1,4 @@
-### Using the Watson Speech to Text package
+# Using the Watson Speech to Text package
 
 The `/whisk.system/watson-speechToText` package offers a convenient way to call Watson APIs to convert the speech into text.
 
@@ -11,53 +11,44 @@ The package includes the following actions.
 
 **Note**: The package `/whisk.system/watson` is deprecated including the action `/whisk.system/watson/speechToText`.
 
-#### Setting up the Watson Speech to Text package in Bluemix
+## Setting up the Watson Speech to Text package in Bluemix
 
 If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package bindings for your Bluemix Watson service instances.
 
 1. Create a Watson Speech to Text service instance in your Bluemix [dashboard](http://console.ng.Bluemix.net).
-
+  
   Be sure to remember the name of the service instance and the Bluemix organization and space you're in.
-
-2. Make sure your OpenWhisk CLI is in the namespace corresponding to the Bluemix organization and space that you used in the previous step.
-
+  
+2. Refresh the packages in your namespace. The refresh automatically creates a package binding for the Watson service instance that you created.
+  
   ```
-  $ wsk property set --namespace myBluemixOrg_myBluemixSpace
-  ```
-
-  Alternatively, you can use `wsk property set --namespace` to set a namespace from a list of those accessible to you.
-
-3. Refresh the packages in your namespace. The refresh automatically creates a package binding for the Watson service instance that you created.
-
-  ```
-  $ wsk package refresh
+  wsk package refresh
   ```
   ```
   created bindings:
   Bluemix_Watson_SpeechToText_Credentials-1
   ```
-
   ```
-  $ wsk package list
+  wsk package list
   ```
   ```
   packages
   /myBluemixOrg_myBluemixSpace/Bluemix_Watson_SpeechToText_Credentials-1 private
   ```
+  
 
-
-#### Setting up a Watson Speech to Text package outside Bluemix
+## Setting up a Watson Speech to Text package outside Bluemix
 
 If you're not using OpenWhisk in Bluemix or if you want to set up your Watson Speech to Text outside of Bluemix, you must manually create a package binding for your Watson Speech to Text service. You need the Watson Speech to Text service user name, and password.
 
 - Create a package binding that is configured for your Watson Speech to Text service.
-
+  
   ```
-  $ wsk package bind /whisk.system/watson-speechToText myWatsonSpeechToText -p username MYUSERNAME -p password MYPASSWORD
+  wsk package bind /whisk.system/watson-speechToText myWatsonSpeechToText -p username MYUSERNAME -p password MYPASSWORD
   ```
+  
 
-
-#### Converting speech to text
+## Converting speech to text
 
 The `/whisk.system/watson-speechToText/speechToText` action converts audio speech into text. The parameters are as follows:
 
@@ -81,12 +72,13 @@ The `/whisk.system/watson-speechToText/speechToText` action converts audio speec
  
 
 - Invoke the `speechToText` action in your package binding to convert the encoded audio.
-
+  
   ```
-  $ wsk action invoke myWatsonSpeechToText/speechToText --blocking --result --param payload <base64 encoding of a .wav file> --param content_type 'audio/wav' --param encoding 'base64'
+  wsk action invoke myWatsonSpeechToText/speechToText --blocking --result --param payload <base64 encoding of a .wav file> --param content_type 'audio/wav' --param encoding 'base64'
   ```
-  ```
+  ```json
   {
     "data": "Hello Watson"
   }
   ```
+  
