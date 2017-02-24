@@ -20,15 +20,7 @@ If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package 
   
   Be sure to remember the name of the service instance and the Bluemix organization and space you're in.
   
-2. Make sure your OpenWhisk CLI is in the namespace corresponding to the Bluemix organization and space that you used in the previous step.
-  
-  ```
-  wsk property set --namespace myBluemixOrg_myBluemixSpace
-  ```
-  
-  Alternatively, you can use `wsk property set --namespace` to set a namespace from a list of those accessible to you.
-  
-3. Refresh the packages in your namespace. The refresh automatically creates a package binding for the Watson service instance that you created.
+2. Refresh the packages in your namespace. The refresh automatically creates a package binding for the Watson service instance that you created.
   
   ```
   wsk package refresh
