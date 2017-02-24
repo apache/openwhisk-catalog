@@ -25,18 +25,17 @@ The `/whisk.system/weather/forecast` action returns a weather forecast for a loc
 The following is an example of creating a package binding and then getting a 10-day forecast.
 
 1. Create a package binding with your API key.
-
+  
   ```
-  $ wsk package bind /whisk.system/weather myWeather --param username MY_USERNAME --param password MY_PASSWORD
+  wsk package bind /whisk.system/weather myWeather --param username MY_USERNAME --param password MY_PASSWORD
   ```
-
+  
 2. Invoke the `forecast` action in your package binding to get the weather forecast.
-
+  
   ```
-  $ wsk action invoke myWeather/forecast --blocking --result --param latitude 43.7 --param longitude -79.4
+  wsk action invoke myWeather/forecast --blocking --result --param latitude 43.7 --param longitude -79.4
   ```
-
-  ```
+  ```json
   {
       "forecasts": [
           {
@@ -58,3 +57,4 @@ The following is an example of creating a package binding and then getting a 10-
       ],
   }
   ```
+  
