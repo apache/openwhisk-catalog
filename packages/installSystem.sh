@@ -63,6 +63,18 @@ install "$PACKAGE_HOME/utils/date.js" \
      -a description 'Current date and time' \
      -a sampleOutput '{ "date": "2016-03-22T00:59:55.961Z" }'
 
+install "$PACKAGE_HOME/utils/namespace.js" \
+     utils/namespace \
+     -a description 'Returns namespace for the authorization key used to invoke this action' \
+     -a sampleOutput '{ "namespace": "guest" }'
+
+install "$PACKAGE_HOME/utils/hosturl.js" \
+     utils/hosturl \
+     -a description 'Returns the URL to activation an action or trigger' \
+     -a parameters '[ { "name": "web", "type": "boolean", "description": "True for web actions"}, { "name": "ext", "type": "string", "description": "Extension for web action, one of .html, .http, .json, .text" }, { "name": "trigger", "type": "boolean", "description": "True to construct path for trigger instead of action." }, { "name": "path", "type": "string", "description": "The action name as just <action name> or <package name>/<action name>." } ]' \
+     -a sampleInput '{ "web": true, "path": "utils/echo" }' \
+     -a sampleOutput '{ "url": "https://openwhisk.ng.bluemix.net/api/v1/experimental/web/guest/utils/echo.json" }'
+
 install "$PACKAGE_HOME/samples/hello/javascript/hello.js" \
      samples/helloWorld \
      -a description 'Demonstrates logging facilities' -a parameters '[{"name": "payload", "required":false, "description":"The string to be included in the log record"}]' \

@@ -32,6 +32,7 @@ class UtilsTests extends TestHelpers with WskTestHelpers with Matchers {
 
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
+    val namespace = WskAdmin.getUser(wskprops.authKey)._2
 
     val lines = Array("seven", "eight", "nine")
 
@@ -102,6 +103,35 @@ class UtilsTests extends TestHelpers with WskTestHelpers with Matchers {
                     "lines" -> lines.toJson,
                     "payload" -> args("payload").toJson)
             }
+        }
+    }
+
+    "namespace" should "identify namespace" in {
+        withActivation(wsk.activation, wsk.action.invoke(util("namespace"))) {
+            _.response.result.get shouldBe {
+                JsObject("namespace" -> namespace.toJson)
+            }
+        }
+    }
+
+    "hosturl" should "generate url for (web) actions and triggers" in {
+        val base = WhiskProperties.getApiHost
+        val tests: Seq[(String, Map[String, JsValue])] = Seq(
+            (s"$base/api/v1/namespaces/$namespace/actions", Map()),
+            (s"$base/api/v1/namespaces/$namespace/actions/echo", Map("path" -> "echo".toJson)),
+            (s"$base/api/v1/namespaces/$namespace/actions/utils/echo", Map("path" -> "utils/echo".toJson)),
+            (s"$base/api/v1/namespaces/$namespace/triggers/echo", Map("trigger" -> true.toJson, "path" -> "echo".toJson)),
+            (s"$base/api/v1/experimental/web/$namespace", Map("web" -> true.toJson)),
+            (s"$base/api/v1/experimental/web/$namespace/default/echo.text", Map("web" -> true.toJson, "path" -> "echo".toJson, "ext" -> ".text".toJson)),
+            (s"$base/api/v1/experimental/web/$namespace/utils/echo.json", Map("web" -> true.toJson, "path" -> "utils/echo".toJson)))
+
+        tests.foreach {
+            case (url, args) =>
+                withActivation(wsk.activation, wsk.action.invoke(util("hosturl"), args)) {
+                    _.response.result.get shouldBe {
+                        JsObject("url" -> url.toJson)
+                    }
+                }
         }
     }
 }
