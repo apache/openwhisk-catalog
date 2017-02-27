@@ -1,4 +1,6 @@
 {
+  "curly"         : true,
+  "eqeqeq"        : true,
   "forin"         : false,
   "esversion"     : 6,
   "loopfunc"      : true,
