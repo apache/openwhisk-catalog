@@ -35,8 +35,6 @@ function main(params) {
             url += '/observations/timeseries.json';
             qs.hours = '23';
             break;
-        case '10day':
-            break;
         default:
             url += '/forecast/daily/10day.json';
             break;
