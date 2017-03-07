@@ -1,79 +1,34 @@
-def whiskhome = "$System.env.OPENWHISK_HOME"
-
 apply plugin: 'scala'
 apply plugin: 'eclipse'
 compileTestScala.options.encoding = 'UTF-8'
 
+evaluationDependsOn(':whisktests')
+
 repositories {
     mavenCentral()
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
 }
 
-sourceSets {
-    test {
-        scala {
-            srcDirs = ['src/']
-        }
-    }
-}
-
-def commonConfiguration = {
-    systemProperty 'testthreads', System.getProperty('testthreads', '1')
+tasks.withType(Test) {
     testLogging {
         events "passed", "skipped", "failed"
         showStandardStreams = true
         exceptionFormat = 'full'
     }
-    outputs.upToDateWhen { false } // force tests to run everytime
-}
-
-test {
-    configure commonConfiguration
+    outputs.upToDateWhen { false } // force tests to run every time
 }
 
 task testWithoutCredentials(type: Test) {
     exclude 'packages/watson/**'
     exclude 'packages/slack/**'
     exclude 'packages/weather/**'
-    configure commonConfiguration
 }
 
 dependencies {
-    testCompile "org.scala-lang:scala-library:${gradle.scala.version}"
-    testCompile 'org.apache.commons:commons-exec:1.1'
-    testCompile 'org.apache.commons:commons-lang3:3.3.2'
-    testCompile 'commons-logging:commons-logging:1.1.3'
-    testCompile 'org.codehaus.groovy:groovy:2.4.3'
-    testCompile 'org.codehaus.groovy:groovy-json:2.4.3'
-    testCompile 'org.codehaus.groovy:groovy-xml:2.4.3'
-    testCompile 'com.google.guava:guava:18.0'
-    testCompile 'org.hamcrest:hamcrest-core:1.3'
-    testCompile 'org.apache.httpcomponents:httpmime:4.3.6'
-    testCompile 'junit:junit:4.11'
-    testCompile 'com.jayway.restassured:rest-assured:2.4.1'
-    testCompile 'org.scalatest:scalatest_2.11:3.0.1'
-    testCompile 'org.seleniumhq.selenium:selenium-java:2.45.0'
-    testCompile 'io.spray:spray-testkit_2.11:1.3.3'
-    testCompile 'io.spray:spray-json_2.11:1.3.2'
-    testCompile 'com.google.code.tempus-fugit:tempus-fugit:1.2-SNAPSHOT'
-    testCompile 'com.google.code.gson:gson:2.3.1'
-    testCompile project(':WhiskTest').sourceSets.test.output
+    compile "org.scala-lang:scala-library:${gradle.scala.version}"
+    compile project(':whisktests')
+    compile project(':whisktests').sourceSets.test.output
 }
 
 tasks.withType(ScalaCompile) {
     scalaCompileOptions.additionalParameters = gradle.scala.compileFlags
 }
-
-def keystorePath = new File(buildDir, 'classes/test/keystore')
-task deleteKeystore(type: Delete) {
-    delete keystorePath
-}
-task createKeystore(dependsOn: deleteKeystore) << {
-    Properties props = new Properties()
-    props.load(new FileInputStream(file(whiskhome+'/whisk.properties')))
-    def cmd = ['keytool', '-import', '-alias', 'Whisk', '-noprompt', '-trustcacerts', '-file', file(props['whisk.ssl.cert']), '-keystore', keystorePath, '-storepass', 'openwhisk']
-    cmd.execute().waitForProcessOutput(System.out, System.err)
-}
-compileTestScala.finalizedBy createKeystore

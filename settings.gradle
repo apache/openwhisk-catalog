@@ -1,14 +1,16 @@
-include 'tests', ':WhiskTest', ':common:scala', ':core:invoker', ':core:controller'
+def owPath = System.getenv("OPENWHISK_HOME") ?: '../open'
+def owDirectory = new File(owPath)
+
+include 'common:scala'; project(':common:scala').projectDir = new File(owDirectory, 'common/scala')
+include 'core:controller'; project(':core:controller').projectDir = new File(owDirectory, 'core/controller')
+include 'core:invoker'; project(':core:invoker').projectDir = new File(owDirectory, 'core/invoker')
+include 'whisktests'; project(':whisktests').projectDir = new File(owDirectory, 'tests')
+
+include 'tests'
 
 rootProject.name = 'openwhisk-catalog'
-def whiskhome = "$System.env.OPENWHISK_HOME"
-
-project(':WhiskTest').projectDir = new File(whiskhome, 'tests')
-project(':common:scala').projectDir = new File(whiskhome + '/common', 'scala')
-project(':core:invoker').projectDir = new File(whiskhome + '/core', 'invoker')
-project(':core:controller').projectDir = new File(whiskhome + '/core', 'controller')
 
 gradle.ext.scala = [
-        version: '2.11.8',
-        compileFlags: ['-feature', '-unchecked', '-deprecation', '-Xfatal-warnings', '-Ywarn-unused-import']
+    version: '2.11.8',
+    compileFlags: ['-feature', '-unchecked', '-deprecation', '-Xfatal-warnings', '-Ywarn-unused-import']
 ]
