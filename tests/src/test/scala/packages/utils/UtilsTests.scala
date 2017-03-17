@@ -121,9 +121,9 @@ class UtilsTests extends TestHelpers with WskTestHelpers with Matchers {
             (s"$base/api/v1/namespaces/$namespace/actions/echo", Map("path" -> "echo".toJson)),
             (s"$base/api/v1/namespaces/$namespace/actions/utils/echo", Map("path" -> "utils/echo".toJson)),
             (s"$base/api/v1/namespaces/$namespace/triggers/echo", Map("trigger" -> true.toJson, "path" -> "echo".toJson)),
-            (s"$base/api/v1/experimental/web/$namespace", Map("web" -> true.toJson)),
-            (s"$base/api/v1/experimental/web/$namespace/default/echo.text", Map("web" -> true.toJson, "path" -> "echo".toJson, "ext" -> ".text".toJson)),
-            (s"$base/api/v1/experimental/web/$namespace/utils/echo.json", Map("web" -> true.toJson, "path" -> "utils/echo".toJson)))
+            (s"$base/api/v1/web/$namespace", Map("web" -> true.toJson)),
+            (s"$base/api/v1/web/$namespace/default/echo.text", Map("web" -> true.toJson, "path" -> "echo".toJson, "ext" -> ".text".toJson)),
+            (s"$base/api/v1/web/$namespace/utils/echo", Map("web" -> true.toJson, "path" -> "utils/echo".toJson)))
 
         tests.foreach {
             case (url, args) =>
