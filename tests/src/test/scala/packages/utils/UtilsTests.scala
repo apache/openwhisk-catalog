@@ -115,7 +115,7 @@ class UtilsTests extends TestHelpers with WskTestHelpers with Matchers {
     }
 
     "hosturl" should "generate url for (web) actions and triggers" in {
-        val base = WhiskProperties.getApiHost
+        val base = WhiskProperties.getApiHostForAction
         val tests: Seq[(String, Map[String, JsValue])] = Seq(
             (s"$base/api/v1/namespaces/$namespace/actions", Map()),
             (s"$base/api/v1/namespaces/$namespace/actions/echo", Map("path" -> "echo".toJson)),
