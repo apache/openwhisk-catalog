@@ -55,5 +55,10 @@ TODO: place holder until we have a README for utils
 If you want to create your own packages,  [openwhisk-package-template](https://github.com/openwhisk/openwhisk-package-template)
 is a good package creation template to help you build, test and integrate new packages.
 
+## How to create packages
+
+If you want to create your own packages,  [openwhisk-package-template](https://github.com/openwhisk/openwhisk-package-template)
+is a good package creation template to help you build, test and integrate new packages.
+
 For more details about how to use these packages, you can go to the README.md under each package folder.
 
