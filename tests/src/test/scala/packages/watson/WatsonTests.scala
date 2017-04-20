@@ -28,6 +28,18 @@ import common.TestUtils
 import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json.pimpAny
 
+/**
+ * Tests for IBM Watson Developer Cloud packages.
+ * 
+ * @see https://www.ibm.com/watson/developercloud/
+ * 
+ * Current services tested are
+ * <ul>
+ * <li> language translation
+ * <li> speech-to-text
+ * <li> text-to-speech
+ * </ul>
+ */
 @RunWith(classOf[JUnitRunner])
 class WatsonTests
     extends TestHelpers
@@ -39,7 +51,7 @@ class WatsonTests
 
     behavior of "Watson actions"
 
-    it should "identify the language of the text via the Watson Indentify API" in {
+    it should "identify the language of the text via the Watson Language Translator API" in {
         val credentials = TestUtils.getVCAPcredentials("language_translator")
         val username = credentials.get("username")
         val password = credentials.get("password")
@@ -55,7 +67,7 @@ class WatsonTests
         }
     }
 
-    it should "translate the language from one to another via the Watson Translator API" in {
+    it should "translate the language from one to another via the Watson Language Translator API" in {
         val credentials = TestUtils.getVCAPcredentials("language_translator")
         val username = credentials.get("username")
         val password = credentials.get("password")
@@ -71,7 +83,7 @@ class WatsonTests
         }
     }
 
-    it should "convert the text into speech via the Watson textToSpeech API and convert the speech back to the same text via via the Watson speechToText API" in {
+    it should "convert the text into speech via the Watson Text To Speech API and convert the speech back to the same text via via the Watson Speech To Text API" in {
         var credentials = TestUtils.getVCAPcredentials("text_to_speech")
         var username = credentials.get("username")
         var password = credentials.get("password")
