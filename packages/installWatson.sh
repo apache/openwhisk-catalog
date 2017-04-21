@@ -1,4 +1,4 @@
-#!/bin/bash
+##!/bin/bash
 #
 # use the command line interface to install Watson package.
 #
@@ -9,22 +9,28 @@ SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 PACKAGE_HOME=$SCRIPTDIR
 source "$PACKAGE_HOME/util.sh"
 
-echo Installing Watson package.
+echo Installing Watson packages.
+
+createPackage watson-NLU \
+    -a description "Actions for the Watson Natural Language Understanding service" \
+    -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
+	  -a tags '["watson"]' \
+	  -p bluemixServiceName 'natural_language_understanding'
 
 createPackage watson-translator \
-    -a description "Actions for the Watson analytics APIs to translate" \
+    -a description "Actions for the Watson Natural Language Translator service" \
     -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
 	  -a tags '["watson"]' \
 	  -p bluemixServiceName 'language_translator'
 
 createPackage watson-speechToText \
-    -a description "Actions for the Watson analytics APIs to convert speech into text" \
+    -a description "Actions for the Watson Speech to Text service" \
     -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
 	  -a tags '["watson"]' \
 	  -p bluemixServiceName 'speech_to_text'
 
 createPackage watson-textToSpeech \
-    -a description "Actions for the Watson analytics APIs to convert text into speech" \
+    -a description "Actions for the Watson Text to Speech service" \
     -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
 	  -a tags '["watson"]' \
 	  -p bluemixServiceName 'text_to_speech'
@@ -144,15 +150,25 @@ install "$PACKAGE_HOME/watson-translator/languageId.js" \
 install "$PACKAGE_HOME/watson-textToSpeech/textToSpeech.js" \
     watson-textToSpeech/textToSpeech \
     -a description 'Synthesize text to spoken audio' \
-    -a parameters '[
-        {"name":"username", "required":true, "bindTime":true, "description":"The Watson service username"},
-        {"name":"password", "required":true, "type":"password", "bindTime":true, "description":"The Watson service password"},
-        {"name":"payload", "required":true, "description":"The text to be synthesized"},
-        {"name":"voice", "required":false, "description":"The voice to be used for synthesis"},
-        {"name":"accept", "required":false, "description":"The requested MIME type of the audio"},
-        {"name":"encoding", "required":false, "description":"The encoding of the speech binary data"}]' \
+    -a parameters '[ {"name":"username", "required":true, "bindTime":true, "description":"The Watson service username"}, {"name":"password", "required":true, "type":"password", "bindTime":true, "description":"The Watson service password"}, {"name":"payload", "required":true, "description":"The text to be synthesized"}, {"name":"voice", "required":false, "description":"The voice to be used for synthesis"}, {"name":"accept", "required":false, "description":"The requested MIME type of the audio"}, {"name":"encoding", "required":false, "description":"The encoding of the speech binary data"}]' \
     -a sampleInput '{"payload":"Hello, world.", "encoding":"base64", "accept":"audio/wav", "voice":"en-US_MichaelVoice", "username":"XXX", "password":"XXX" }' \
     -a sampleOutput '{"payload":"<base64 encoding of a .wav file>", "encoding":"base64", "mimetype":"audio/wav"}'
+
+install "$PACKAGE_HOME/watson-natural-language-understanding/analyze.js" \
+    watson-NLU/analyze \
+    --main analyze \
+    -a description 'Perform natural language understanding analysis' \
+    -a parameters '[ {"name":"username", "required":true, "bindTime":true, "description":"The Watson service username"}, {"name":"password", "required":true, "type":"password", "bindTime":true, "description":"The Watson service password"}, {"name":"text", "required":true, "description":"The text to analyze"}, {"name":"features", "required":true, "description":"features as expected by the NLU service /analyze API"} ]' \
+    -a sampleInput '{"text":"Leonardo DiCaprio won Best Actor in a Leading Role for his performance", "features":{ "concepts": {}, "keywords": {}}, "username":"XXX", "password":"XXX" }' \
+    -a sampleOutput '{"response":{"entities":[{"type":"Person","text":"Leonardo DiCaprio","relevance":0.33,"disambiguation":{"subtype":["Actor","AwardNominee","AwardWinner","Celebrity","FilmActor","FilmProducer","TVActor","TVProducer"],"name":"Leonardo DiCaprio","dbpedia_resource":"http://dbpedia.org/resource/Leonardo_DiCaprio"},"count":1}],"language":"en"}}'
+
+install "$PACKAGE_HOME/watson-natural-language-understanding/analyze.js" \
+    watson-NLU/analyzeOneFeature \
+    --main analyzeOneFeature \
+    -a description 'Perform natural language understanding analysis for one feature only' \
+    -a parameters '[ {"name":"username", "required":true, "bindTime":true, "description":"The Watson service username"}, {"name":"password", "required":true, "type":"password", "bindTime":true, "description":"The Watson service password"}, {"name":"text", "required":true, "description":"The text to analyze"}, {"name":"limit", "required":true, "description":"the limit on the number of results to return"}, {"name":"feature", "required":false, "description":"the single NLU feature to analyze for"}  ]' \
+    -a sampleInput '{"text":"Leonardo DiCaprio won Best Actor in a Leading Role for his performance", "feature":"entities", "username":"XXX", "password":"XXX" }' \
+    -a sampleOutput '{"response":{"entities":[{"type":"Person","text":"Leonardo DiCaprio","relevance":0.33,"disambiguation":{"subtype":["Actor","AwardNominee","AwardWinner","Celebrity","FilmActor","FilmProducer","TVActor","TVProducer"],"name":"Leonardo DiCaprio","dbpedia_resource":"http://dbpedia.org/resource/Leonardo_DiCaprio"},"count":1}],"language":"en"}}'
 
 waitForAll
 
