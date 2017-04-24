@@ -17,7 +17,7 @@ function analyze({text: text,
     console.log('text is', text);
     var nlu = new NLUv1({
         username: username,
-        password, password,
+        password: password,
         version_date: NLUv1.VERSION_DATE_2017_02_27
     });
 
@@ -54,8 +54,8 @@ function analyzeOneFeature(
      password : password,
      limit : limit = 3}) {
 
-    var features = {}
-    features[feature] = { "limit" : parseInt(limit) }
+    var features = {};
+    features[feature] = { "limit" : parseInt(limit) };
     return analyze({text:text,username:username,password:password,
                     features: features
                    }

@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 #
 # use the command line interface to install Watson package.
 #

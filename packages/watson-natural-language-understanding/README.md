@@ -8,7 +8,7 @@ The package includes the following entities.
 | --- | --- | --- | --- |
 | `/whisk.system/watson-NLU` | package | username, password | Package for Watson Natural Language Understanding  |
 | `/whisk.system/watson-NLU/analyze` | action | text, features, username, password | General API for NLU analysis|
-| `/whisk.system/watson-NLU/analyzeOureneFeat` | action | text, feature, limit, username, password | Analyze for one NLU feature |
+| `/whisk.system/watson-NLU/analyzeOneFeature` | action | text, feature, limit, username, password | Analyze for one NLU feature |
 
 
 ## Setting up the Watson Natural Language package in Bluemix

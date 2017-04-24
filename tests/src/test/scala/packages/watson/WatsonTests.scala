@@ -30,13 +30,12 @@ import spray.json.pimpAny
 import spray.json.JsArray
 import spray.json.JsObject
 import spray.json.JsValue
-import com.google.gson.JsonObject
 
 /**
  * Tests for IBM Watson Developer Cloud packages.
- * 
+ *
  * @see https://www.ibm.com/watson/developercloud/
- * 
+ *
  * Current services tested are
  * <ul>
  * <li> language translation
@@ -54,7 +53,7 @@ class WatsonTests
     val wsk = new Wsk()
 
     behavior of "Watson actions"
-    
+
     /**
      * Watson Natural Language Understanding
      */
@@ -68,23 +67,21 @@ class WatsonTests
         entities.length should be(1)
         val e : JsObject  = entities(0).asInstanceOf[JsArray].elements(0).asJsObject
         e.fields.get("type") should be(Some("Company".toJson))
-        e.fields.get("text") should be(Some("IBM".toJson)) 
+        e.fields.get("text") should be(Some("IBM".toJson))
     }
-    
+
     it should "identify entities and keywords via the Watson Natural Language Understanging API" in {
         val credentials = TestUtils.getVCAPcredentials("natural_language_understanding")
         val username = credentials.get("username")
         val password = credentials.get("password")
-        // TODO -- SJF -- installed in my space for now -- change the following to
-        // whisk.system when promoted
-        val action = "/sjfink@us.ibm.com_watson/watson-NLU/analyze"
+        val action = "/whisk.system/watson-NLU/analyze"
         val text = s"Leonardo DiCaprio won Best Actor in a Leading Role for his performance".toJson
         val empty = JsObject(Map.empty[String, JsValue])
         val features = JsObject(Map("entities"-> empty, "keywords" -> empty))
-        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson, 
+        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson,
                                                         "text" -> text, "features" -> features))
         withActivation(wsk.activation, run) {
-            activation => 
+            activation =>
                println(activation.response)
                activation.response.success shouldBe true
                val entities = activation.response.result.get.fields.get("response").get.asJsObject.fields.get("entities").toArray
@@ -98,11 +95,9 @@ class WatsonTests
         val credentials = TestUtils.getVCAPcredentials("natural_language_understanding")
         val username = credentials.get("username")
         val password = credentials.get("password")
-        // TODO -- SJF -- installed in my space for now -- change the following to
-        // whisk.system when promoted
-        val action = "/sjfink@us.ibm.com_watson/watson-NLU/analyzeOneFeature"
+        val action = "/whisk.system/watson-NLU/analyzeOneFeature"
         val text = s"IBM".toJson
-        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson, 
+        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson,
                                                         "text" -> text))
         withActivation(wsk.activation, run) {
             activation =>
@@ -114,9 +109,7 @@ class WatsonTests
         val credentials = TestUtils.getVCAPcredentials("natural_language_understanding")
         val username = credentials.get("username")
         val password = credentials.get("password")
-        // TODO -- SJF -- installed in my space for now -- change the following to
-        // whisk.system when promoted
-        val action = "/sjfink@us.ibm.com_watson/watson-NLU/analyzeOneFeature"
+        val action = "/whisk.system/watson-NLU/analyzeOneFeature"
         val text = s"IBM or GE".toJson
         val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson, "text" -> text,
                                                         "limit" -> "1".toJson))
@@ -127,7 +120,7 @@ class WatsonTests
                 entities.length should be(1)
         }
     }
-    
+
     /**
      * Watson Language Translator
      */
@@ -163,7 +156,7 @@ class WatsonTests
                 activation.response.result.get.fields.get("text").toString.toLowerCase should include(result)
         }
     }
-    
+
     /**
      * Watson Text to Speech and Speech to Text
      */
