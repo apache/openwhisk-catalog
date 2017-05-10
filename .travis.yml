@@ -5,6 +5,10 @@ sudo: required
 language: scala
 scala:
    - 2.11.6
+env:
+  global:
+    - secure: "kVFqWqAy1wi+dBYgUeAyvaO8Dy/RusgevYFo3TobtcIkv2ziwbHtWXdGijvldtfa9seFE9CC8aVYVxpfrsE2BQtcR6xn6sK0yGfVYykk2PpKsQ0CO2S+GTXTp88DCVqa6PrPFqPgCMLQovjtbETJcFDg4c58uoT6lTBbXDd44xYl3iuB6g/DpBM1oMSGdpxiNd/Ce9F8qCVO9WsebfaDktb1kQ1somNnjTWsvAi1ht49AMZzFBzFvgAbH7wWWPG61U2IWKNEAnXEUVQS83p9ysldebspGgKHhGqJ7wfDkUA9hrYFkMnCuiGsga6jFdfyA3h8sO6DuQx8KT+NPoQUI3VgSgYR51J2lMBZFBSplPs2akbLPMoN4+CLu08/wcWAIWuykFuK5Qy/UY6Ofm46PQljGMKdhsgOGfBSNj1mEF+qIrFqWRjlaaCSbGkWH501NPF8WAToXZLx3kCHL3gsrJLuE4QrWwqWsFaIeB2o3nMmRwrVLiQAwPX+L9EfAzYVP8Nix6vZyL1UDnC9OibvZruLMYBhX6AETv/cq7qvkglNdZcft3GPN+8H172RrIE9i8mKsAOa8vYJMl3CEItYdk0pzaUk02hgpfk11mdVsQFrs0XwI6yQ9pNvO7Y/5gJcSRYM4IuH4nZ/V8ZoKAfi9nkklz2p0JkL9xKNcYCexEI="
+    - secure: "ujH3HarkGfD+iQ3i4h1iRvPxHnkQXotwQNaWEUxncR6Ilqmk2pMqK8RMA1Y2sGZfIChkeGNlKwl/nFjt5izDrz4hBk7KDnydPKCFtQ2uh8HLG8xkaNFXi21Ji2+7gRCyMtOneEcpIOmzkjiw5q5WI2z8s0yRLI3eNMpYYQ5WN+oqO6OdOr39xA2jkcDHElgTueBN/JaCAKCqHbmrMsljNwT70pbHnRZihRTl337IkrgMcqGVVzXyEn6Lk9olr7KiRxhBVH0A0ykAbmybvdRcEqROxq+P1XJWD3ECGQpBFHyXsGUJ//+JaUV17j9HfU8w59RBz+pHUKvbVkUR4Eh1rUinxn9a1IMo1EXTVyNcYwaBvubgfEHRhjM6EFOpoLBDQhathPs8yTRCFFcvZv7uweY9lUzF0un4DKa6XIO8TuLgGJZvYoYz3D/3tjGVCHltQh8ZgxVppbCgc7dq4hvrPcmcyiocztpHXkFupSxLEeHVF+FBw9u79r5M5FCJwtjkZCkoCIKV/7HeeNkR404hY8ogbPHhjfrTlxl8L6f/7CP+/LsOFvNQQx6fTDfyGn0D63rZCHOPBHCkHDiJXI3FN6gI9q6d7qKhkiWApvx9OvRfcQDGf4WM3muAeI8fPMnsUtwbxyNI/vCZzDo4GVLf+vOgGQwuefl4uGo+u0ZssBs="
 
 services:
   - docker
@@ -16,6 +20,19 @@ before_install:
 
 script:
   - ./tools/travis/build.sh
+
+deploy:
+  # deploy latest
+  - provider: script
+    script: ./tools/travis/deploy.sh openwhisk couchdb-catalog latest
+    on:
+      branch: master
+  # deploy tag
+  - provider: script
+    script: ./tools/travis/deploy.sh openwhisk couchdb-catalog $TRAVIS_TAG
+    on:
+      tags: true
+      all_branches: true
 
 notifications:
   email: false
