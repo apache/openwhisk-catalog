@@ -26,7 +26,7 @@ deploy:
   - provider: script
     script: ./tools/travis/deploy.sh openwhisk couchdb-catalog latest
     on:
-      branch: master
+      branch: issues_216
   # deploy tag
   - provider: script
     script: ./tools/travis/deploy.sh openwhisk couchdb-catalog $TRAVIS_TAG
