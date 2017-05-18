@@ -9,7 +9,7 @@ sudo npm install -g jshint
 
 # OpenWhisk stuff
 cd $HOMEDIR
-git clone https://github.com/openwhisk/openwhisk.git
+git clone --depth 1 https://github.com/apache/incubator-openwhisk.git openwhisk
 
 cd openwhisk
 ./tools/travis/setup.sh
