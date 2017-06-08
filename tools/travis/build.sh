@@ -6,10 +6,11 @@ set -e
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 ROOTDIR="$SCRIPTDIR/../.."
 WHISKDIR="$ROOTDIR/../openwhisk"
+UTILDIR="$ROOTDIR/../incubator-openwhisk-utilities"
 
 # run scancode
-cd $WHISKDIR
-tools/build/scanCode.py $ROOTDIR
+cd $UTILDIR
+scancode/scanCode.py $ROOTDIR
 
 # run jshint
 cd $ROOTDIR/packages
