@@ -28,7 +28,22 @@ import common.WskTestHelpers
 import common.TestUtils
 import spray.json.DefaultJsonProtocol.StringJsonFormat
 import spray.json.pimpAny
+import spray.json.JsArray
+import spray.json.JsObject
+import spray.json.JsValue
 
+/**
+ * Tests for IBM Watson Developer Cloud packages.
+ *
+ * @see https://www.ibm.com/watson/developercloud/
+ *
+ * Current services tested are
+ * <ul>
+ * <li> language translation
+ * <li> speech-to-text
+ * <li> text-to-speech
+ * </ul>
+ */
 @RunWith(classOf[JUnitRunner])
 class WatsonTests
     extends TestHelpers
@@ -40,7 +55,78 @@ class WatsonTests
 
     behavior of "Watson actions"
 
-    it should "identify the language of the text via the Watson Indentify API" in {
+    /**
+     * Watson Natural Language Understanding
+     */
+
+    /**
+     * Check that a response from NLU represents one entity, "IBM"
+     */
+    def isIBMEntity(response: CliActivationResponse): Unit = {
+        response.success shouldBe true
+        val entities = response.result.get.fields.get("response").get.asJsObject.fields.get("entities").toArray
+        entities.length should be(1)
+        val e : JsObject  = entities(0).asInstanceOf[JsArray].elements(0).asJsObject
+        e.fields.get("type") should be(Some("Company".toJson))
+        e.fields.get("text") should be(Some("IBM".toJson))
+    }
+
+    it should "identify entities and keywords via the Watson Natural Language Understanging API" in {
+        val credentials = TestUtils.getVCAPcredentials("natural_language_understanding")
+        val username = credentials.get("username")
+        val password = credentials.get("password")
+        val action = "/whisk.system/watson-NLU/analyze"
+        val text = s"Leonardo DiCaprio won Best Actor in a Leading Role for his performance".toJson
+        val empty = JsObject(Map.empty[String, JsValue])
+        val features = JsObject(Map("entities"-> empty, "keywords" -> empty))
+        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson,
+                                                        "text" -> text, "features" -> features))
+        withActivation(wsk.activation, run) {
+            activation =>
+               println(activation.response)
+               activation.response.success shouldBe true
+               val entities = activation.response.result.get.fields.get("response").get.asJsObject.fields.get("entities").toArray
+               entities.length should be(1)
+               val keywords = activation.response.result.get.fields.get("response").get.asJsObject.fields.get("keywords").toArray
+               keywords.length should be(1)
+        }
+    }
+
+    it should "identify an entity via the Watson Natural Language Understanging API" in {
+        val credentials = TestUtils.getVCAPcredentials("natural_language_understanding")
+        val username = credentials.get("username")
+        val password = credentials.get("password")
+        val action = "/whisk.system/watson-NLU/analyzeOneFeature"
+        val text = s"IBM".toJson
+        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson,
+                                                        "text" -> text))
+        withActivation(wsk.activation, run) {
+            activation =>
+                isIBMEntity(activation.response)
+        }
+    }
+
+    it should "respect the limit when retrieving entities via the Watson Natural Language Understanging API" in {
+        val credentials = TestUtils.getVCAPcredentials("natural_language_understanding")
+        val username = credentials.get("username")
+        val password = credentials.get("password")
+        val action = "/whisk.system/watson-NLU/analyzeOneFeature"
+        val text = s"IBM or GE".toJson
+        val run = wsk.action.invoke(action, Map("username" -> username.toJson, "password" -> password.toJson, "text" -> text,
+                                                        "limit" -> "1".toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe true
+                val entities = activation.response.result.get.fields.get("response").get.asJsObject.fields.get("entities").toArray
+                entities.length should be(1)
+        }
+    }
+
+    /**
+     * Watson Language Translator
+     */
+
+    it should "identify the language of the text via the Watson Language Translator API" in {
         val credentials = TestUtils.getVCAPcredentials("language_translator")
         val username = credentials.get("username")
         val password = credentials.get("password")
@@ -56,7 +142,7 @@ class WatsonTests
         }
     }
 
-    it should "translate the language from one to another via the Watson Translator API" in {
+    it should "translate the language from one to another via the Watson Language Translator API" in {
         val credentials = TestUtils.getVCAPcredentials("language_translator")
         val username = credentials.get("username")
         val password = credentials.get("password")
@@ -72,7 +158,11 @@ class WatsonTests
         }
     }
 
-    it should "convert the text into speech via the Watson textToSpeech API and convert the speech back to the same text via via the Watson speechToText API" in {
+    /**
+     * Watson Text to Speech and Speech to Text
+     */
+
+    it should "convert the text into speech via the Watson Text To Speech API and convert the speech back to the same text via via the Watson Speech To Text API" in {
         var credentials = TestUtils.getVCAPcredentials("text_to_speech")
         var username = credentials.get("username")
         var password = credentials.get("password")
