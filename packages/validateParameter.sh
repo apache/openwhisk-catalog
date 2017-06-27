@@ -4,7 +4,7 @@
 #
 
 # The first argument is the catalog authentication key, which can be passed via either
-# a file or the key itself. 
+# a file or the key itself.
 CATALOG_AUTH_KEY=${1:-"$OPENWHISK_HOME/ansible/files/auth.whisk.system"}
 
 # If the auth key file exists, read the key in the file. Otherwise, take the
@@ -37,3 +37,8 @@ export WHISK_API_HOST=$API_HOST
 # "$OPENWHISK_HOME/bin/wsk" as the default value.
 cli_path=${4:-"$OPENWHISK_HOME/bin/wsk"}
 export WHISK_CLI_PATH=$cli_path
+
+#The whisk_host_name variable is the fifth argument.  Make sure it is set and not empty
+HOST_NAME=$5
+: $HOST_NAME:"WHISK_HOST_NAME must be set and non-empty"
+export WHISK_HOST_NAME=$HOST_NAME
