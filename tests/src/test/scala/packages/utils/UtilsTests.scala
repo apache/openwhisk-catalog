@@ -33,7 +33,7 @@ class UtilsTests extends TestHelpers with WskTestHelpers with Matchers {
 
     implicit val wskprops = WskProps()
     val wsk = new Wsk()
-    val namespace = WskAdmin.getUser(wskprops.authKey)._2
+    val namespace = wsk.namespace.whois()
 
     val lines = Array("seven", "eight", "nine")
 
