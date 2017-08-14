@@ -19,7 +19,7 @@ waitForAll
 
 install "$PACKAGE_HOME/$PKGNAME/eca.js" \
      "$PKGNAME/eca" \
-     -a description 'Event-Condition-Action: run condition action and iff result is successful, run action.' \
+     -a description 'Event-Condition-Action: run condition action and if the result is successful run next action.' \
      -a parameters '[
          { "name": "$conditionName", "required": true, "type": "string", "description": "Name of action to run to compute condition. Must return error to indicate false predicate." },
          { "name": "$actionName",    "required": true, "type": "string", "description": "Name of action to run if result of condition action is not error." } ]' \
