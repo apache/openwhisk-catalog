@@ -1,3 +1,6 @@
+// Licensed to the Apache Software Foundation (ASF) under one or more contributor
+// license agreements; and to You under the Apache License, Version 2.0.
+
 /**
  * @param path the action name as just <action name> or <pkgname>/<action name>.
  * @param web if true return path for web action, otherwise path to invoke via POST with API key.

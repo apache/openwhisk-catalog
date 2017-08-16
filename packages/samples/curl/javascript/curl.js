@@ -1,3 +1,9 @@
+// Licensed to the Apache Software Foundation (ASF) under one or more contributor
+// license agreements; and to You under the Apache License, Version 2.0.
+
+/**
+ * Attempt to Curl to the URL provided in the payload.
+ */
 function main(msg) {
     var hostToCurl = msg.payload;
     console.log('Curl to ' + hostToCurl);

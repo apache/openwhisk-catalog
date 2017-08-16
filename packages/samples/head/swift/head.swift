@@ -1,3 +1,6 @@
+// Licensed to the Apache Software Foundation (ASF) under one or more contributor
+// license agreements; and to You under the Apache License, Version 2.0.imitations under the License.
+
 /**
  * Sample code using the experimental Swift 3 runtime
  * Return the first num lines of an array.
