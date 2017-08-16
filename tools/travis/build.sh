@@ -28,7 +28,7 @@ $ANSIBLE_CMD initdb.yml
 
 cd $WHISKDIR
 
-./gradlew distDocker
+TERM=dumb ./gradlew distDocker
 
 cd $WHISKDIR/ansible
 
@@ -52,4 +52,4 @@ sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCA
 # Test
 
 cd $ROOTDIR
-./gradlew :tests:testWithoutCredentials
+TERM=dumb ./gradlew :tests:testWithoutCredentials
