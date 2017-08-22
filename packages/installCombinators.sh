@@ -3,9 +3,6 @@
 # use the command line interface to install standard actions deployed
 # automatically.
 #
-: ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH must be set and non-empty"}
-AUTH_KEY=$WHISK_SYSTEM_AUTH
-
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 PACKAGE_HOME=$SCRIPTDIR
 source "$PACKAGE_HOME/util.sh"
