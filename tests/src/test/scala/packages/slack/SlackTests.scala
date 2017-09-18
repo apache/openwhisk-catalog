@@ -53,4 +53,17 @@ class SlackTests extends TestHelpers
         }
     }
 
+    "Slack Package" should "print the object being sent to default channel in slack" in {
+        val run = wsk.action.invoke(slackAction, Map(
+            "username" -> username.toJson,
+            "text" -> text.toJson,
+            "url" -> url.toJson))
+        withActivation(wsk.activation, run) {
+            activation =>
+                activation.response.success shouldBe true
+                val logs = activation.logs.get.toString
+                logs should include("successfully sent")
+        }
+    }
+
 }

@@ -6,7 +6,7 @@ var request = require('request');
 /**
  * Action to post to slack
  *  @param {string} url - Slack webhook url
- *  @param {string} channel - Slack channel to post the message to
+ *  @param {string} channel - (optional) Slack channel to post the message to
  *  @param {string} username - name to post the message as
  *  @param {string} text - message to post
  *  @param {string} icon_emoji - (optional) emoji to use as the icon for the message
@@ -88,9 +88,6 @@ function checkParams(params) {
     }
     else if (params.url === undefined) {
         return 'No Webhook URL provided';
-    }
-    else if (params.channel === undefined) {
-        return 'No channel provided';
     }
     else {
         return undefined;

@@ -16,7 +16,7 @@ Creating a package binding with the `username`, `url`, and `channel` values is s
 The `/whisk.system/slack/post` action posts a message to a specified Slack channel. The parameters are as follows:
 
 - `url`: The Slack webhook URL.
-- `channel`: The Slack channel to post the message to.
+- `channel`: (optional) The Slack channel to post the message to.
 - `username`: The name to post the message as.
 - `text`: A message to post.
 - `token`: (optional) A Slack [access token](https://api.slack.com/tokens). See [below](./catalog.md#using-the-slack-token-based-api) for more detail on the use of the Slack access tokens.
