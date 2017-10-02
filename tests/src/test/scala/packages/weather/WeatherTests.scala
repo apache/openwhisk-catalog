@@ -34,6 +34,7 @@ class WeatherTests
     val credentials = TestUtils.getVCAPcredentials("weatherinsights")
     val username = credentials.get("username").toJson
     val password = credentials.get("password").toJson
+    val host = credentials.get("host").toJson
 
     behavior of "Weather Package"
 
@@ -62,6 +63,24 @@ class WeatherTests
         val name = "/whisk.system/weather/forecast"
         withActivation(wsk.activation, wsk.action.invoke(name, Map("username" -> username, "password" -> password, "timePeriod" -> "timeseries".toJson))) {
             _.response.result.get.toString should include("observation")
+        }
+    }
+
+    it should """Use "host" property""" in withAssetCleaner(wskprops) {
+        (wp, assetHelper) =>
+        val name = "forecastTest"
+
+        assetHelper.withCleaner(wsk.pkg, name) {
+            (pkg, name) =>
+                pkg.bind("/whisk.system/weather", name,
+                    Map("username" -> username,
+                        "password" -> password,
+                        "host" -> host))
+        }
+        println("Invoking the action")
+        withActivation(wsk.activation, wsk.action.invoke(s"${name}/forecast")) {
+            activation =>
+                activation.response.success shouldBe true
         }
     }
 }

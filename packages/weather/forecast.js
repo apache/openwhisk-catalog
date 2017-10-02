@@ -24,7 +24,8 @@ function main(params) {
     var language = params.language || 'en-US';
     var units = params.units || 'm';
     var timePeriod = params.timePeriod || '10day';
-    var url = 'https://twcservice.mybluemix.net/api/weather/v1/geocode/' + lat + '/' + lon;
+    var host = params.host || 'twcservice.mybluemix.net';
+    var url = 'https://' + host + '/api/weather/v1/geocode/' + lat + '/' + lon;
     var qs = {language: language, units: units};
 
     switch(timePeriod) {
