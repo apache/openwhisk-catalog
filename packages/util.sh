@@ -8,8 +8,8 @@
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
 
-: ${WHISK_API_HOST:?"WHISK_API_HOST must be set and non-empty"}
-EDGE_HOST=$WHISK_API_HOST
+: ${WHISK_EDGE_HOST:?"WHISK_EDGE_HOST must be set and non-empty"}
+EDGE_HOST=$WHISK_EDGE_HOST
 
 function createPackage() {
     PACKAGE_NAME=$1
@@ -44,7 +44,7 @@ function runPackageInstallScript() {
 function removePackage() {
     PACKAGE_NAME=$1
     REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" package delete --auth "$WHISK_SYSTEM_AUTH" "$PACKAGE_NAME")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" package delete --auth "$WHISK_SYSTEM_AUTH" "$PACKAGE_NAME")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!
@@ -55,7 +55,7 @@ function removePackage() {
 function removeAction() {
     ACTION_NAME=$1
     REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" action delete --auth "$WHISK_SYSTEM_AUTH" "$ACTION_NAME")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" action delete --auth "$WHISK_SYSTEM_AUTH" "$ACTION_NAME")
     export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!

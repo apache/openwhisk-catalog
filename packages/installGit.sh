@@ -5,6 +5,9 @@
 : ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH must be set and non-empty"}
 AUTH_KEY=$WHISK_SYSTEM_AUTH
 
+: ${WHISK_HOST_NAME:?"WHISK_HOST_NAME must be set and non-empty"}
+HOST_NAME=$WHISK_HOST_NAME
+
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 PACKAGE_HOME=$SCRIPTDIR
 source "$PACKAGE_HOME/util.sh"
@@ -12,7 +15,7 @@ source "$PACKAGE_HOME/util.sh"
 echo Installing Git package.
 
 createPackage github \
-    -p endpoint "openwhisk.ng.bluemix.net" \
+    -p endpoint $HOST_NAME \
     -a description "Package which contains actions and feeds to interact with Github"
 
 waitForAll

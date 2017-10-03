@@ -31,9 +31,14 @@ fi
 
 # Make sure that the api_host is not empty.
 : ${API_HOST:?"API_HOST must be set and non-empty"}
-export WHISK_API_HOST=$API_HOST
+export WHISK_EDGE_HOST=$API_HOST
 
-# The CLI path is passed as the third argument. If it is not provided, use
+# The CLI path is passed as the fourth argument. If it is not provided, use
 # "$OPENWHISK_HOME/bin/wsk" as the default value.
 cli_path=${3:-"$OPENWHISK_HOME/bin/wsk"}
 export WHISK_CLI_PATH=$cli_path
+
+#The whisk_host_name variable is the fifth argument.  Make sure it is set and not empty
+HOST_NAME=$4
+: $HOST_NAME:"WHISK_HOST_NAME must be set and non-empty"
+export WHISK_HOST_NAME=$HOST_NAME
