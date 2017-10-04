@@ -61,6 +61,7 @@ The `/whisk.system/weather/forecast` action returns a weather forecast for a loc
   - `48hour` - Returns an hourly 2-day forecast
   - `current` - Returns the current weather conditions
   - `timeseries` - Returns both the current observations and up to 24 hours of past observations, from the current date and time.
+- `host`: Host for The Weather Company Data for IBM Bluemix
 
 
 The following is an example of creating a package binding and then getting a 10-day forecast.
