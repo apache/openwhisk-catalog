@@ -8,11 +8,11 @@
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
 
-source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3
-: ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH is not configured. Please input the correctly parameter: CATALOG_AUTH_KEY"}
-: ${WHISK_API_HOST:?"WHISK_API_HOST is not configured. Please input the correctly parameter: API_HOST"}
-: ${WHISK_CLI_PATH:?"WHISK_CLI_PATH is not configured. Please input the correctly parameter: cli_path"}
-
+source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3 $4
+: ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH is not configured. Please input the correct parameter: CATALOG_AUTH_KEY"}
+: ${WHISK_EDGE_HOST:?"WHISK_EDGE_HOST is not configured. Please input the correct parameter: API_HOST"}
+: ${WHISK_CLI_PATH:?"WHISK_CLI_PATH is not configured. Please input the correct parameter: cli_path"}
+: ${WHISK_HOST_NAME:?"WHISK_HOST_NAME is not configured. Please input the correct parameter: whisk_host_name"}
 source "$SCRIPTDIR/util.sh"
 
 echo Installing OpenWhisk packages
