@@ -24,6 +24,7 @@ runPackageInstallScript "$SCRIPTDIR" installSystem.sh
 runPackageInstallScript "$SCRIPTDIR" installWatson.sh
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
 runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
+runPackageInstallScript "$SCRIPTDIR" installDeploy.sh
 
 waitForAll
 
