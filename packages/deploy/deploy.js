@@ -194,7 +194,6 @@ function main(params) {
           if (stderr) {
             console.log('stderr from wskDeploy:');
             console.log(stderr);
-            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
           }
 
           console.log('Finished! Resolving now');
