@@ -70,7 +70,6 @@ function main(params) {
         }
       });
   })
-  // @TODO: Uncomment and fix when we figure out the new way to create a .wskprops file
   .then((data) => {
     console.log('Creating config file for wskdeploy');
     const {
