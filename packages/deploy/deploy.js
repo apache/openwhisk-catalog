@@ -6,9 +6,9 @@ const yaml = require('js-yaml');
 let command = '';
 
 function main(params) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     // Either build the remote URL for simple-git or build error
-    let remoteOrError = convertParamsToRemote(params);
+    const remoteOrError = convertParamsToRemote(params);
 
     // We received an error, reject with it
     if (typeof remoteOrError !== 'string') {
@@ -91,18 +91,16 @@ function main(params) {
           console.log(stdout);
           console.log('type');
           console.log(typeof stdout);
-          console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
         }
         if (stderr) {
           console.log('stderr from creating .wskdeploy.yaml props:');
           console.log(stderr);
-          console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
         }
         resolve(data);
       });
     });
   })
-  .then(data => {
+  .then((data) => {
     const {
       manifestPath,
       repoDir,
@@ -110,10 +108,9 @@ function main(params) {
       manifestFileName
     } = data;
 
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       // Check if we need to rename the package in the manifest.yaml
       if (envData && envData.PACKAGE_NAME) {
-
         fs.readFile(`${repoDir}/${manifestPath}/${manifestFileName}`, (err, manifestFileData) => {
           if (err) {
             reject(`Error loading ${manifestFileName} to edit the package name:`, err);
@@ -121,12 +118,12 @@ function main(params) {
 
           try {
             // Load the manifest.yaml content and overwrite the name
-            let manifestYamlJSON = yaml.safeLoad(manifestFileData);
+            const manifestYamlJSON = yaml.safeLoad(manifestFileData);
             manifestYamlJSON.package.name = envData.PACKAGE_NAME;
 
-            fs.writeFile(`${repoDir}/${manifestPath}/manifest-changed-name.yaml`, yaml.safeDump(manifestYamlJSON), err => {
-              if (err) {
-                reject('Error saving new manifest.yaml file', err);
+            fs.writeFile(`${repoDir}/${manifestPath}/manifest-changed-name.yaml`, yaml.safeDump(manifestYamlJSON), (error) => {
+              if (error) {
+                reject('Error saving new manifest.yaml file', error);
               }
 
               // Change the manifestFileName so we read the updated manifest
@@ -168,7 +165,7 @@ function main(params) {
     // Send 'y' to the wskdeploy command so it will actually run the deployment
     command = `printf 'y' | ${__dirname}/wskdeploy -v -m ${manifestFileName} --config /root/.wskprops`;
 
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       if (fs.existsSync(`${repoDir}/${manifestPath}/${manifestFileName}`)) {
         exec(command, execOptions, (err, stdout, stderr) => {
           if (err) {
@@ -179,7 +176,6 @@ function main(params) {
             console.log(stdout);
             console.log('type');
             console.log(typeof stdout);
-            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
             if (typeof stdout === 'string') {
               try {
@@ -230,8 +226,7 @@ function checkIfDirExists(dirname) {
           resolve({
             skipClone: false
           });
-        }
-        else {
+        } else {
           reject(`Error checking if ${dirname} exists`, err);
         }
       }
@@ -258,13 +253,10 @@ function convertParamsToRemote(params) {
     return {
       error: 'Please enter the GitHub repo in params',
     };
+  } else if (repo.indexOf('https://') === 0) { //Check if `https://` was included in the repo, prepend it if not
+    return repo;
   } else {
-    // Check if `https://` was included in the repo, prepend it if not
-    if (repo.indexOf('https://') === 0) {
-      return repo;
-    } else {
-      return `https://${repo}`;
-    }
+    return `https://${repo}`;
   }
 }
 
