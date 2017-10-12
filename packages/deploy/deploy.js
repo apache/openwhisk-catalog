@@ -179,7 +179,7 @@ function main(params) {
             console.log(stdout);
             console.log('type');
             console.log(typeof stdout);
-            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
             if (typeof stdout === 'string') {
               try {
@@ -199,20 +199,20 @@ function main(params) {
           if (stderr) {
             console.log('stderr from wskDeploy:');
             console.log(stderr);
-            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+            console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
           }
 
-          console.log('Finished! Resolving now')
+          console.log('Finished! Resolving now');
           resolve({
             status: 'success',
             success: true,
           });
         });
       } else {
-        reject(`Error loading ${repoDir}/${manifestPath}/${manifestFileName}. Does a manifest file exist?`)
+        reject(`Error loading ${repoDir}/${manifestPath}/${manifestFileName}. Does a manifest file exist?`);
       }
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -292,7 +292,7 @@ function getWskApiAuth(params) {
   return {
     wskApiHost,
     wskAuth,
-  }
+  };
 }
 
 exports.main = main;
