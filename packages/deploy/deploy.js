@@ -5,6 +5,13 @@ const yaml = require('js-yaml');
 
 let command = '';
 
+/**
+ * Action to deploy openwhisk elements from a compliant repository
+ *  @param {string} repo - github url containing the manifest and elements to deploy
+ *  @param {string} manifestPath - the path to the manifest file, e.g. "runtimes/node"
+ *  @param {object} envData - (optional) some specific details such as cloudant username or cloudant password
+ *  @return {object} Promise
+ */
 function main(params) {
   return new Promise((resolve, reject) => {
     // Either build the remote URL for simple-git or build error
