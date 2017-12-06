@@ -51,7 +51,7 @@ class WebSocketTests
      */
     var serverURI: URI = new URI("ws://169.46.21.246:80")
 
-    it should "Use the websocket action to send a payload" in {
+    ignore should "Use the websocket action to send a payload" in {
         val uniquePayload = s"The cow says ${System.currentTimeMillis()}".toJson
         val run = wsk.action.invoke(websocketSendAction, Map("uri" -> serverURI.toString.toJson, "payload" -> uniquePayload))
         withActivation(wsk.activation, run, 1 second, 1 second, 180 seconds) {
