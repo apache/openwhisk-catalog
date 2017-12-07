@@ -8,3 +8,10 @@ tests/.classpath
 tests/.gitignore
 tests/.project
 tests/.settings/
+
+# NodeJS
+node_modules/
+
+# IntelliJ
+.idea
+out/
