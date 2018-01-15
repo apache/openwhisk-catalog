@@ -19,15 +19,17 @@ for information about how to browse the catalog by using the command line tool.
 
 ### Install openwhisk-catalog
 
-We should be able to run the script installCatalog.sh to install the catalog like:
+Run the `installCatalog.sh` script to install the catalog.
 
-```
-./installCatalog.sh [catalog_auth_key] [api_host]
-```
+ ```
+$ OPENWHISK_HOME=<path_to_openwhisk> ./packages/installCatalog.sh
+ ```
 
-The first argument `catalog_auth_key`, defines the secret key used to authenticate the openwhisk
-service. The second argument `api_host`, determines the location, where the openwhisk edge host is running,
-in the format of IP or hostname.
+This script needs the API hostname to target and the authentication credentials for administration account. These values can be set explicitly using the `API_HOST` and `CATALOG_AUTH_KEY` environment parameters.
+
+*If `API_HOST` is not set, the script looks for the `edge.host` value in the `whisk.properties` file under `$OPENWHISK_HOME`.*
+
+*If `CATALOG_AUTH_KEY` is not set, the script looks for the contents of the `ansible/files/auth.whisk.system` file under `$OPENWHISK_HOME`.*
 
 ## Existing packages in catalog
 
