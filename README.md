@@ -25,9 +25,11 @@ Run the `installCatalog.sh` script to install the catalog.
 $ OPENWHISK_HOME=<path_to_openwhisk> ./packages/installCatalog.sh
  ```
 
-This script needs the API hostname to target and the authentication credentials for administration account. These values can be set explicitly using the `API_HOST` and `CATALOG_AUTH_KEY` environment parameters.
+This script needs the API hostname to target, path to wsk CLI binary and authentication credentials for administration account. These values can be set explicitly using the `API_HOST`, `CLI_PATH` and `CATALOG_AUTH_KEY` environment parameters.
 
 *If `API_HOST` is not set, the script looks for the `edge.host` value in the `whisk.properties` file under `$OPENWHISK_HOME`.*
+
+*If `CLI_PATH` is not set, the script checks for the `bin/wsk` binary under `$OPENWHISK_HOME`.*
 
 *If `CATALOG_AUTH_KEY` is not set, the script looks for the contents of the `ansible/files/auth.whisk.system` file under `$OPENWHISK_HOME`.*
 
