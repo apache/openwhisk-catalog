@@ -19,7 +19,7 @@ for information about how to browse the catalog by using the command line tool.
 
 ### Install openwhisk-catalog
 
-We should be able to run the script installCatalog.sh to install the catalog like:
+We should be able to run the script [packages/installCatalog.sh](packages/installCatalog.sh) to install the catalog like:
 
 ```
 ./packages/installCatalog.sh [catalog_auth_key] [api_host]
