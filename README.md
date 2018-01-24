@@ -27,7 +27,7 @@ We should be able to run the script installCatalog.sh to install the catalog lik
 
 The first argument `catalog_auth_key`, defines the secret key used to authenticate the openwhisk
 service. The second argument `api_host`, determines the location, where the openwhisk edge host is running,
-in the format of IP or hostname. The second argument `cli_path` is the full path to to the `wsk` cli executable.
+in the format of IP or hostname. The third argument `cli_path` is the full path to to the `wsk` cli executable.
 
 ## Existing packages in catalog
 
