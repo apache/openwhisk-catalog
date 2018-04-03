@@ -27,7 +27,7 @@ UTILDIR="$ROOTDIR/../incubator-openwhisk-utilities"
 
 # run scancode
 cd $UTILDIR
-scancode/scanCode.py $ROOTDIR
+scancode/scanCode.py --config scancode/ASF-Release.cfg $ROOTDIR
 
 # run jshint
 cd $ROOTDIR/packages
