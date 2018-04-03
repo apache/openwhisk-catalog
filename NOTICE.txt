@@ -1,0 +1,14 @@
+Apache OpenWhisk Catalog
+Copyright 2016-2018 The Apache Software Foundation
+
+This product includes software developed at
+The Apache Software Foundation (http://www.apache.org/).
+
+========================================================================
+BSD 3-Clause "New" or "Revised" License
+========================================================================
+
+The following components are provided under the BSD 3-Clause "New" or "Revised" License. See project link for details.
+
+     (BSD 3-Clause "New" or "Revised" License) Scala Library (org.scala-lang:scala-library - https://mvnrepository.com/artifact/org.scala-lang/scala-library)
+
