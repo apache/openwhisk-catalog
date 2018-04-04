@@ -21,6 +21,7 @@ HOMEDIR="$SCRIPTDIR/../../../"
 
 # jshint support
 sudo apt-get -y install nodejs npm
+sudo npm config set strict-ssl false
 sudo npm install -g jshint
 
 # clone utilties repo. in order to run scanCode.py
