@@ -3,13 +3,17 @@ project:
     namespace: whisk.system
     packages:
         slack:
+            public: true
             annotations:
-                description: "This package interacts with the Slack messaging service"
-                parameters: '[ {"name":"username", "required":true, "bindTime":true, "description": "Your Slack username"}, {"name":"url", "required":true, "bindTime":true, "description": "Your webhook URL", "doclink": "https://api.slack.com/incoming-webhooks"},{"name":"channel", "required":true, "bindTime":true, "description": "The name of a Slack channel"}, {"name": "token", "description": "Your Slack oauth token", "doclink": "https://api.slack.com/docs/oauth"} ]'
+                description: This package interacts with the Slack messaging service
+                parameters: [ { "name": "username", "required": true, "bindTime": true, "description": "Your Slack username" },
+                    { "name": "url", "required": true, "bindTime": true, "description": "Your webhook URL", "doclink": "https://api.slack.com/incoming-webhooks" },
+                    { "name": "channel", "required": true, "bindTime": true, "description": "The name of a Slack channel" },
+                    { "name": "token", "description": "Your Slack oauth token", "doclink": "https://api.slack.com/docs/oauth" } ]
             actions:
                 post:
                     function: post.js
                     annotations:
-                        description: 'Post a message to Slack'
-                        parameters: '[ {"name":"text", "required":true, "description": "The message you wish to post"} ]'
-                        sampleInput: '{"username":"openwhisk", "text":"Hello OpenWhisk!", "channel":"myChannel", "url": "https://hooks.slack.com/services/XYZ/ABCDEFG/12345678"}'
+                        description: Post a message to Slack
+                        parameters: [ { "name": "text", "required": true, "description": "The message you wish to post" } ]
+                        sampleInput: { "username": "openwhisk", "text": "Hello OpenWhisk!", "channel": "myChannel", "url": "https://hooks.slack.com/services/XYZ/ABCDEFG/12345678" }
