@@ -11,48 +11,42 @@ project:
                     function: echo.js
                     annotations:
                         description: Returns the input
-                        parameters: '[{"name": "payload", "required":false, "description": "Any JSON entity"}]'
+                        parameters: [{"name": "payload", "required":false, "description": "Any JSON entity"}]
                         sampleInput: { "payload": "Five fuzzy felines"}
                         sampleOutput: { "payload": "Five fuzzy felines"}
                 cat:
                     function: cat.js
                     annotations:
                         description: Concatenates input into a string
-                        parameters: '[ { "name": "lines", "required": true, "type": "array", "description": "An array of strings or numbers" } ]'
+                        parameters: [ { "name": "lines", "required": true, "type": "array", "description": "An array of strings or numbers" } ]
                         sampleInput: { "lines": [4, 2, 3] }
                         sampleOutput: { "lines": [4, 2, 3] }
                 smash:
                     function: smash.js
                     annotations:
                         description: Nests all properties under given property
-                        parameters: '[{"name": "$fieldName", "required":true, "type": "string", "description": "Name of property to nest object under" }]'
+                        parameters: [{"name": "$fieldName", "required":true, "type": "string", "description": "Name of property to nest object under" }]
                         sampleInput: { "a": 1, "b": { "c": 2, "d": 3 }, "$fieldName": "p" }
                         sampleOutput: { "p": { "a": 1, "b": { "c": 2, "d": 3 } } }
                 split:
                     function: split.js
-#                    parameters:
-#                        payload:
-#                            required: true
-#                            description:  A string
-#                        separator:
-#                            required: false
-#                            description: The character, or the regular expression, to use for splitting the string
                     annotations:
                         description: Split a string into an array
+                        parameters: [{"name": "payload", "required":true, "description":"A string"}, { "name": "separator", "required": false, "description": "The character, or the regular expression, to use for splitting the string" }]
                         sampleInput: { "payload": "one,two,three", "separator": "," }
                         sampleOutput: { "lines": ["one", "two", "three"], "payload": "one,two,three"}
                 sort:
                     function: sort.js
                     annotations:
                         description: Sorts an array
-                        parameters: '[ { "name": "lines", "required": true, "type": "array", "description": "An array of strings" } ]'
+                        parameters: [ { "name": "lines", "required": true, "type": "array", "description": "An array of strings" } ]
                         sampleInput: { "lines": [4, 2, 3] }
                         sampleOutput: { "lines": [2, 3, 4], "length": 3 }
                 head:
                     function: head.js
                     annotations:
                         description: Extract prefix of an array
-                        parameters: '[ { "name": "lines", "required": true, "type": "array", "description": "An array of strings" }, { "name": "num", "required": false, "type": "integer", "description": "The length of the prefix" }]'
+                        parameters: [ { "name": "lines", "required": true, "type": "array", "description": "An array of strings" }, { "name": "num", "required": false, "type": "integer", "description": "The length of the prefix" }]
                         sampleInput: { "lines": [4, 2, 3], "num": 2 }
                         sampleOutput: { "lines": [4, 2], "num": 2 }
                 date:
@@ -69,6 +63,6 @@ project:
                     function: hosturl.js
                     annotations:
                         description: Returns the URL to activation an action or trigger
-                        parameters: '[ { "name": "web", "type": "boolean", "description": "True for web actions"}, { "name": "ext", "type": "string", "description": "Extension for web action, one of .html, .http, .json, .text" }, { "name": "trigger", "type": "boolean", "description": "True to construct path for trigger instead of action." }, { "name": "path", "type": "string", "description": "The action name as just <action name> or <package name>/<action name>." } ]'
+                        parameters: [ { "name": "web", "type": "boolean", "description": "True for web actions"}, { "name": "ext", "type": "string", "description": "Extension for web action, one of .html, .http, .json, .text" }, { "name": "trigger", "type": "boolean", "description": "True to construct path for trigger instead of action." }, { "name": "path", "type": "string", "description": "The action name as just <action name> or <package name>/<action name>." } ]
                         sampleInput: { "web": true, "path": "utils/echo" }
                         sampleOutput: { "url": "https://openwhisk.ng.bluemix.net/api/v1/experimental/web/guest/utils/echo.json" }
