@@ -1,0 +1,36 @@
+project.ext {
+    basePackageName = "openwhisk-catalog"
+    packageExtension = "tar.gz"
+    if (project.hasProperty('projectVersion')) {
+        packageVersion = "${projectVersion}"
+    } else {
+        packageVersion = ""
+    }
+    buildFolder = "build"
+}
+
+task taredSources(type: Tar) {
+    baseName basePackageName
+    description "Creates a combined tar.gz file of openwhisk-catalog's sources"
+    group "Release artifact"
+    classifier "sources"
+
+    from(project.rootDir) {
+        include('packages/**', 'gradle/**', 'test/**')
+        include('.jshintrc', '.scalafmt.conf')
+        include('README.md', 'CONTRIBUTING.md')
+        include('gradlew', 'gradlew.bat', 'build.gradle', 'settings.gradle', 'credentials.json.enc')
+        include('LICENSE.txt', 'NOTICE.txt', 'CHANGELOG.txt')
+    }
+    destinationDir file(buildFolder)
+    extension packageExtension
+    version packageVersion
+    compression = Compression.GZIP
+}
+
+task cleanBuild(type: Delete) {
+    def folder = new File(buildFolder)
+    if(folder.exists()) {
+        delete file(buildFolder).listFiles()
+    }
+}
