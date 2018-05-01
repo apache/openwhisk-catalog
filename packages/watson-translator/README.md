@@ -1,16 +1,16 @@
 <!--
 #
-# Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-# license agreements.  See the NOTICE file distributed with this work for additional 
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor
+# license agreements.  See the NOTICE file distributed with this work for additional
 # information regarding copyright ownership.  The ASF licenses this file to you
-# under the Apache License, Version 2.0 (the # "License"); you may not use this 
-# file except in compliance with the License.  You may obtain a copy of the License 
+# under the Apache License, Version 2.0 (the # "License"); you may not use this
+# file except in compliance with the License.  You may obtain a copy of the License
 # at:
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software distributed 
-# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations under the License.
 #
@@ -35,11 +35,11 @@ The package includes the following actions.
 If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package bindings for your Bluemix Watson service instances.
 
 1. Create a Watson Translator service instance in your Bluemix [dashboard](http://console.ng.Bluemix.net).
-  
+
   Be sure to remember the name of the service instance and the Bluemix organization and space you're in.
-  
+
 2. Refresh the packages in your namespace. The refresh automatically creates a package binding for the Watson service instance that you created.
-  
+
   ```
   wsk package refresh
   ```
@@ -54,8 +54,8 @@ If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package 
   packages
   /myBluemixOrg_myBluemixSpace/Bluemix_Watson_Translator_Credentials-1 private
   ```
-  
-  
+
+
 ## Setting up a Watson Translator package outside Bluemix
 
 If you're not using OpenWhisk in Bluemix or if you want to set up your Watson Translator outside of Bluemix, you must manually create a package binding for your Watson Translator service. You need the Watson Translator service user name, and password.
@@ -79,7 +79,7 @@ The `/whisk.system/watson-translator/translator` action translates text from one
 - `translateTo`: A two-digit code of the target language.
 
 - Invoke the `translator` action in your package binding to translate some text from English to French.
-  
+
   ```
   wsk action invoke myWatsonTranslator/translator \
   --blocking --result \
@@ -91,8 +91,8 @@ The `/whisk.system/watson-translator/translator` action translates text from one
       "payload": "Ciel bleu a venir"
   }
   ```
-  
-  
+
+
 ## Identifying the language of some text
 
 The `/whisk.system/watson-translator/languageId` action identifies the language of some text. The parameters are as follows:
@@ -102,7 +102,7 @@ The `/whisk.system/watson-translator/languageId` action identifies the language 
 - `payload`: The text to identify.
 
 - Invoke the `languageId` action in your package binding to identify the language.
-  
+
   ```
   wsk action invoke myWatsonTranslator/languageId \
   --blocking --result \
@@ -115,4 +115,3 @@ The `/whisk.system/watson-translator/languageId` action identifies the language 
     "confidence": 0.710906
   }
   ```
-  

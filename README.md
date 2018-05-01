@@ -1,16 +1,16 @@
 <!--
 #
-# Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-# license agreements.  See the NOTICE file distributed with this work for additional 
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor
+# license agreements.  See the NOTICE file distributed with this work for additional
 # information regarding copyright ownership.  The ASF licenses this file to you
-# under the Apache License, Version 2.0 (the # "License"); you may not use this 
-# file except in compliance with the License.  You may obtain a copy of the License 
+# under the Apache License, Version 2.0 (the # "License"); you may not use this
+# file except in compliance with the License.  You may obtain a copy of the License
 # at:
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software distributed 
-# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations under the License.
 #
@@ -23,10 +23,10 @@
 
 This openwhisk-catalog maintains the package catalogs of openwhisk. In OpenWhisk, the catalog
 of packages gives you an easy way to enhance your app with useful capabilities, and to access
-external services in the ecosystem. Examples of external services that are OpenWhisk-enabled 
-include IBM Watson API, the Weather Company, Slack, and GitHub.system packages and sample packages. 
+external services in the ecosystem. Examples of external services that are OpenWhisk-enabled
+include IBM Watson API, the Weather Company, Slack, and GitHub.system packages and sample packages.
 
-The catalog is available as packages in the `/whisk.system` namespace. See [Browsing packages](https://github.com/openwhisk/openwhisk/blob/master/docs/packages.md#browsing-packages) 
+The catalog is available as packages in the `/whisk.system` namespace. See [Browsing packages](https://github.com/openwhisk/openwhisk/blob/master/docs/packages.md#browsing-packages)
 for information about how to browse the catalog by using the command line tool.
 
 ## How to install openWhisk-catalog
@@ -34,6 +34,7 @@ for information about how to browse the catalog by using the command line tool.
 ### Pre-requisites
 - [openwhisk](https://github.com/openwhisk/openwhisk/blob/master/README.md) is installed.
 - Environment variable `OPENWHISK_HOME` is configured as the path to `openwhisk` source code directory.
+
 
 ### Install openwhisk-catalog
 
@@ -60,7 +61,7 @@ in the format of IP or hostname.
 | [/whisk.system/websocket](./packages/websocket/README.md) | Package to send messages to Web Socket server|
 
 <!--
-TODO: place holder until we have a README for samples 
+TODO: place holder until we have a README for samples
 | [/whisk.system/samples](./packages/samples/README.md) | offers sample actions in different programming languages |
 -->
 <!--
@@ -74,4 +75,3 @@ If you want to create your own packages,  [openwhisk-package-template](https://g
 is a good package creation template to help you build, test and integrate new packages.
 
 For more details about how to use these packages, you can go to the README.md under each package folder.
-
