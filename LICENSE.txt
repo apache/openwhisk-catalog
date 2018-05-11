@@ -187,7 +187,7 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright 2016-present The Apache Software Foundation
+   Copyright 2016-2018 The Apache Software Foundation
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -200,19 +200,3 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-
-========================================================================
-Apache License 2.0
-========================================================================
-
-This distribution has binary dependencies on the following components, which are available under an Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0).
-OpenWhisk Client for JavaScript 3.14.0 (openwhisk - https://github.com/apache/incubator-openwhisk-client-js/)
-  License included at licenses/LICENSE-openwhisk.txt, or https://github.com/apache/incubator-openwhisk-client-js/blob/master/LICENSE.txt
-  Copyright 2015-2016  IBM Corporation
-
-Request 2.79.0 (request - https://github.com/request/request/)
-  License included at licenses/LICENSE-request.txt, or https://github.com/request/request/blob/master/LICENSE
-
-Watson APIs Node.js SDK latest (watson-developer-cloud - https://github.com/watson-developer-cloud/node-sdk/)
-  License included at licenses/LICENSE-watsondevelopercloud.txt, or https://github.com/watson-developer-cloud/node-sdk/blob/master/LICENSE
