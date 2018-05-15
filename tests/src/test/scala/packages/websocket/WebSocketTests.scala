@@ -17,7 +17,6 @@
 
 package packages.websocket
 
-import java.io.File
 import java.net.URI
 
 import scala.concurrent.duration.DurationInt
@@ -36,12 +35,6 @@ class WebSocketTests extends TestHelpers with WskTestHelpers with BeforeAndAfter
   val wsk = new Wsk()
 
   val websocketSendAction = "/whisk.system/websocket/send"
-
-  val containerName = "websocketServerOW"
-  val userDir: String = System.getProperty("user.dir")
-  val websocketDir: String = userDir + "/dat/websocket"
-  val websocketHost: String = wskprops.apihost
-  val websocketPort = "20002"
 
   behavior of "Websocket action"
 
