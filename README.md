@@ -76,3 +76,7 @@ If you want to create your own packages,  [openwhisk-package-template](https://g
 is a good package creation template to help you build, test and integrate new packages.
 
 For more details about how to use these packages, you can go to the README.md under each package folder.
+
+## Disclaimer
+
+Apache OpenWhisk Catalog is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
