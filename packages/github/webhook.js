@@ -169,5 +169,49 @@ function main(params) {
     });
 
     return deletePromise;
+  } else if(lifecycleEvent === 'READ') {
+    //list all the existing webhooks first.
+    var readOptions = {
+      method: 'GET',
+      url: registrationEndpoint,
+      json: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': authorizationHeader,
+        'User-Agent': 'whisk'
+      }
+    };
+
+    var readPromise = new Promise(function(resolve, reject) {
+      request(readOptions, function(error, response, body){
+        var foundWebhookToRead = false;
+
+        if (error){
+          reject({
+            response: response,
+            error:error,
+            body:body
+          });
+        } else {
+          for (var i=0; i<body.length;i++){
+            if (decodeURI(body[i].config.url) === whiskCallbackUrl) {
+              foundWebhookToRead = true;
+
+              console.log('READ Webhook URL: ' + body[i].url);
+              resolve({response: body});
+            }
+          }
+
+          if (!foundWebhookToRead) {
+            reject({
+              error: new Error('Found no existing webhooks for trigger URL ' + whiskCallbackUrl),
+              statusCode: 404
+            });
+          }
+        }
+      });
+    });
+
+    return readPromise;
   }
 }
