@@ -52,6 +52,7 @@ cd $WHISKDIR/ansible
 
 $ANSIBLE_CMD wipe.yml
 $ANSIBLE_CMD openwhisk.yml
+$ANSIBLE_CMD properties.yml
 
 # Set Environment
 export OPENWHISK_HOME=$WHISKDIR
