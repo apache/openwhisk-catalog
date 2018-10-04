@@ -20,8 +20,8 @@ package packages.weather
 import common._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import spray.json.DefaultJsonProtocol.StringJsonFormat
-import spray.json.pimpAny
+import spray.json.DefaultJsonProtocol._
+import spray.json._
 
 @RunWith(classOf[JUnitRunner])
 class WeatherTests

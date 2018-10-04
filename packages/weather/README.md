@@ -1,3 +1,22 @@
+<!--
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+-->
+
 ## Using the Weather package
 
 The `/whisk.system/weather` package offers a convenient way to call the Weather Company Data for IBM Bluemix API.
@@ -16,11 +35,11 @@ Creating a package binding with the `username` and `password` values is suggeste
 If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package bindings for your Bluemix Weather service instances.
 
 1. Create a Weather Company Data service instance in your Bluemix [dashboard](http://console.ng.Bluemix.net).
-  
+
   Be sure to remember the name of the service instance and the Bluemix organization and space you're in.
-  
+
 2. Refresh the packages in your namespace. The refresh automatically creates a package binding for the Weather Company Data service instance that you created.
-  
+
   ```
   wsk package refresh
   ```
@@ -35,8 +54,8 @@ If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package 
   packages
   /myBluemixOrg_myBluemixSpace/Weather Bluemix_Weather_Company_Data_Credentials-1 private
   ```
-  
- 
+
+
 ## Setting up a Weather package outside Bluemix
 
 If you're not using OpenWhisk in Bluemix or if you want to set up your Weather Company Data service outside of Bluemix, you must manually create a package binding for your WWeather Company Data service. You need the Weather Company Data service user name, and password.
@@ -67,7 +86,7 @@ The `/whisk.system/weather/forecast` action returns a weather forecast for a loc
 The following is an example of creating a package binding and then getting a 10-day forecast.
 
 - Invoke the `forecast` action in your package binding to get the weather forecast.
-  
+
   ```
   wsk action invoke myWeather/forecast --result \
   --param latitude 43.7 \
@@ -95,4 +114,3 @@ The following is an example of creating a package binding and then getting a 10-
       ],
   }
   ```
-  
