@@ -43,12 +43,22 @@ The /whisk.system/jira/jirafeed feed configures a service to fire a trigger when
 
 The following is an example of creating a trigger that will be fired each time that there is a new issue created, deleted or modified in your atlassian site.
 
-1. Generate a JIRA [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html).
+1. Install the JIRA package (If you haven't installed the Openwhisk catalog yet)
+
+```
+WHISK_CLI_PATH=/home/mike/openwhisk/bin/wsk \
+WHISK_API_HOST=100.100.100.100 \ WHISK_SYSTEM_AUTH=789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP \
+OPENWHISK_HOME=/home/mike/openwhisk \
+./installJira.sh
+```
+
+
+2. Generate a JIRA [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html).
 
 
 The access token will be used in the next step.
 
-2. Create a package binding that is configured for your GitHub repository and with your access token.
+3. Create a package binding that is configured for your GitHub repository and with your access token.
 
 ```
 wsk package bind /whisk.system/jira myJira \
@@ -59,7 +69,7 @@ wsk package bind /whisk.system/jira myJira \
   --param accessToken aaaaa1111a1a1a1a1a111111aaaaaa1111aa1a1a
 ```
 
-3. Create a trigger for the GitHub `push` event type by using your `myJira/jirafeed` feed.
+4. Create a trigger for the GitHub `push` event type by using your `myJira/jirafeed` feed.
 
 
 ```
