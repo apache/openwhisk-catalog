@@ -19,7 +19,7 @@
 
 # Openwhisk Catalog
 
-[![Build Status](https://travis-ci.org/prabhashthere/incubator-openwhisk-catalog.svg?branch=master)](https://travis-ci.org/prabhashthere/incubator-openwhisk-catalog)
+[![Build Status](https://travis-ci.org/apache/incubator-openwhisk-catalog.svg?branch=master)](https://travis-ci.org/apache/incubator-openwhisk-catalog)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 This openwhisk-catalog maintains the package catalogs of openwhisk. In OpenWhisk, the catalog
