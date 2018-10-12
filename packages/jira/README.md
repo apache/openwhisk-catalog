@@ -47,7 +47,8 @@ The following is an example of creating a trigger that will be fired each time t
 
 ```
 WHISK_CLI_PATH=/home/mike/openwhisk/bin/wsk \
-WHISK_API_HOST=100.100.100.100 \ WHISK_SYSTEM_AUTH=789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP \
+WHISK_API_HOST=100.100.100.100 \
+WHISK_SYSTEM_AUTH=789c46b1-71f6-4ed5-8c54-816aa4f8c502:abczO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP \
 OPENWHISK_HOME=/home/mike/openwhisk \
 ./installJira.sh
 ```
