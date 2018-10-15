@@ -5,7 +5,9 @@
 
 sudo: required
 
-language: scala
+language:
+  - scala
+  - node_js
 
 services:
   - docker
