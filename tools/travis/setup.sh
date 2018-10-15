@@ -16,13 +16,13 @@
 # limitations under the License.
 #
 
+set -e
+
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 HOMEDIR="$SCRIPTDIR/../../../"
 
 # jshint support
-sudo apt-get -y install nodejs npm
-sudo npm config set strict-ssl false
-sudo npm install -g jshint
+npm install -g jshint
 
 # clone utilties repo. in order to run scanCode.py
 cd $HOMEDIR
