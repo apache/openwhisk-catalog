@@ -22,8 +22,6 @@ SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 HOMEDIR="$SCRIPTDIR/../../../"
 
 # jshint support
-#sudo apt-get -y install nodejs npm
-npm config set strict-ssl false
 npm install -g jshint
 
 # clone utilties repo. in order to run scanCode.py
