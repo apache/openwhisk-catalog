@@ -31,14 +31,15 @@ class JiraTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll {
   implicit val wskprops = WskProps()
   val wsk = new Wsk()
 
-  val credentials = TestUtils.getCredentials("jira_webhook")
-  val username = credentials.get("username").getAsString()
-  val siteName = credentials.get("siteName").getAsString()
-  val accessToken = credentials.get("accessToken").getAsString()
-  val webhookName = credentials.get("webhookName").getAsString()
-  val force_http = credentials.get("force_http").getAsString()
-  val triggerName = "/_/" + credentials.get("triggerName").getAsString()
-  val events = credentials.get("events").getAsString()
+  val credentials = TestUtils.getVCAPcredentials("jira_webhook")
+
+  val username = credentials.get("username")
+  val siteName = credentials.get("siteName")
+  val accessToken = credentials.get("accessToken")
+  val webhookName = credentials.get("webhookName")
+  val force_http = credentials.get("force_http")
+  val triggerName = "/_/" + credentials.get("triggerName")
+  val events = credentials.get("events")
   val jirafeeds = "/whisk.system/jira/jirafeed"
 
   "Jira Package" should "print the webhook created on JIRA" in {
