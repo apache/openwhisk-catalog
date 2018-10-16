@@ -35,6 +35,7 @@ echo Installing OpenWhisk packages
 runPackageInstallScript "$SCRIPTDIR" installCombinators.sh
 runPackageInstallScript "$SCRIPTDIR" installGit.sh
 runPackageInstallScript "$SCRIPTDIR" installSlack.sh
+runPackageInstallScript "$SCRIPTDIR" installJira.sh
 runPackageInstallScript "$SCRIPTDIR" installSystem.sh
 runPackageInstallScript "$SCRIPTDIR" installWatson.sh
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
