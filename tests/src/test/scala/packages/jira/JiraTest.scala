@@ -21,7 +21,6 @@ class JiraTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll {
   val force_http = credentials.get("force_http").getAsString()
   val triggerName = "/_/" + credentials.get("triggerName").getAsString()
   val events = credentials.get("events").getAsString()
-
   val jirafeeds = "/whisk.system/jira/jirafeed"
 
   "Jira Package" should "print the webhook created on JIRA" in {
