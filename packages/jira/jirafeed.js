@@ -50,8 +50,6 @@ function main(params) {
         };
 
         var options = {
-            //hostname: jiraHostUrl,
-            //path: '/rest/webhooks/1.0/webhook',
             url: myJiraUrl,
             method: 'POST',
             body: JSON.stringify(body),
@@ -95,8 +93,6 @@ function main(params) {
 
         //list all the existing webhooks first.
         var deleteOptions = {
-            //hostname : jiraHostUrl,
-            //path : '/rest/webhooks/1.0/webhook',
             url: myJiraUrl,
             method: 'GET',
             headers: {
