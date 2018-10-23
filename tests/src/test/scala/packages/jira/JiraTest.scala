@@ -57,7 +57,7 @@ class JiraTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll {
       activation =>
         activation.response.success shouldBe true
         val logs = activation.logs.get.toString
-        logs should include("Webhook created successfully")
+        logs should include("Status code: 201")
     }
   }
 
@@ -75,7 +75,7 @@ class JiraTests extends TestHelpers with WskTestHelpers with BeforeAndAfterAll {
       activation =>
         activation.response.success shouldBe true
         val logs = activation.logs.get.toString
-        logs should include("Webhook deleted successfully")
+        logs should include("Status code: 204")
     }
   }
 
