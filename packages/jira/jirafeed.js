@@ -78,7 +78,6 @@ function main(params) {
                             response: body
                         });
                     } else {
-                        console.log("Webhook created successfully");
                         resolve({response: body});
                     }
                 }
@@ -152,7 +151,6 @@ function main(params) {
                                             response: body
                                         });
                                     } else {
-                                        console.log("Webhook deleted successfully");
                                         resolve({response: body});
                                     }
                                 }
