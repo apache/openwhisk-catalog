@@ -9,7 +9,7 @@ var request = require('request');
  *  @param {object} params - information about the trigger
  *  @param {string} siteName - atlassian website to create webhook (enter only the first part of the site name)
  *  @param {string} username - atlassian username
- *  @param {string} force_http - 'true' or 'false'
+ *  @param {string} forceHttp - 'true' or 'false'
  *  @param {string} accessToken - atlassian access token
  *  @param {string} events - list of the events the webhook should fire on
  *  @return {object} whisk async
@@ -19,7 +19,7 @@ function main(params) {
     var accessToken = params.accessToken;
     var siteName = params.siteName;
     var webhookName = params.webhookName || "My JIRA Webhook";
-    var force_http = (JSON.stringify(params.force_http) === 'true' || JSON.stringify(params.force_http) === 'True');
+    var forceHttp = (JSON.stringify(params.forceHttp) === 'true' || JSON.stringify(params.forceHttp) === 'True');
     var authenticationHeader = "Basic " + new Buffer.from(username + ":" + accessToken).toString("base64");
 
     var lifecycleEvent = params.lifecycleEvent;
@@ -28,7 +28,7 @@ function main(params) {
     // URL of the whisk system. The calls of JIRA will go here.
     var urlHost = require('url').parse(process.env.__OW_API_HOST);
 
-    if (force_http) {
+    if (forceHttp) {
         var whiskCallbackUrl = 'http://' + process.env.__OW_API_KEY + "@" + urlHost.host.substring(0, urlHost.host.length - 4) + '/api/v1/namespaces/'
             + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
     }
@@ -63,7 +63,6 @@ function main(params) {
         var promise = new Promise(function (resolve, reject) {
             request(options, function (error, response, body) {
                 if (error) {
-                    console.log(error);
                     reject({
                         response: response,
                         error: error,
@@ -79,8 +78,8 @@ function main(params) {
                             response: body
                         });
                     } else {
-                        resolve({response: body});
                         console.log("Webhook created successfully");
+                        resolve({response: body});
                     }
                 }
             });
@@ -109,7 +108,6 @@ function main(params) {
                 var foundWebhookToDelete = false;
 
                 if (error) {
-                    console.log(error);
                     reject({
                         response: response,
                         error: error,
@@ -121,8 +119,6 @@ function main(params) {
                         if (decodeURI(bodyObj[i].url) === whiskCallbackUrl) {
                             foundWebhookToDelete = true;
                             console.log('DELETE Webhook with callBackURL: ' + bodyObj[i].url);
-                            var urlArray = bodyObj[i].self.split('/');
-                            var webhookId = urlArray[urlArray.length - 1];
 
                             var options = {
                                 method: 'DELETE',
@@ -156,8 +152,8 @@ function main(params) {
                                             response: body
                                         });
                                     } else {
-                                        resolve({response: body});
                                         console.log("Webhook deleted successfully");
+                                        resolve({response: body});
                                     }
                                 }
                             });
