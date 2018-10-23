@@ -25,11 +25,11 @@ The package includes the following feed:
 
 | Entity | Type | Parameters | Description |
 | --- | --- | --- | --- |
-| `/whisk.system/jira` | package | username, siteName, force_http, accessToken | Interact with the JIRA API |
-| `/whisk.system/jira/jirafeed` | feed | events, username,  siteName, force_http, accessToken | Fire trigger events on JIRA activity |
+| `/whisk.system/jira` | package | username, siteName, forceHttp, accessToken | Interact with the JIRA API |
+| `/whisk.system/jira/jirafeed` | feed | events, username,  siteName, forceHttp, accessToken | Fire trigger events on JIRA activity |
 
 
-Creating a package binding with the username, siteName, force_http and accessToken values is suggested. With binding, you don't need to specify the values each time that you use the feed in the package.
+Creating a package binding with the username, siteName, forceHttp and accessToken values is suggested. With binding, you don't need to specify the values each time that you use the feed in the package.
 Firing a trigger event with JIRA activity
 
 The /whisk.system/jira/jirafeed feed configures a service to fire a trigger when there is activity in a specified JIRA site. The parameters are as follows:
@@ -38,7 +38,7 @@ The /whisk.system/jira/jirafeed feed configures a service to fire a trigger when
 - `siteName`: Your atlassian site name.
 - `accessToken`: Your JIRA personal access token.
 - `webhookName`: A name for the JIRA webhook (optional).
-- `force_http`: 'true' or 'false' (if you want to use http protocol to bypass SSL verification).
+- `forceHttp`: 'true' or 'false' (if you want to use http protocol to bypass SSL verification).
 - `events`: The [JIRA event type](https://developer.atlassian.com/server/jira/platform/webhooks/) of interest.
 
 The following is an example of creating a trigger that will be fired each time that there is a new issue created, deleted or modified in your atlassian site.
@@ -66,7 +66,7 @@ wsk package bind /whisk.system/jira myJira \
   --param username mike@anymail.com \
   --param siteName mike.atlassian.net \
   --param webhookName my_first_webhook \
-  --param force_http false \
+  --param forceHttp false \
   --param accessToken aaaaa1111a1a1a1a1a111111aaaaaa1111aa1a1a
 ```
 
