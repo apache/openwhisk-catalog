@@ -27,14 +27,13 @@ function main(params) {
 
     // URL of the whisk system. The calls of JIRA will go here.
     var urlHost = require('url').parse(process.env.__OW_API_HOST);
+    var whiskCallbackUrl;
 
     if (forceHttp) {
-        var whiskCallbackUrl = 'http://' + process.env.__OW_API_KEY + "@" + urlHost.host.substring(0, urlHost.host.length - 4) + '/api/v1/namespaces/'
-            + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
+        whiskCallbackUrl = 'http://' + process.env.__OW_API_KEY + "@" + urlHost.host.substring(0, urlHost.host.length - 4) + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
     }
     else {
-        var whiskCallbackUrl = urlHost.protocol + '//' + process.env.__OW_API_KEY + "@" + urlHost.host + '/api/v1/namespaces/'
-            + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
+        whiskCallbackUrl = urlHost.protocol + '//' + process.env.__OW_API_KEY + "@" + urlHost.host + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
     }
     // The URL to create the webhook on JIRA
     var myJiraUrl = 'https://' + siteName + '/rest/webhooks/1.0/webhook';
@@ -113,7 +112,7 @@ function main(params) {
                         body: body
                     });
                 } else {
-                    bodyObj = JSON.parse(body);
+                    var bodyObj = JSON.parse(body);
                     for (var i = 0; i < bodyObj.length; i++) {
                         if (decodeURI(bodyObj[i].url) === whiskCallbackUrl) {
                             foundWebhookToDelete = true;
