@@ -40,37 +40,6 @@ class WatsonTests
 
     behavior of "Watson actions"
 
-    it should "identify the language of the text via the Watson Indentify API" in {
-        val credentials = TestUtils.getVCAPcredentials("language_translator")
-        val username = credentials.get("username")
-        val password = credentials.get("password")
-        val languageIdAction = "/whisk.system/watson-translator/languageId"
-        val payload = s"Comment allez-vous?".toJson
-        val run = wsk.action.invoke(languageIdAction, Map("username" -> username.toJson, "password" -> password.toJson, "payload" -> payload))
-        withActivation(wsk.activation, run) {
-            activation =>
-                activation.response.success shouldBe true
-                activation.response.result.get.fields.get("payload") should be(Some(payload))
-                activation.response.result.get.fields.get("confidence") == Some(0.785444)
-                activation.response.result.get.fields.get("language") should be(Some("fr".toJson))
-        }
-    }
-
-    it should "translate the language from one to another via the Watson Translator API" in {
-        val credentials = TestUtils.getVCAPcredentials("language_translator")
-        val username = credentials.get("username")
-        val password = credentials.get("password")
-        val translatorAction = "/whisk.system/watson-translator/translator"
-        val text = s"good morning".toJson
-        val result = "bonjour"
-        val run = wsk.action.invoke(translatorAction, Map("username" -> username.toJson, "password" -> password.toJson,
-            "translateFrom" -> "en".toJson, "translateTo" -> "fr".toJson, "translateParam" -> "text".toJson, "text" -> text))
-        withActivation(wsk.activation, run) {
-            activation =>
-                activation.response.success shouldBe true
-                activation.response.result.get.fields.get("text").toString.toLowerCase should include(result)
-        }
-    }
 
     it should "convert the text into speech via the Watson textToSpeech API and convert the speech back to the same text via via the Watson speechToText API" in {
         var credentials = TestUtils.getVCAPcredentials("text_to_speech")

@@ -26,11 +26,6 @@ source "$PACKAGE_HOME/util.sh"
 
 echo Installing Watson package.
 
-createPackage watson-translator \
-    -a description "Actions for the Watson analytics APIs to translate" \
-    -a parameters '[ {"name":"bluemixServiceName", "required":false, "bindTime":true}, {"name":"username", "required":false}, {"name":"password", "required":false, "type":"password"} ]' \
-	  -a tags '["watson"]' \
-	  -p bluemixServiceName 'language_translator'
 
 createPackage watson-speechToText \
     -a description "Actions for the Watson analytics APIs to convert speech into text" \
@@ -142,19 +137,6 @@ install "$PACKAGE_HOME/watson-speechToText/speechToText.js" \
     -a sampleInput '{"payload":"<base64 encoding of a wav file>", "encoding":"base64", "content_type":"audio/wav", "username":"XXX", "password":"XXX"}' \
     -a sampleOutput '{"data":"Hello."}'
 
-install "$PACKAGE_HOME/watson-translator/translator.js" \
-    watson-translator/translator \
-    -a description 'Translate text' \
-    -a parameters '[ {"name":"translateFrom", "required":false}, {"name":"translateTo", "required":false}, {"name":"payload", "required":false}, {"name":"username", "required":true, "bindTime":true}, {"name":"password", "required":true, "type":"password", "bindTime":true} ]' \
-    -a sampleInput '{"translateFrom":"en", "translateTo":"fr", "payload":"Hello", "username":"XXX", "password":"XXX"}' \
-    -a sampleOutput '{"payload":"Bonjour"}'
-
-install "$PACKAGE_HOME/watson-translator/languageId.js" \
-    watson-translator/languageId \
-    -a description 'Identify language' \
-    -a parameters '[ {"name":"username", "required":true, "bindTime":true}, {"name":"password", "required":true, "type":"password", "bindTime":true}, {"name":"payload", "required":true} ]' \
-    -a sampleInput '{"payload": "Bonjour", "username":"XXX", "password":"XXX"}' \
-    -a sampleOutput '{"language": "French", "confidence": 1}'
 
 install "$PACKAGE_HOME/watson-textToSpeech/textToSpeech.js" \
     watson-textToSpeech/textToSpeech \
