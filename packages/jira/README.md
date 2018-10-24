@@ -76,5 +76,5 @@ wsk package bind /whisk.system/jira myJira \
 ```
 wsk trigger create myJiraTrigger --feed myJira/jirafeed --param events jira:issue_created,jira:issue_deleted 
 ```
-  
+
 Creating deleting or updating an issue causes the trigger to be fired by the webhook. If there is a rule that matches the trigger, then the associated action will be invoked. The action receives the JIRA webhook payload as an input parameter. Each JIRA webhook event has a similar JSON schema, but is a unique payload object that is determined by its event type. For more information about the payload content, see the [JIRA API documentation](https://developer.atlassian.com/server/jira/platform/rest-apis/).
