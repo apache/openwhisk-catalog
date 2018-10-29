@@ -5,15 +5,43 @@ project:
         github:
             public: true
             annotations:
-                description: Package which contains actions and feeds to interact with Github
+                description: "Package which contains actions and feeds to interact with Github"
             actions:
                 webhook:
                     function: webhook.js
                     annotations:
                         feed: true
-                        description: Creates a webhook on GitHub to be notified on selected changes
-                        parameters: [ { "name": "username", "required": true, "bindTime": true, "description": "Your GitHub username" },
-                            { "name": "repository", "required": true, "bindTime": true, "description": "The name of a GitHub repository" },
-                            { "name": "accessToken", "required": true, "bindTime": true, "description": "A webhook or personal token", "doclink": "https://github.com/settings/tokens/new" },
-                            { "name": "events", "required": true, "description": "A comma-separated list", "doclink": "https://developer.github.com/webhooks/#events" } ]
-                        sampleInput: { "username": "myUserName", "repository": "myRepository or myOrganization/myRepository", "accessToken": "123ABCXYZ", "events": "push,delete,pull-request"}
+                        description: "Creates a webhook on GitHub to be notified on selected changes"
+                        parameters: [
+                            {
+                                "name": "username",
+                                "required": true,
+                                "bindTime": true,
+                                "description": "Your GitHub username"
+                            },
+                            {
+                                "name": "repository",
+                                "required": true,
+                                "bindTime": true,
+                                "description": "The name of a GitHub repository"
+                            },
+                            {
+                                "name": "accessToken",
+                                "required": true,
+                                "bindTime": true,
+                                "description": "A webhook or personal token",
+                                "doclink": "https://github.com/settings/tokens/new"
+                            },
+                            {
+                                "name": "events",
+                                "required": true,
+                                "description": "A comma-separated list",
+                                "doclink": "https://developer.github.com/webhooks/#events"
+                            }
+                        ]
+                        sampleInput: {
+                            "username": "myUserName",
+                            "repository": "myRepository or myOrganization/myRepository",
+                            "accessToken": "123ABCXYZ",
+                            "events": "push, delete, pull-request"
+                        }
