@@ -25,7 +25,7 @@ import common.{ TestHelpers, Wsk, WskProps, WskTestHelpers }
 import spray.json._
 import spray.json.DefaultJsonProtocol._
 
-import whisk.utils.retry
+import org.apache.openwhisk.utils.retry
 
 @RunWith(classOf[JUnitRunner])
 class CurlTest extends TestHelpers with WskTestHelpers {
