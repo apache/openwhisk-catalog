@@ -22,6 +22,7 @@
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
+SKIP_DEPRECATED_PACKAGES=${SKIP_DEPRECATED_PACKAGES:="false"}
 
 source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3
 : ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH is not configured. Please input the correctly parameter: CATALOG_AUTH_KEY"}
@@ -32,11 +33,15 @@ source "$SCRIPTDIR/util.sh"
 
 echo Installing OpenWhisk packages
 
-runPackageInstallScript "$SCRIPTDIR" installCombinators.sh
+if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
+    runPackageInstallScript "$SCRIPTDIR" installCombinators.sh
+fi
 runPackageInstallScript "$SCRIPTDIR" installGit.sh
 runPackageInstallScript "$SCRIPTDIR" installSlack.sh
 runPackageInstallScript "$SCRIPTDIR" installSystem.sh
-runPackageInstallScript "$SCRIPTDIR" installWatson.sh
+if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
+    runPackageInstallScript "$SCRIPTDIR" installWatson.sh
+fi
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
 runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
 
