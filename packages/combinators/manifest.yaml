@@ -1,12 +1,14 @@
 project:
     name: WhiskSystem
-    namespace: whisk.system
     packages:
         combinators:
+            license: Apache-2.0
+            version: 0.0.1
             annotations:
                 description: Actions combinators for richer composition
             actions:
                 eca:
+                    version: 0.0.1
                     function: eca.js
                     annotations:
                         description: "Event-Condition-Action: run condition action and if the result is successful run next action."
@@ -31,6 +33,7 @@ project:
                         }
                         sampleOutput: { "$eca": "Condition was false" }
                 forwarder:
+                    version: 0.0.1
                     function: forwarder.js
                     annotations:
                         description: "Forward parameters around another action."
@@ -66,6 +69,7 @@ project:
                             "y": true
                         }
                 retry:
+                    version: 0.0.1
                     function: retry.js
                     annotations:
                         description: "Retry invoking an action until success or attempt count is exhausted, which ever comes first."
@@ -89,6 +93,7 @@ project:
                         }
                         sampleOutput: { "error": "Invocation failed. No retries left." }
                 trycatch:
+                    version: 0.0.1
                     function: trycatch.js
                     annotations:
                         description: "Wraps an action with a try-catch. If the action fails, invokes a second action to handle the error."

@@ -1,13 +1,15 @@
 project:
     name: WhiskSystem
-    namespace: whisk.system
     packages:
         utils:
+            license: Apache-2.0
+            version: 0.0.1
             public: true
             annotations:
                 description: Building blocks that format and assemble data
             actions:
                 echo:
+                    version: 0.0.1
                     function: echo.js
                     annotations:
                         description: "Returns the input"
@@ -21,6 +23,7 @@ project:
                         sampleInput: { "payload": "Five fuzzy felines"}
                         sampleOutput: { "payload": "Five fuzzy felines"}
                 cat:
+                    version: 0.0.1
                     function: cat.js
                     annotations:
                         description: "Concatenates input into a string"
@@ -35,6 +38,7 @@ project:
                         sampleInput: { "lines": [4, 2, 3] }
                         sampleOutput: { "lines": [4, 2, 3] }
                 smash:
+                    version: 0.0.1
                     function: smash.js
                     annotations:
                         description: "Nests all properties under given property"
@@ -64,6 +68,7 @@ project:
                             }
                         }
                 split:
+                    version: 0.0.1
                     function: split.js
                     annotations:
                         description: "Split a string into an array"
@@ -88,6 +93,7 @@ project:
                             "payload": "one,two,three"
                         }
                 sort:
+                    version: 0.0.1
                     function: sort.js
                     annotations:
                         description: "Sorts an array"
@@ -105,6 +111,7 @@ project:
                             "length": 3
                         }
                 head:
+                    version: 0.0.1
                     function: head.js
                     annotations:
                         description: "Extract prefix of an array"
@@ -131,16 +138,19 @@ project:
                             "num": 2
                         }
                 date:
+                    version: 0.0.1
                     function: date.js
                     annotations:
                         description: "Current date and time"
                         sampleOutput: { "date": "2016-03-22T00:59:55.961Z" }
                 namespace:
+                    version: 0.0.1
                     function: namespace.js
                     annotations:
                         description: "Returns namespace for the authorization key used to invoke this action"
                         sampleOutput: { "namespace": "guest" }
                 hosturl:
+                    version: 0.0.1
                     function: hosturl.js
                     annotations:
                         description: "Returns the URL to activate an action or trigger"

@@ -1,24 +1,45 @@
 project:
     name: WhiskSystem
-    namespace: whisk.system
     packages:
         watson-speechToText:
+            license: Apache-2.0
+            version: 0.0.1
             public: true
             annotations:
                 description: Actions for the Watson analytics APIs to convert speech into text
-                parameters: [ { "name": "bluemixServiceName", "required": false, "bindTime": true },
-                    { "name": "username", "required": false },
-                    { "name": "password", "required": false, "type": "password" } ]
+                parameters: [
+                    {
+                        "name": "bluemixServiceName",
+                        "required": false,
+                        "bindTime": true
+                    },
+                    {
+                        "name": "username",
+                        "required": false
+                    },
+                    {
+                        "name": "password",
+                        "required": false,
+                        "type": "password"
+                    }
+                ]
                 tags: [ "watson" ]
             inputs:
                 bluemixServiceName:
                     value: speech_to_text
             actions:
                 speechToText:
+                    version: 0.0.1
                     function: speechToText.js
                     annotations:
                         description: Post a message to Slack
-                        sampleInput: { "payload": "<base64 encoding of a wav file>", "encoding": "base64", "content_type": "audio/wav", "username": "XXX", "password": "XXX" }
+                        sampleInput: {
+                            "payload": "<base64 encoding of a wav file>",
+                            "encoding": "base64",
+                            "content_type": "audio/wav",
+                            "username": "XXX",
+                            "password": "XXX"
+                        }
                         sampleOutput: { "data": "Hello." }
                         parameters: [
                                       {

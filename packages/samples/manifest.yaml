@@ -1,13 +1,15 @@
 project:
     name: WhiskSystem
-    namespace: whisk.system
     packages:
         samples:
+            license: Apache-2.0
+            version: 0.0.1
             public: true
             annotations:
                 description: "A suite of simple actions to help you get started with OpenWhisk"
             actions:
                 cat:
+                    version: 0.0.1
                     function: cat/swift/cat.swift
                     annotations:
                         description: "Equivalent to unix cat command"
@@ -28,6 +30,7 @@ project:
                             "payload": "1\n2\n3\n"
                         }
                 countdown:
+                    version: 0.0.1
                     function: countdown/javascript/countdown.js
                     annotations:
                         description: "An action that invokes itself recursively, programmatically using whisk API"
@@ -44,6 +47,7 @@ project:
                         }
                         sampleLogOutput: "2018-11-12T20:27:50.12223688Z  stdout: 4"
                 curl:
+                    version: 0.0.1
                     function: curl/javascript/curl.js
                     annotations:
                         description: "Curl a host url"
@@ -57,6 +61,7 @@ project:
                         sampleInput: { "payload": "google.com" }
                         sampleOutput: { "msg": "content returned from google.com" }
                 greeting:
+                    version: 0.0.1
                     function: greeting/javascript/greeting.js
                     annotations:
                         description: "Returns a friendly greeting"
@@ -78,6 +83,7 @@ project:
                         sampleOutput: { "payload": "Hello, Cat from Narrowsburg!" }
                         sampleLogOutput: "2016-03-22T01:07:08.384982272Z stdout: params: { place: 'Narrowsburg', payload: 'Cat' }"
                 head:
+                    version: 0.0.1
                     function: head/swift/head.swift
                     annotations:
                         description: "returns the first num lines of an array"
@@ -105,6 +111,7 @@ project:
                             "num": 2
                         }
                 helloworld:
+                    version: 0.0.1
                     function: hello/javascript/hello.js
                     annotations:
                         description: "Demonstrates logging facilities"
@@ -119,6 +126,7 @@ project:
                         sampleOutput: { }
                         sampleLogOutput: "2016-03-22T01:02:26.387624916Z stdout: hello Cat!"
                 helloPromises:
+                    version: 0.0.1
                     function: helloPromises/javascript/helloPromises.js
                     annotations:
                         description: "Return a hello message as an array of strings which demonstrates the use of returning a Promise for asynchronous actions."
@@ -146,6 +154,7 @@ project:
                             ]
                         }
                 invoke:
+                    version: 0.0.1
                     function: invoke/swift/invoke.swift
                     annotations:
                         description: "Invoke date action and parse date from the response to display"
@@ -154,6 +163,7 @@ project:
                         sampleOutput:  "date": "2018-11-13T05:23:04.792Z"
                         sampleLogOutput: "2018-11-13T05:23:04.797318072Z stdout: It is now Tue Nov 13 2018 05:23:04 GMT+0000 (UTC)"
                 printParams:
+                    version: 0.0.1
                     function: printParams/javascript/printParams.js
                     annotations:
                         description: "print the parameters to the console, sorted alphabetically by key"
@@ -171,6 +181,7 @@ project:
                             }
                         }
                 wordcount:
+                    version: 0.0.1
                     function: wordcount/javascript/wordcount.js
                     annotations:
                         description: "Count words in a string"
@@ -185,6 +196,7 @@ project:
                         sampleOutput: { "count": 3 }
                         sampleLogOutput: "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
                 wordcountAsync:
+                    version: 0.0.1
                     function: helloAsync/javascript/wordcountAsync.js
                     annotations:
                         "description": "word count utility, coded as an asynchronous action for pedagogical purposes"

@@ -1,13 +1,15 @@
 project:
     name: WhiskSystem
-    namespace: whisk.system
     packages:
         github:
+            license: Apache-2.0
+            version: 0.0.1
             public: true
             annotations:
                 description: "Package which contains actions and feeds to interact with Github"
             actions:
                 webhook:
+                    version: 0.0.1
                     function: webhook.js
                     annotations:
                         feed: true

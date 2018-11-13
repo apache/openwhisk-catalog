@@ -1,8 +1,9 @@
 project:
     name: WhiskSystem
-    namespace: whisk.system
     packages:
         slack:
+            license: Apache-2.0
+            version: 0.0.1
             public: true
             annotations:
                 description: "This package interacts with the Slack messaging service"
@@ -33,6 +34,7 @@ project:
                     }
                 ]
             actions:
+                version: 0.0.1
                 post:
                     function: post.js
                     annotations:
