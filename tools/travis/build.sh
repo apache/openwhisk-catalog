@@ -56,10 +56,22 @@ $ANSIBLE_CMD openwhisk.yml
 # Set Environment
 export OPENWHISK_HOME=$WHISKDIR
 
+# build whisk deploy
+HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
+cd $HOMEDIR
+
+git clone --depth 3 https://github.com/apache/incubator-openwhisk-wskdeploy.git incubator-openwhisk-wskdeploy
+cd incubator-openwhisk-wskdeploy
+
+make build
+export PATH=$PATH:$HOMEDIR/incubator-openwhisk-wskdeploy
+
+
 # Install Catalog
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
+
 ./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
