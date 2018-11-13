@@ -6,7 +6,6 @@ project:
             version: 0.0.1
             public: true
             annotations:
-    -p bluemixServiceName "weatherinsights" \
                 description: "Services from the Weather Company Data for IBM Bluemix"
                 parameters: [
                     {
