@@ -1,0 +1,84 @@
+project:
+    name: WhiskSystem
+    packages:
+        watson-textToSpeech:
+            license: Apache-2.0
+            version: 0.0.1
+            public: true
+            annotations:
+                description: "Actions for the Watson analytics APIs to convert text into speech"
+                parameters: [
+                    {
+                        "name": "bluemixServiceName",
+                        "required": false,
+                        "bindTime": true
+                    },
+                    {
+                        "name": "username",
+                        "required": false
+                    },
+                    {
+                        "name": "password",
+                        "required": false,
+                        "type": "password"
+                    }
+                ]
+                tags: [ "watson" ]
+            inputs:
+                bluemixServiceName:
+                    value: text_to_speech
+            actions:
+                textToSpeech:
+                    version: 0.0.1
+                    function: textToSpeech.js
+                    annotations:
+                        description: "Synthesize text to spoken audio"
+                        sampleInput: {
+                            "payload":"Hello, world.",
+                            "encoding":"base64",
+                            "accept":"audio/wav",
+                            "voice":"en-US_MichaelVoice",
+                            "username":"XXX",
+                            "password":"XXX"
+                        }
+                        sampleOutput: {
+                            "payload":"<base64 encoding of a .wav file>",
+                            "encoding":"base64",
+                            "mimetype":"audio/wav"
+                        }
+                        parameters: [
+                                      {
+                                          "name": "username",
+                                          "required": true,
+                                          "bindTime": true,
+                                          "description": "The Watson service username"
+                                      },
+                                      {
+                                          "name": "password",
+                                          "required": true,
+                                          "type": "password",
+                                          "bindTime": true,
+                                          "description": "The Watson service password"
+                                      }
+                                      {
+                                          "name": "payload",
+                                          "required": true,
+                                          "description": "The text to be synthesized"
+                                      },
+                                      {
+                                          "name":"voice",
+                                          "required":false,
+                                          "description":"The voice to be used for synthesis"
+                                      },
+                                      {
+                                          "name":"accept",
+                                          "required":false,
+                                          "description":"The requested MIME type of the audio"
+                                      },
+                                      {
+                                          "name": "encoding",
+                                          "required": false,
+                                          "description": "The encoding of the speech binary data"
+                                      },
+                                 ]
+
