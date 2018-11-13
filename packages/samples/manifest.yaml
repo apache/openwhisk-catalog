@@ -118,8 +118,58 @@ project:
                         sampleInput: { "payload": "Cat" }
                         sampleOutput: { }
                         sampleLogOutput: "2016-03-22T01:02:26.387624916Z stdout: hello Cat!"
-
-
+                helloPromises:
+                    function: helloPromises/javascript/helloPromises.js
+                    annotations:
+                        description: "Return a hello message as an array of strings which demonstrates the use of returning a Promise for asynchronous actions."
+                        parameters: [
+                            {
+                                "name": "name",
+                                "required":false
+                            },
+                            {
+                                "name": "place",
+                                "required":false,
+                                "description":"The string to be included in the return value"
+                            }
+                        ]
+                        sampleInput: {
+                            "payload": "Cat",
+                            "place": "Narrowsburg"
+                        }
+                        sampleOutput: {
+                            "lines": [
+                                "Hello,",
+                                "Cat",
+                                "from",
+                                "Narrowsburg!"
+                            ]
+                        }
+                invoke:
+                    function: invoke/swift/invoke.swift
+                    annotations:
+                        description: "Invoke date action and parse date from the response to display"
+                        parameters: []
+                        sampleInput: { }
+                        sampleOutput:  "date": "2018-11-13T05:23:04.792Z"
+                        sampleLogOutput: "2018-11-13T05:23:04.797318072Z stdout: It is now Tue Nov 13 2018 05:23:04 GMT+0000 (UTC)"
+                printParams:
+                    function: printParams/javascript/printParams.js
+                    annotations:
+                        description: "print the parameters to the console, sorted alphabetically by key"
+                        parameters: []
+                        sampleInput: {
+                            "x": 1,
+                            "b": 5,
+                            "z": 2
+                        }
+                        sampleOutput: {
+                            "params": {
+                                "b": 2,
+                                "x": 1,
+                                "z": 4
+                            }
+                        }
                 wordcount:
                     function: wordcount/javascript/wordcount.js
                     annotations:
@@ -135,7 +185,7 @@ project:
                         sampleOutput: { "count": 3 }
                         sampleLogOutput: "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
                 wordcountAsync:
-                    function: helloAsync/javascript/helloAsync.js
+                    function: helloAsync/javascript/wordcountAsync.js
                     annotations:
                         "description": "word count utility, coded as an asynchronous action for pedagogical purposes"
                         parameters: [
@@ -147,4 +197,5 @@ project:
                         ]
                         sampleInput: { "payload": "Five fuzzy felines"}
                         sampleOutput: { "count": 3 }
+
 
