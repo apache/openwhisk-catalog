@@ -62,14 +62,14 @@ cd $HOMEDIR
 
 wget -O "$HOMEDIR/wskdeploy.tgz" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-amd64.tgz"
 tar xf "$HOMEDIR/wskdeploy.tgz"
-export PATH=$PATH:$HOMEDIR
+export PATH=$PATH:"$HOMEDIR/wskdeploy"
 
 # Install Catalog
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 
-./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy/wskdeploy"
+./installCatalogUsingWskdeploy.sh
 #./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials

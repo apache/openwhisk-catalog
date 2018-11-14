@@ -20,6 +20,7 @@
 #
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
+echo $SCRIPTDIR
 
 # The Whisk Deploy binary path is passed as the argument.
 # If it is not provided, use "wskdeploy" as the default value.
@@ -29,6 +30,8 @@ SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 # installCatalogUsingWskdeploy.sh /usr/bin/wskdeploy --apihost <host> --auth <auth> --namespace <namespace>
 wskdeploy_path=${@:-"wskdeploy"}
 echo $wskdeploy_path
+
+file $wskdeploy_path
 
 # this is equivalent to running wskdeploy with:
 # installCatalogUsingWskdeploy.sh /usr/bin/wskdeploy --apihost <host> --auth <auth> --namespace <namespace> -p $SCRIPTDIR/combinators/
