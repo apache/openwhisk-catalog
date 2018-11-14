@@ -66,7 +66,7 @@ export PATH=$PATH:"$HOMEDIR/wskdeploy"
 
 # Install Catalog
 
-cat $WHISKDIR/whisk.properties
+###cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 
 ./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy"
