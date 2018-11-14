@@ -35,13 +35,11 @@ echo Installing OpenWhisk packages
 
 if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
     runPackageInstallScript "$SCRIPTDIR" installCombinators.sh
-fi
-runPackageInstallScript "$SCRIPTDIR" installGit.sh
-runPackageInstallScript "$SCRIPTDIR" installSlack.sh
-runPackageInstallScript "$SCRIPTDIR" installSystem.sh
-if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
+    runPackageInstallScript "$SCRIPTDIR" installGit.sh
     runPackageInstallScript "$SCRIPTDIR" installWatson.sh
 fi
+runPackageInstallScript "$SCRIPTDIR" installSlack.sh
+runPackageInstallScript "$SCRIPTDIR" installSystem.sh
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
 runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
 
