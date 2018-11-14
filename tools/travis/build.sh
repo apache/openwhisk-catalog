@@ -62,7 +62,6 @@ cd $HOMEDIR
 
 wget -O "$HOMEDIR/wskdeploy.tgz" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-amd64.tgz"
 tar xf "$HOMEDIR/wskdeploy.tgz"
-export PATH=$PATH:"$HOMEDIR/wskdeploy"
 
 # Install Catalog
 
@@ -73,11 +72,11 @@ cd $ROOTDIR/packages
 #./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
-VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"
-WHISKPROPS_FILE="$WHISKDIR/whisk.properties"
-sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCAP_SERVICES_FILE':'  $WHISKPROPS_FILE
+###VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"
+###WHISKPROPS_FILE="$WHISKDIR/whisk.properties"
+###sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCAP_SERVICES_FILE':'  $WHISKPROPS_FILE
 
 # Test
 
 cd $ROOTDIR
-TERM=dumb ./gradlew :tests:testWithoutCredentials
+###TERM=dumb ./gradlew :tests:testWithoutCredentials
