@@ -60,8 +60,8 @@ export OPENWHISK_HOME=$WHISKDIR
 HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
 cd $HOMEDIR
 
-wget -O "$HOMEDIR/wskdeploy.tgz" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-386.tgz"
-unzip "$HOMEDIR/wskdeploy.tgz"
+wget -O "$HOMEDIR/wskdeploy.tgz" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-amd64.tgz"
+tar xf "$HOMEDIR/wskdeploy.tgz"
 export PATH=$PATH:$HOMEDIR
 
 # Install Catalog
@@ -69,7 +69,7 @@ export PATH=$PATH:$HOMEDIR
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 
-./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy"
+./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy/wskdeploy"
 #./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
