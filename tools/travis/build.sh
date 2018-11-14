@@ -69,7 +69,7 @@ export PATH=$PATH:"$HOMEDIR/wskdeploy"
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 
-./installCatalogUsingWskdeploy.sh
+./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy"
 #./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
