@@ -60,19 +60,17 @@ export OPENWHISK_HOME=$WHISKDIR
 HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
 cd $HOMEDIR
 
-git clone --depth 3 https://github.com/apache/incubator-openwhisk-wskdeploy.git incubator-openwhisk-wskdeploy
-cd incubator-openwhisk-wskdeploy
-
-make build
-export PATH=$PATH:$HOMEDIR/incubator-openwhisk-wskdeploy
-
+wget -O "$HOMEDIR/wskdeploy.zip" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-386.tgz"
+unzip "$HOMEDIR/wskdeploy.zip"
+export PATH=$PATH:$HOMEDIR
 
 # Install Catalog
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 
-./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
+./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy"
+#./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
 VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"
