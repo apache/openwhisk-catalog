@@ -60,8 +60,8 @@ export OPENWHISK_HOME=$WHISKDIR
 HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
 cd $HOMEDIR
 
-wget -O "$HOMEDIR/wskdeploy.zip" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-386.tgz"
-unzip "$HOMEDIR/wskdeploy.zip"
+wget -O "$HOMEDIR/wskdeploy.tgz" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-386.tgz"
+unzip "$HOMEDIR/wskdeploy.tgz"
 export PATH=$PATH:$HOMEDIR
 
 # Install Catalog
