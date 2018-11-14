@@ -38,20 +38,20 @@ cd $WHISKDIR/ansible
 
 ANSIBLE_CMD="ansible-playbook -i environments/local"
 
-$ANSIBLE_CMD setup.yml
-$ANSIBLE_CMD prereq.yml
-$ANSIBLE_CMD couchdb.yml
-$ANSIBLE_CMD initdb.yml
-$ANSIBLE_CMD properties.yml
+###$ANSIBLE_CMD setup.yml
+###$ANSIBLE_CMD prereq.yml
+###$ANSIBLE_CMD couchdb.yml
+###$ANSIBLE_CMD initdb.yml
+###$ANSIBLE_CMD properties.yml
 
 cd $WHISKDIR
 
-TERM=dumb ./gradlew install distDocker
+###TERM=dumb ./gradlew install distDocker
 
 cd $WHISKDIR/ansible
 
-$ANSIBLE_CMD wipe.yml
-$ANSIBLE_CMD openwhisk.yml
+###$ANSIBLE_CMD wipe.yml
+###$ANSIBLE_CMD openwhisk.yml
 
 # Set Environment
 export OPENWHISK_HOME=$WHISKDIR
