@@ -159,8 +159,8 @@ project:
                     annotations:
                         description: "Invoke date action and parse date from the response to display"
                         parameters: []
-                        sampleInput: { }
-                        sampleOutput:  "date": "2018-11-13T05:23:04.792Z"
+                        sampleInput: {}
+                        sampleOutput: "date: 2018-11-13T05:23:04.792Z"
                         sampleLogOutput: "2018-11-13T05:23:04.797318072Z stdout: It is now Tue Nov 13 2018 05:23:04 GMT+0000 (UTC)"
                 printParams:
                     version: 0.0.1
@@ -197,7 +197,7 @@ project:
                         sampleLogOutput: "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
                 wordcountAsync:
                     version: 0.0.1
-                    function: helloAsync/javascript/wordcountAsync.js
+                    function: wordcountAsync/javascript/wordcountAsync.js
                     annotations:
                         "description": "word count utility, coded as an asynchronous action for pedagogical purposes"
                         parameters: [
