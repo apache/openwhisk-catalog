@@ -68,7 +68,9 @@ tar xf "$HOMEDIR/wskdeploy.tgz"
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
 
-./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy"
+AUTH=`cat "$WHISKDIR/ansible/files/auth.whisk.system"`
+
+./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy --auth $AUTH --apihost 172.17.0.1 --namespace whisk.system"
 #./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
