@@ -17,8 +17,8 @@ project:
                     }
                 ]
             actions:
-                version: 0.0.1
                 send:
+                    version: 0.0.1
                     function: sendWebSocketMessageAction.js
                     annotations:
                         description: "Send a message to a WebSocket"
