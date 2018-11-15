@@ -61,7 +61,7 @@ project:
                                           "type": "password",
                                           "bindTime": true,
                                           "description": "The Watson service password"
-                                      }
+                                      },
                                       {
                                           "name": "payload",
                                           "required": true,

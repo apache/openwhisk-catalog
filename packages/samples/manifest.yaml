@@ -18,7 +18,7 @@ project:
                         parameters: [
                             {
                                 "name": "lines",
-                                "required": true
+                                "required": true,
                                 "description": "an array of strings",
                             }
                         ]

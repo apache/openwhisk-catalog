@@ -36,8 +36,8 @@ project:
                     }
                 ]
             actions:
-                version: 0.0.1
                 post:
+                    version: 0.0.1
                     function: post.js
                     annotations:
                         description: "Post a message to Slack"
