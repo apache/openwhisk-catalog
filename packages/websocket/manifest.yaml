@@ -30,7 +30,7 @@ project:
                             },
                             {
                                 "name":"payload",
-                                "required":true
+                                "required":true,
                                 "description": "The data you wish to send to the websocket server."
                             }
                         ]

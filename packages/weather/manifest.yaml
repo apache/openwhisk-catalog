@@ -26,8 +26,8 @@ project:
                 bluemixServiceName:
                     value: weatherInsights
             actions:
-                version: 0.0.1
                 forecast:
+                    version: 0.0.1
                     function: forecast.js
                     annotations:
                         description: "IBM Weather Insights 10-day forecast"
