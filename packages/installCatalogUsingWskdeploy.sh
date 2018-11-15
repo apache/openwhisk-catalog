@@ -35,13 +35,30 @@ file $wskdeploy_path
 
 # this is equivalent to running wskdeploy with:
 # installCatalogUsingWskdeploy.sh /usr/bin/wskdeploy --apihost <host> --auth <auth> --namespace <namespace> -p $SCRIPTDIR/combinators/
+echo $wskdeploy_path -p $SCRIPTDIR/combinators/
 $wskdeploy_path -p $SCRIPTDIR/combinators/
+
+echo $wskdeploy_path -p $SCRIPTDIR/github/
 $wskdeploy_path -p $SCRIPTDIR/github/
+
+echo $wskdeploy_path -p $SCRIPTDIR/slack/
 $wskdeploy_path -p $SCRIPTDIR/slack/
+
+echo $wskdeploy_path -p $SCRIPTDIR/utils/
 $wskdeploy_path -p $SCRIPTDIR/utils/
+
+echo $wskdeploy_path -p $SCRIPTDIR/watson-speechToText/
 $wskdeploy_path -p $SCRIPTDIR/watson-speechToText/
+
+echo $wskdeploy_path -p $SCRIPTDIR/watson-textToSpeech/
 $wskdeploy_path -p $SCRIPTDIR/watson-textToSpeech/
+
+echo $wskdeploy_path -p $SCRIPTDIR/weather/
 $wskdeploy_path -p $SCRIPTDIR/weather/
+
+echo $wskdeploy_path -p $SCRIPTDIR/websocket/
 $wskdeploy_path -p $SCRIPTDIR/websocket/
+
+echo $wskdeploy_path -p $SCRIPTDIR/samples/
 $wskdeploy_path -p $SCRIPTDIR/samples/
 
