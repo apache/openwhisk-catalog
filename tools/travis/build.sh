@@ -70,7 +70,7 @@ cd $ROOTDIR/packages
 
 AUTH=`cat "$WHISKDIR/ansible/files/auth.whisk.system"`
 
-./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy"
+./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy --auth $AUTH --namespace whisk.system"
 #./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
