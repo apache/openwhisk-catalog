@@ -31,8 +31,6 @@ echo $SCRIPTDIR
 wskdeploy_path=${@:-"wskdeploy"}
 echo $wskdeploy_path
 
-file $wskdeploy_path
-
 # this is equivalent to running wskdeploy with:
 # installCatalogUsingWskdeploy.sh /usr/bin/wskdeploy --apihost <host> --auth <auth> --namespace <namespace> -p $SCRIPTDIR/combinators/
 echo $wskdeploy_path -p $SCRIPTDIR/combinators/

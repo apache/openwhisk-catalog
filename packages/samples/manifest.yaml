@@ -110,7 +110,7 @@ project:
                             ],
                             "num": 2
                         }
-                helloworld:
+                helloWorld:
                     version: 0.0.1
                     function: hello/javascript/hello.js
                     annotations:
@@ -180,7 +180,7 @@ project:
                                 "z": 4
                             }
                         }
-                wordcount:
+                wordCount:
                     version: 0.0.1
                     function: wordcount/javascript/wordcount.js
                     annotations:
@@ -195,7 +195,7 @@ project:
                         sampleInput: { "payload": "Five fuzzy felines"}
                         sampleOutput: { "count": 3 }
                         sampleLogOutput: "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
-                wordcountAsync:
+                wordCountAsync:
                     version: 0.0.1
                     function: wordcountAsync/javascript/wordcountAsync.js
                     annotations:
