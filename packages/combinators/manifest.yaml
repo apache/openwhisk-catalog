@@ -6,6 +6,7 @@ project:
         combinators:
             license: Apache-2.0
             version: 0.0.1
+            public: true
             annotations:
                 description: Actions combinators for richer composition
             actions:
