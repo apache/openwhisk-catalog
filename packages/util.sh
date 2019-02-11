@@ -23,6 +23,9 @@
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
 OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
 
+: ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH must be set and non-empty"}
+AUTH_KEY=$WHISK_SYSTEM_AUTH
+
 : ${WHISK_API_HOST:?"WHISK_API_HOST must be set and non-empty"}
 EDGE_HOST=$WHISK_API_HOST
 
