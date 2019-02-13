@@ -20,43 +20,40 @@
 #
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-echo $SCRIPTDIR
 
-# The Whisk Deploy binary path is passed as the argument.
-# If it is not provided, use "wskdeploy" as the default value.
-# Here, the entire argument list is called as is which enables us
-# to provide wskdeploy command line arguments via this shell script.
-# e.g. call installCatalogUsingWskdeploy.sh with:
-# installCatalogUsingWskdeploy.sh /usr/bin/wskdeploy --apihost <host> --auth <auth> --namespace <namespace>
-wskdeploy_path=${@:-"wskdeploy"}
-echo $wskdeploy_path
 
-# this is equivalent to running wskdeploy with:
-# installCatalogUsingWskdeploy.sh /usr/bin/wskdeploy --apihost <host> --auth <auth> --namespace <namespace> -p $SCRIPTDIR/combinators/
-echo $wskdeploy_path -p $SCRIPTDIR/combinators/
-$wskdeploy_path -p $SCRIPTDIR/combinators/
+: ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
 
-echo $wskdeploy_path -p $SCRIPTDIR/github/
-$wskdeploy_path -p $SCRIPTDIR/github/
+SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
+OPENWHISK_HOME=${OPENWHISK_HOME:-$SCRIPTDIR/../../openwhisk}
+SKIP_DEPRECATED_PACKAGES=${SKIP_DEPRECATED_PACKAGES:="false"}
 
-echo $wskdeploy_path -p $SCRIPTDIR/slack/
-$wskdeploy_path -p $SCRIPTDIR/slack/
+source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3
+: ${WHISK_SYSTEM_AUTH:?"WHISK_SYSTEM_AUTH is not configured. Please input the correctly parameter: CATALOG_AUTH_KEY"}
+: ${WHISK_API_HOST:?"WHISK_API_HOST is not configured. Please input the correctly parameter: API_HOST"}
+: ${WHISK_CLI_PATH:?"WHISK_CLI_PATH is not configured. Please input the correctly parameter: cli_path"}
 
-echo $wskdeploy_path -p $SCRIPTDIR/utils/
-$wskdeploy_path -p $SCRIPTDIR/utils/
+source "$SCRIPTDIR/util.sh"
 
-echo $wskdeploy_path -p $SCRIPTDIR/watson-speechToText/
-$wskdeploy_path -p $SCRIPTDIR/watson-speechToText/
+echo Installing OpenWhisk packages
 
-echo $wskdeploy_path -p $SCRIPTDIR/watson-textToSpeech/
-$wskdeploy_path -p $SCRIPTDIR/watson-textToSpeech/
+if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
+    deployProject "$SCRIPTDIR/combinators/"
+fi
+deployProject "$SCRIPTDIR/github/"
 
-echo $wskdeploy_path -p $SCRIPTDIR/weather/
-$wskdeploy_path -p $SCRIPTDIR/weather/
+deployProject "$SCRIPTDIR/slack/"
 
-echo $wskdeploy_path -p $SCRIPTDIR/websocket/
-$wskdeploy_path -p $SCRIPTDIR/websocket/
+deployProject "$SCRIPTDIR/utils/"
 
-echo $wskdeploy_path -p $SCRIPTDIR/samples/
-$wskdeploy_path -p $SCRIPTDIR/samples/
+if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
+    deployProject "$SCRIPTDIR/watson-speechToText/"
+fi
 
+deployProject "$SCRIPTDIR/watson-textToSpeech/"
+
+deployProject "$SCRIPTDIR/weather/"
+
+deployProject "$SCRIPTDIR/websocket/"
+
+deployProject "$SCRIPTDIR/samples/"

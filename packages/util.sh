@@ -52,6 +52,17 @@ function install() {
     echo "Installing $ACTION_NAME with pid $PID"
 }
 
+function deployProject() {
+    RELATIVE_PATH=$1
+    REST=("${@:2}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" project deploy --auth "$AUTH_KEY" -p "$RELATIVE_PATH" "${REST[@]}")
+    export WSK_CONFIG_FILE= #override local property file to avoid namespace clashes
+    "${CMD_ARRAY[@]}" &
+    PID=$!
+    PIDS+=($PID)
+    echo "Deploying with pid $PID"
+}
+
 function runPackageInstallScript() {
     "$1/$2" &
     PID=$!
