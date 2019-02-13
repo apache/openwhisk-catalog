@@ -33,6 +33,7 @@ project:
                 speechToText:
                     version: 0.0.1
                     function: speechToText.js
+                    runtime: nodejs:6
                     annotations:
                         description: Post a message to Slack
                         sampleInput: {

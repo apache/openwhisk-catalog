@@ -33,6 +33,7 @@ project:
                 textToSpeech:
                     version: 0.0.1
                     function: textToSpeech.js
+                    runtime: nodejs:6
                     annotations:
                         description: "Synthesize text to spoken audio"
                         sampleInput: {
