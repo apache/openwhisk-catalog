@@ -56,13 +56,6 @@ $ANSIBLE_CMD openwhisk.yml
 # Set Environment
 export OPENWHISK_HOME=$WHISKDIR
 
-# build whisk deploy
-HOMEDIR="$(dirname "$TRAVIS_BUILD_DIR")"
-cd $HOMEDIR
-
-wget -O "$HOMEDIR/wskdeploy.tgz" "https://github.com/apache/incubator-openwhisk-wskdeploy/releases/download/latest/openwhisk_wskdeploy-latest-linux-amd64.tgz"
-tar xf "$HOMEDIR/wskdeploy.tgz"
-
 # Install Catalog
 
 cat $WHISKDIR/whisk.properties
