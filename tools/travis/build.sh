@@ -67,11 +67,7 @@ tar xf "$HOMEDIR/wskdeploy.tgz"
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
-
-AUTH=`cat "$WHISKDIR/ansible/files/auth.whisk.system"`
-
-./installCatalogUsingWskdeploy.sh "$HOMEDIR/wskdeploy --auth $AUTH --namespace whisk.system"
-#./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
+./installCatalogUsingWskdeploy.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
 VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"
