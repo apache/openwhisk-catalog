@@ -55,7 +55,7 @@ function install() {
 function deployProject() {
     RELATIVE_PATH=$1
     REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" project deploy --auth "$AUTH_KEY" -p "$RELATIVE_PATH" "${REST[@]}")
+    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" project deploy --auth "$AUTH_KEY" --project "$RELATIVE_PATH" "${REST[@]}")
     export WSK_CONFIG_FILE= #override local property file to avoid namespace clashes
     "${CMD_ARRAY[@]}" &
     PID=$!
