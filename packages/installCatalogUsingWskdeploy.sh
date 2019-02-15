@@ -57,3 +57,8 @@ deployProject "$SCRIPTDIR/weather/"
 deployProject "$SCRIPTDIR/websocket/"
 
 deployProject "$SCRIPTDIR/samples/"
+
+waitForAll
+
+echo open catalog ERRORS = $ERRORS
+exit $ERRORS
