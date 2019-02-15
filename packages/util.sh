@@ -60,7 +60,7 @@ function deployProject() {
     "${CMD_ARRAY[@]}" &
     PID=$!
     PIDS+=($PID)
-    echo "Deploying with pid $PID"
+    echo "Deploying $RELATIVE_PATH with pid $PID"
 }
 
 function runPackageInstallScript() {
