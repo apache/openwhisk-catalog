@@ -60,7 +60,7 @@ export OPENWHISK_HOME=$WHISKDIR
 
 cat $WHISKDIR/whisk.properties
 cd $ROOTDIR/packages
-./installCatalog.sh $WHISKDIR/ansible/files/auth.whisk.system
+./installCatalogUsingWskdeploy.sh $WHISKDIR/ansible/files/auth.whisk.system
 
 # Set credentials
 VCAP_SERVICES_FILE="$(readlink -f $ROOTDIR/tests/credentials.json)"

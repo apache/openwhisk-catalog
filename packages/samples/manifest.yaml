@@ -1,0 +1,213 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor
+# license agreements; and to You under the Apache License, Version 2.0.
+project:
+    name: WhiskSystem
+    packages:
+        samples:
+            license: Apache-2.0
+            version: 0.0.1
+            public: true
+            annotations:
+                description: "A suite of simple actions to help you get started with OpenWhisk"
+            actions:
+                cat:
+                    version: 0.0.1
+                    function: cat/swift/cat.swift
+                    annotations:
+                        description: "Equivalent to unix cat command"
+                        parameters: [
+                            {
+                                "name": "lines",
+                                "required": true,
+                                "description": "an array of strings",
+                            }
+                        ]
+                        sampleInput: {"lines": [1,2,3]}
+                        sampleOutput: {
+                            "lines": [
+                                1,
+                                2,
+                                3
+                            ],
+                            "payload": "1\n2\n3\n"
+                        }
+                countdown:
+                    version: 0.0.1
+                    function: countdown/javascript/countdown.js
+                    annotations:
+                        description: "An action that invokes itself recursively, programmatically using whisk API"
+                        parameters: [
+                            {
+                                "name": "n",
+                                "required": false,
+                                "description": "number of times the action needs to be invoked"
+                            }
+                        ]
+                        sampleInput: { "n": 5 }
+                        sampleOutput: { "activationId": "10f95a603b6c4966b95a603b6cd96643" }
+                        sampleLogOutput: "2018-11-12T20:27:50.12223688Z  stdout: 4"
+                curl:
+                    version: 0.0.1
+                    function: curl/javascript/curl.js
+                    annotations:
+                        description: "Curl a host url"
+                        parameters: [
+                            {
+                                "name": "payload",
+                                "required": true,
+                                "description":"A host url"
+                            }
+                        ]
+                        sampleInput: { "payload": "google.com" }
+                        sampleOutput: { "msg": "content returned from google.com" }
+                greeting:
+                    version: 0.0.1
+                    function: greeting/javascript/greeting.js
+                    annotations:
+                        description: "Returns a friendly greeting"
+                        parameters: [
+                            {
+                                "name": "name",
+                                "required":false
+                            },
+                            {
+                                "name": "place",
+                                "required":false,
+                                "description":"The string to be included in the return value"
+                            }
+                        ]
+                        sampleInput: {
+                            "payload": "Cat",
+                            "place": "Narrowsburg"
+                        }
+                        sampleOutput: { "payload": "Hello, Cat from Narrowsburg!" }
+                        sampleLogOutput: "2016-03-22T01:07:08.384982272Z stdout: params: { place: 'Narrowsburg', payload: 'Cat' }"
+                head:
+                    version: 0.0.1
+                    function: head/swift/head.swift
+                    annotations:
+                        description: "returns the first num lines of an array"
+                        parameters: [
+                            {
+                                "name": "lines",
+                                "required": true,
+                                "description": "an array of strings"
+                            },
+                            {
+                                "name": "num",
+                                "required": false,
+                                "description": "number of lines to return"
+                            }
+                        ]
+                        sampleInput: {
+                            "lines": [1,2,3,4],
+                            "num": 2
+                        }
+                        sampleOutput: {
+                            "lines": [
+                                1,
+                                2
+                            ],
+                            "num": 2
+                        }
+                helloWorld:
+                    version: 0.0.1
+                    function: hello/javascript/hello.js
+                    annotations:
+                        description: "Demonstrates logging facilities"
+                        parameters: [
+                            {
+                                "name": "payload",
+                                "required":false,
+                                "description":"The string to be included in the log record"
+                            }
+                        ]
+                        sampleInput: { "payload": "Cat" }
+                        sampleOutput: { }
+                        sampleLogOutput: "2016-03-22T01:02:26.387624916Z stdout: hello Cat!"
+                helloPromises:
+                    version: 0.0.1
+                    function: helloPromises/javascript/helloPromises.js
+                    annotations:
+                        description: "Return a hello message as an array of strings which demonstrates the use of returning a Promise for asynchronous actions."
+                        parameters: [
+                            {
+                                "name": "name",
+                                "required":false
+                            },
+                            {
+                                "name": "place",
+                                "required":false,
+                                "description":"The string to be included in the return value"
+                            }
+                        ]
+                        sampleInput: {
+                            "payload": "Cat",
+                            "place": "Narrowsburg"
+                        }
+                        sampleOutput: {
+                            "lines": [
+                                "Hello,",
+                                "Cat",
+                                "from",
+                                "Narrowsburg!"
+                            ]
+                        }
+                invoke:
+                    version: 0.0.1
+                    function: invoke/swift/invoke.swift
+                    annotations:
+                        description: "Invoke date action and parse date from the response to display"
+                        parameters: []
+                        sampleInput: {}
+                        sampleOutput: "date: 2018-11-13T05:23:04.792Z"
+                        sampleLogOutput: "2018-11-13T05:23:04.797318072Z stdout: It is now Tue Nov 13 2018 05:23:04 GMT+0000 (UTC)"
+                printParams:
+                    version: 0.0.1
+                    function: printParams/javascript/printParams.js
+                    annotations:
+                        description: "print the parameters to the console, sorted alphabetically by key"
+                        parameters: []
+                        sampleInput: {
+                            "x": 1,
+                            "b": 5,
+                            "z": 2
+                        }
+                        sampleOutput: {
+                            "params": {
+                                "b": 2,
+                                "x": 1,
+                                "z": 4
+                            }
+                        }
+                wordCount:
+                    version: 0.0.1
+                    function: wordcount/javascript/wordcount.js
+                    annotations:
+                        description: "Count words in a string"
+                        parameters: [
+                            {
+                                "name": "payload",
+                                "required":true,
+                                "description":"A string"
+                            }
+                        ]
+                        sampleInput: { "payload": "Five fuzzy felines"}
+                        sampleOutput: { "count": 3 }
+                        sampleLogOutput: "2016-03-22T01:10:07.361649586Z stdout: The message 'Five fuzzy felines' has 3 words"
+                wordCountAsync:
+                    version: 0.0.1
+                    function: wordcountAsync/javascript/wordcountAsync.js
+                    annotations:
+                        "description": "word count utility, coded as an asynchronous action for pedagogical purposes"
+                        parameters: [
+                            {
+                                "name": "payload",
+                                "required":true,
+                                "description":"A string"
+                            }
+                        ]
+                        sampleInput: { "payload": "Five fuzzy felines"}
+                        sampleOutput: { "count": 3 }
+
+

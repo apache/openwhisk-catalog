@@ -1,0 +1,45 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor
+# license agreements; and to You under the Apache License, Version 2.0.
+project:
+    name: WhiskSystem
+    packages:
+        websocket:
+            license: Apache-2.0
+            version: 0.0.1
+            public: true
+            annotations:
+                description: "Utilities for communicating with WebSockets"
+                parameters: [
+                    {
+                        "name": "uri",
+                        "required": true,
+                        "bindTime": true,
+                    }
+                ]
+            actions:
+                send:
+                    version: 0.0.1
+                    function: sendWebSocketMessageAction.js
+                    runtime: nodejs:6
+                    annotations:
+                        description: "Send a message to a WebSocket"
+                        parameters: [
+                            {
+                                "name":"uri",
+                                "required":true,
+                                "description": "The URI of the websocket server."
+                            },
+                            {
+                                "name":"payload",
+                                "required":true,
+                                "description": "The data you wish to send to the websocket server."
+                            }
+                        ]
+                        sampleInput: {
+                            "uri": "ws://MyAwesomeService.com/sweet/websocket",
+                            "payload":"Hi there, WebSocket!"
+                        }
+                        sampleOutput: {
+                            "uri": "ws://MyAwesomeService.com/sweet/websocket",
+                            "payload":"Hi there, WebSocket!"
+                        }
