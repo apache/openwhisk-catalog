@@ -18,10 +18,6 @@
 # use the command line interface to install standard actions deployed
 # automatically
 #
-
-SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
-
-
 : ${OPENWHISK_HOME:?"OPENWHISK_HOME must be set and non-empty"}
 
 SCRIPTDIR="$(cd $(dirname "$0")/ && pwd)"
