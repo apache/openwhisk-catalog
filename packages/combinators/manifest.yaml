@@ -28,6 +28,7 @@ project:
                     version: 0.0.1
                     function: eca.js
                     annotations:
+                        provide-api-key: true,
                         description: "Event-Condition-Action: run condition action and if the result is successful run next action."
                         parameters: [
                             {
@@ -53,6 +54,7 @@ project:
                     version: 0.0.1
                     function: forwarder.js
                     annotations:
+                        provide-api-key: true,
                         description: "Forward parameters around another action."
                         parameters: [
                             {
@@ -89,6 +91,7 @@ project:
                     version: 0.0.1
                     function: retry.js
                     annotations:
+                        provide-api-key: true,
                         description: "Retry invoking an action until success or attempt count is exhausted, which ever comes first."
                         parameters: [
                             {
@@ -113,6 +116,7 @@ project:
                     version: 0.0.1
                     function: trycatch.js
                     annotations:
+                        provide-api-key: true,
                         description: "Wraps an action with a try-catch. If the action fails, invokes a second action to handle the error."
                         parameters: [
                             {
