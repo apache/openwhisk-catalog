@@ -60,7 +60,7 @@ If you're using OpenWhisk from Bluemix, OpenWhisk automatically creates package 
 
 If you're not using OpenWhisk in Bluemix or if you want to set up your Weather Company Data service outside of Bluemix, you must manually create a package binding for your WWeather Company Data service. You need the Weather Company Data service user name, and password.
 
-- Create a package binding that is configured for your Watson Translator service.
+- Create a package binding that is configured for your Weather Company Data service.
 
   ```
   wsk package bind /whisk.system/weather myWeather -p username MYUSERNAME -p password MYPASSWORD

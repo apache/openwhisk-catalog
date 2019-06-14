@@ -39,9 +39,6 @@ fi
 runPackageInstallScript "$SCRIPTDIR" installGit.sh
 runPackageInstallScript "$SCRIPTDIR" installSlack.sh
 runPackageInstallScript "$SCRIPTDIR" installSystem.sh
-if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
-    runPackageInstallScript "$SCRIPTDIR" installWatson.sh
-fi
 runPackageInstallScript "$SCRIPTDIR" installWeather.sh
 runPackageInstallScript "$SCRIPTDIR" installWebSocket.sh
 
