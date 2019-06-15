@@ -42,12 +42,6 @@ deployProject "$SCRIPTDIR/slack/"
 
 deployProject "$SCRIPTDIR/utils/"
 
-if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
-    deployProject "$SCRIPTDIR/watson-speechToText/"
-fi
-
-deployProject "$SCRIPTDIR/watson-textToSpeech/"
-
 deployProject "$SCRIPTDIR/weather/"
 
 deployProject "$SCRIPTDIR/websocket/"
