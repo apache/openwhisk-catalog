@@ -35,7 +35,6 @@ tasks.withType(Test) {
 
 task testWithoutCredentials(type: Test) {
     exclude 'packages/slack/**'
-    exclude 'packages/weather/**'
 }
 
 dependencies {
