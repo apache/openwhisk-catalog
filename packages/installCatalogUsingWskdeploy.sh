@@ -33,9 +33,6 @@ source "$SCRIPTDIR/util.sh"
 
 echo Installing OpenWhisk packages
 
-if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
-    deployProject "$SCRIPTDIR/combinators/"
-fi
 deployProject "$SCRIPTDIR/github/"
 
 deployProject "$SCRIPTDIR/slack/"

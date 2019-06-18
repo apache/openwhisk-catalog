@@ -33,9 +33,6 @@ source "$SCRIPTDIR/util.sh"
 
 echo Installing OpenWhisk packages
 
-if [ $SKIP_DEPRECATED_PACKAGES == "false" ]; then
-    runPackageInstallScript "$SCRIPTDIR" installCombinators.sh
-fi
 runPackageInstallScript "$SCRIPTDIR" installGit.sh
 runPackageInstallScript "$SCRIPTDIR" installSlack.sh
 runPackageInstallScript "$SCRIPTDIR" installSystem.sh
