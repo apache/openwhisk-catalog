@@ -22,7 +22,7 @@ project:
             version: 0.0.1
             public: true
             annotations:
-                description: "Services from the Weather Company Data for IBM Bluemix"
+                description: "Services from the Weather Company Data for IBM Cloud"
                 parameters: [
                     {
                         "name": "username",
