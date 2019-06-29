@@ -55,7 +55,7 @@ in the format of IP or hostname. The third argument `cli_path` is the full path 
 | --- | --- |
 | [/whisk.system/github](./packages/github/README.md) | offers a convenient way to use the [GitHub APIs](https://developer.github.com/). |
 | [/whisk.system/slack](./packages/slack/README.md) | offers a convenient way to use the [Slack APIs](https://api.slack.com/). |
-| [/whisk.system/weather](./packages/weather/README.md) | Services from the Weather Company Data for IBM Bluemix API|
+| [/whisk.system/weather](./packages/weather/README.md) | Services from the Weather Company Data for IBM Cloud API|
 | [/whisk.system/websocket](./packages/websocket/README.md) | Package to send messages to Web Socket server|
 
 <!--
