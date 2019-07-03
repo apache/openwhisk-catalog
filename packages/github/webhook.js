@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-var request = require('request');
+const needle = require('needle');
 
 /**
  *  Feed to create a webhook on Github
@@ -51,12 +51,9 @@ function main(params) {
   var urlHost = require('url').parse(process.env.__OW_API_HOST);
   var whiskCallbackUrl = urlHost.protocol + '//' + process.env.__OW_API_KEY + "@" + urlHost.host + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
 
-    // The URL to create the webhook on Github
+  // The URL to create the webhook on Github
   var registrationEndpoint = 'https://api.github.com/repos/' + (organization ? organization : username) + '/' + repository + '/hooks';
   console.log("Using endpoint: " + registrationEndpoint);
-
-  var authorizationHeader = 'Basic ' + new Buffer(username + ':' +
-  accessToken).toString('base64');
 
   if (lifecycleEvent === 'CREATE') {
     var events = params.events.split(',');
@@ -71,18 +68,8 @@ function main(params) {
       }
     };
 
-    var options = {
-      method: 'POST',
-      url: registrationEndpoint,
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': authorizationHeader,
-        'User-Agent': 'whisk'
-      }
-    };
-    var promise = new Promise(function(resolve, reject) {
-      request(options, function (error, response, body) {
+    var promise = new Promise(function (resolve, reject) {
+      needle.post(registrationEndpoint, body, { 'json': true, username: username, password: accessToken, user_agent: 'whisk' }, function (error, response, body) {
         if (error) {
           reject({
             response: response,
@@ -99,80 +86,60 @@ function main(params) {
               response: body
             });
           } else {
-            resolve({response: body});
+            resolve({ response: body });
           }
         }
       });
     });
 
     return promise;
-  } else if(lifecycleEvent === 'DELETE') {
+  } else if (lifecycleEvent === 'DELETE') {
     //list all the existing webhooks first.
-    var deleteOptions = {
-        method: 'GET',
-        url: registrationEndpoint,
-        json: true,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authorizationHeader,
-            'User-Agent': 'whisk'
-        }
-    };
-
-    var deletePromise = new Promise(function(resolve, reject) {
-      request(deleteOptions, function(error, response, body){
+    var deletePromise = new Promise(function (resolve, reject) {
+      needle.get(registrationEndpoint, { 'json': true, username: username, password: accessToken, user_agent: 'whisk' }, function (error, response, body) {
         // the URL that comes back from GitHub does not include auth info
         var foundWebhookToDelete = false;
 
-        if (error){
+        if (error) {
           reject({
             response: response,
-            error:error,
-            body:body
+            error: error,
+            body: body
           });
         } else {
-          for (var i=0; i<body.length;i++){
-              if (decodeURI(body[i].config.url) === whiskCallbackUrl) {
-                  foundWebhookToDelete = true;
+          for (var i = 0; i < body.length; i++) {
+            if (decodeURI(body[i].config.url) === whiskCallbackUrl) {
+              foundWebhookToDelete = true;
 
-                  console.log('DELETE Webhook URL: ' + body[i].url);
-                  var options = {
-                      method: 'DELETE',
-                      url: body[i].url,
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': authorizationHeader,
-                          'User-Agent': 'whisk'
-                      }
-                  };
+              console.log('DELETE Webhook URL: ' + body[i].url);
 
-                  request(options, function(error, response, body) {
-                      if (error) {
-                          reject({
-                            response: response,
-                            error:error,
-                            body:body
-                          });
-                      } else {
-                          console.log("Status code: " + response.statusCode);
-                          if (response.statusCode >= 400) {
-                              console.log("Response from Github: " + body);
-
-                              // a 404 is common and confusing enough to warrant an extra message
-                              if(response.statusCode === 404) {
-                                console.log('Please ensure your accessToken is authorized to delete webhooks.');
-                              }
-
-                              reject({
-                                  statusCode: response.statusCode,
-                                  response: body
-                              });
-                          } else {
-                            resolve();
-                          }
-                      }
+              needle.delete(body[i].url, null, { username: username, password: accessToken, user_agent: 'whisk' }, function (error, response, body) {
+                if (error) {
+                  reject({
+                    response: response,
+                    error: error,
+                    body: body
                   });
-              }
+                } else {
+                  console.log("Status code: " + response.statusCode);
+                  if (response.statusCode >= 400) {
+                    console.log("Response from Github: " + body);
+
+                    // a 404 is common and confusing enough to warrant an extra message
+                    if (response.statusCode === 404) {
+                      console.log('Please ensure your accessToken is authorized to delete webhooks.');
+                    }
+
+                    reject({
+                      statusCode: response.statusCode,
+                      response: body
+                    });
+                  } else {
+                    resolve();
+                  }
+                }
+              });
+            }
           }
 
           if (!foundWebhookToDelete) {

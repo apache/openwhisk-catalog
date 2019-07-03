@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-var request = require('request');
+const needle = require('needle');
 
 /**
  * Get hourly weather forecast for a lat/long from the Weather API service.
@@ -34,15 +34,15 @@ function main(params) {
     var username = params.username;
     var password = params.password;
     var lat = params.latitude || '0';
-    var lon = params.longitude ||  '0';
+    var lon = params.longitude || '0';
     var language = params.language || 'en-US';
     var units = params.units || 'm';
     var timePeriod = params.timePeriod || '10day';
     var host = params.host || 'twcservice.mybluemix.net';
     var url = 'https://' + host + '/api/weather/v1/geocode/' + lat + '/' + lon;
-    var qs = {language: language, units: units};
+    var qs = { language: language, units: units };
 
-    switch(timePeriod) {
+    switch (timePeriod) {
         case '48hour':
             url += '/forecast/hourly/48hour.json';
             break;
@@ -60,13 +60,8 @@ function main(params) {
 
     console.log('url:', url);
 
-    var promise = new Promise(function(resolve, reject) {
-        request({
-            url: url,
-            qs: qs,
-            auth: {username: username, password: password},
-            timeout: 30000
-        }, function (error, response, body) {
+    var promise = new Promise(function (resolve, reject) {
+        needle.request('get', url, qs, { 'username': username, 'password': password, timeout: 30000 }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var j = JSON.parse(body);
                 resolve(j);
