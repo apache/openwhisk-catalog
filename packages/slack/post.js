@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-var request = require('request');
+const needle = require('needle');
 
 /**
  * Action to post to slack
@@ -76,10 +76,7 @@ function main(params) {
     }
 
     var promise = new Promise(function (resolve, reject) {
-        request.post({
-            url: params.url,
-            formData: body
-        }, function (err, res, body) {
+        needle.post(params.url, body, function (err, res, body) {
             if (err) {
                 console.log('error: ', err, body);
                 reject(err);
