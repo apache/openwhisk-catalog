@@ -29,29 +29,6 @@ AUTH_KEY=$WHISK_SYSTEM_AUTH
 : ${WHISK_API_HOST:?"WHISK_API_HOST must be set and non-empty"}
 EDGE_HOST=$WHISK_API_HOST
 
-function createPackage() {
-    PACKAGE_NAME=$1
-    REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" package update --auth "$AUTH_KEY" --shared yes "$PACKAGE_NAME" "${REST[@]}")
-    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
-    "${CMD_ARRAY[@]}" &
-    PID=$!
-    PIDS+=($PID)
-    echo "Creating package $PACKAGE_NAME with pid $PID"
-}
-
-function install() {
-    RELATIVE_PATH=$1
-    ACTION_NAME=$2
-    REST=("${@:3}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$EDGE_HOST" action update --auth "$AUTH_KEY" "$ACTION_NAME" "$RELATIVE_PATH" "${REST[@]}")
-    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
-    "${CMD_ARRAY[@]}" &
-    PID=$!
-    PIDS+=($PID)
-    echo "Installing $ACTION_NAME with pid $PID"
-}
-
 function deployProject() {
     RELATIVE_PATH=$1
     REST=("${@:2}")
@@ -61,35 +38,6 @@ function deployProject() {
     PID=$!
     PIDS+=($PID)
     echo "Deploying $RELATIVE_PATH with pid $PID"
-}
-
-function runPackageInstallScript() {
-    "$1/$2" &
-    PID=$!
-    PIDS+=($PID)
-    echo "Installing package $2 with pid $PID"
-}
-
-function removePackage() {
-    PACKAGE_NAME=$1
-    REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" package delete --auth "$WHISK_SYSTEM_AUTH" "$PACKAGE_NAME")
-    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
-    "${CMD_ARRAY[@]}" &
-    PID=$!
-    PIDS+=($PID)
-    echo "Deleting package $PACKAGE_NAME"
-}
-
-function removeAction() {
-    ACTION_NAME=$1
-    REST=("${@:2}")
-    CMD_ARRAY=("$WHISK_CLI_PATH" -i --apihost "$WHISK_API_HOST" action delete --auth "$WHISK_SYSTEM_AUTH" "$ACTION_NAME")
-    export WSK_CONFIG_FILE= # override local property file to avoid namespace clashes
-    "${CMD_ARRAY[@]}" &
-    PID=$!
-    PIDS+=($PID)
-    echo "Deleting action $ACTION_NAME"
 }
 
 # PIDS is the list of ongoing processes and ERRORS the total number of processes that failed

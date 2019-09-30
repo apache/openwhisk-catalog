@@ -39,10 +39,10 @@ for information about how to browse the catalog by using the command line tool.
 
 ### Install openwhisk-catalog
 
-We should be able to run the script [packages/installCatalog.sh](packages/installCatalog.sh) to install the catalog like:
+We should be able to run the script [packages/installCatalogUsingWskdeploy.sh](packages/installCatalogUsingWskdeploy.sh) to install the catalog like:
 
 ```
-./packages/installCatalog.sh [catalog_auth_key] [api_host] [cli_path]
+./packages/installCatalogUsingWskdeploy.sh [catalog_auth_key] [api_host] [cli_path]
 ```
 
 The first argument `catalog_auth_key`, defines the secret key used to authenticate the openwhisk
