@@ -145,6 +145,7 @@ project:
                     function: helloPromises/javascript/helloPromises.js
                     annotations:
                         description: "Return a hello message as an array of strings which demonstrates the use of returning a Promise for asynchronous actions."
+                        provide-api-key: true
                         parameters: [
                             {
                                 "name": "name",
@@ -173,6 +174,7 @@ project:
                     function: invoke/swift/invoke.swift
                     annotations:
                         description: "Invoke date action and parse date from the response to display"
+                        provide-api-key: true
                         parameters: []
                         sampleInput: {}
                         sampleOutput: "date: 2018-11-13T05:23:04.792Z"
