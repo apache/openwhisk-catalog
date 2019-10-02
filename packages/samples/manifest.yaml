@@ -57,6 +57,7 @@ project:
                                 "description": "number of times the action needs to be invoked"
                             }
                         ]
+                        provide-api-key: true
                         sampleInput: { "n": 5 }
                         sampleOutput: { "activationId": "10f95a603b6c4966b95a603b6cd96643" }
                         sampleLogOutput: "2018-11-12T20:27:50.12223688Z  stdout: 4"
