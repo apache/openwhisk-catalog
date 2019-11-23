@@ -18,11 +18,11 @@
 # A Travis CI configuration file.
 
 sudo: required
-
+dist: xenial
+jdk: openjdk8
 language:
-  - scala
+  - java
   - node_js
-
 services:
   - docker
 
