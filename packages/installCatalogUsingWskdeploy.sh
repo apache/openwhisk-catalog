@@ -31,6 +31,10 @@ source "$SCRIPTDIR/validateParameter.sh" $1 $2 $3
 
 source "$SCRIPTDIR/util.sh"
 
+echo building OpenWhisk packages
+
+pushd "$SCRIPTDIR/websocket/" && ./build.sh && popd
+
 echo Installing OpenWhisk packages
 
 deployProject "$SCRIPTDIR/github/"

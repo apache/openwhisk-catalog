@@ -79,3 +79,5 @@ function main(params) {
 
     return promise;
 }
+
+exports.main = main;
