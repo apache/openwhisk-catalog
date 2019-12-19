@@ -33,8 +33,8 @@ project:
             actions:
                 send:
                     version: 0.0.1
-                    function: sendWebSocketMessageAction.js
-                    runtime: nodejs:6
+                    function: send.zip
+                    runtime: nodejs:default
                     annotations:
                         description: "Send a message to a WebSocket"
                         parameters: [
