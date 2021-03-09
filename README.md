@@ -71,4 +71,4 @@ TODO: place holder until we have a README for utils
 
 ## How to create top-level packages
 
-If your package is more involved you may want to create your own top-level packages repository using the [openwhisk-package-template](https://github.com/openwhisk/openwhisk-package-template). It will provide a good example on what a good template template should include (i.e., sufficient help build, test and integrate into OpenWhisk).
+If your package is more involved you may want to create your own top-level packages repository using the [openwhisk-package-template](https://github.com/openwhisk/openwhisk-package-template). It will provide a good example on what a good template should include (i.e., sufficient help build, test and integrate into OpenWhisk).
