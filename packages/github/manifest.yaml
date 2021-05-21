@@ -55,11 +55,18 @@ project:
                                 "required": true,
                                 "description": "A comma-separated list",
                                 "doclink": "https://developer.github.com/webhooks/#events"
+                            },
+                            {
+                                "name": "baseUrl",
+                                "required": false,
+                                "description": "GitHub API endpoint",
+                                "doclink": "https://docs.github.com/en/enterprise-server@2.21/rest/reference/enterprise-admin#endpoint-urls"
                             }
                         ]
                         sampleInput: {
                             "username": "myUserName",
                             "repository": "myRepository or myOrganization/myRepository",
                             "accessToken": "123ABCXYZ",
-                            "events": "push, delete, pull-request"
+                            "events": "push, delete, pull-request",
+                            "baseUrl": "https://github.myenterprise.com/api/v3"
                         }

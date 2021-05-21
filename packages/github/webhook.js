@@ -32,7 +32,14 @@ function main(params) {
   var accessToken = params.accessToken;
 
   var organization,
-    repository;
+    repository,
+    baseUrl;
+
+  if (params.baseUrl) {
+    baseUrl = params.baseUrl;
+  } else {
+    baseUrl = 'https://api.github.com';
+  }
 
   if (params.repository) {
     var repoSegments = params.repository.split('/');
@@ -52,7 +59,7 @@ function main(params) {
   var whiskCallbackUrl = urlHost.protocol + '//' + process.env.__OW_API_KEY + "@" + urlHost.host + '/api/v1/namespaces/' + encodeURIComponent(triggerName[1]) + '/triggers/' + encodeURIComponent(triggerName[2]);
 
   // The URL to create the webhook on Github
-  var registrationEndpoint = 'https://api.github.com/repos/' + (organization ? organization : username) + '/' + repository + '/hooks';
+  var registrationEndpoint = baseUrl +'/repos/' + (organization ? organization : username) + '/' + repository + '/hooks';
   console.log("Using endpoint: " + registrationEndpoint);
 
   if (lifecycleEvent === 'CREATE') {

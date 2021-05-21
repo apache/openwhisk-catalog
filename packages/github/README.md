@@ -38,6 +38,7 @@ The `/whisk.system/github/webhook` feed configures a service to fire a trigger w
 - `repository`: The GitHub repository.
 - `accessToken`: Your GitHub personal access token.
 - `events`: The [GitHub event type](https://developer.github.com/v3/activity/events/types/) of interest.
+- `baseUrl`: The GitHub api endpoint. Default value is 'https://api.github.com'.
 
 The following is an example of creating a trigger that will be fired each time that there is a new commit to a GitHub repository.
 
@@ -52,6 +53,7 @@ The following is an example of creating a trigger that will be fired each time t
 
   ```
   wsk package bind /whisk.system/github myGit \
+    --param baseUrl https://github.myenterprise.com/api/v3 \
     --param username myGitUser \
     --param repository myGitRepo \
     --param accessToken aaaaa1111a1a1a1a1a111111aaaaaa1111aa1a1a
