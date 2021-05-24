@@ -43,8 +43,6 @@ deployProject "$SCRIPTDIR/slack/"
 
 deployProject "$SCRIPTDIR/utils/"
 
-deployProject "$SCRIPTDIR/weather/"
-
 deployProject "$SCRIPTDIR/websocket/"
 
 deployProject "$SCRIPTDIR/samples/"
