@@ -4,7 +4,6 @@
 # Gradle
 .gradle
 build/
-tests/credentials.json
 .project
 tests/.cache-main
 tests/.classpath
