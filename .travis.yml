@@ -39,4 +39,5 @@ before_install:
   - ./tools/travis/setup.sh
 
 script:
-  - ./tools/travis/build.sh
+#  - ./tools/travis/build.sh
+   - echo "tests disabled"
